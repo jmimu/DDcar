@@ -20,15 +20,55 @@
 
 #include "track.hpp"
 
+#include <iostream>
 #include <Box2D.h>
 
-Track::Track(b2World &world)
-: walls()
+Track::Track(b2World &world,std::string img_filename,int _tile_size)
+: walls(),tile_size(_tile_size)
 {
 	walls.push_back(new Box(world,0.0f, 5.0f,70.0f, 1.0f,0.2,sf::Color::Blue,NULL,0.0,false)); //down
 	walls.push_back(new Box(world,-35.0f, 120.0f,150.0f, 1.0f,1.5,sf::Color::Blue,NULL,0.0,false)); //left
 	walls.push_back(new Box(world,0.0f, 240.0f,70.0f, 1.0f,-0.1,sf::Color::Blue,NULL,0.0,false)); //up
 	walls.push_back(new Box(world,35.0f, 120.0f,200.0f, 1.0f,1.5,sf::Color::Blue,NULL,0.0,false));	//right
+	
+	std::cout<<"Loading track image..."<<std::endl;
+	sf::Image image_full;
+	if (!image_full.LoadFromFile(img_filename))
+		std::cout<<"ERROR! Image not found: "<<img_filename<<std::endl;
+	int image_full_w=image_full.GetWidth();
+	int image_full_h=image_full.GetHeight();
+	nbr_tiles_x=(image_full_w-1)/tile_size+0;//+1 not full
+	nbr_tiles_y=(image_full_h-1)/tile_size+0;
+	
+	//image must be N*tile_size
+	for (int y=0;y<nbr_tiles_y;y++)
+		for (int x=0;x<nbr_tiles_x;x++)
+		{
+			sf::Image * img=new sf::Image();
+			img->Create(tile_size,tile_size);
+			img->Copy(image_full,0,0,sf::IntRect(tile_size*x, tile_size*y, tile_size*(x+1), tile_size*(y+1)),true);
+			tiles_img.push_back(img);
+		}
+	
+	for (int y=0;y<nbr_tiles_y;y++)
+		for (int x=0;x<nbr_tiles_x;x++)
+		{
+			sf::Sprite * spr=new sf::Sprite();
+			spr->SetPosition(tile_size*x, tile_size*y); //? //scale ? TRACK_PIXEL_PER_UNIT
+			spr->SetImage(*tiles_img[x+nbr_tiles_x*y]);
+			tiles_spr.push_back(spr);
+		}
 }
 
-
+void Track::aff(sf::RenderWindow *_App)
+{
+	sf::View _view=_App->GetView();
+	
+	for (int y=0;y<nbr_tiles_y;y++)
+		for (int x=0;x<nbr_tiles_x;x++)
+		{
+			if (( fabs((tiles_spr[x+nbr_tiles_x*y]->GetPosition().x+tile_size/2)-_view.GetCenter().x)< _view.GetHalfSize().x+tile_size/2)
+				&& ( fabs((tiles_spr[x+nbr_tiles_x*y]->GetPosition().y+tile_size/2)-_view.GetCenter().y)< _view.GetHalfSize().y+tile_size/2) )
+				_App->Draw(*tiles_spr[x+nbr_tiles_x*y]);
+		}
+}

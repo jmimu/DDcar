@@ -22,20 +22,28 @@
 #define TRACK_H
 
 #include <vector>
+#include <string>
 #include "box.hpp"
+
+#define TRACK_PIXEL_PER_UNIT 1
 
 class b2World;
 /*
  * Track: walls
- * 
+ * map : big image cut into tiles
  * */
 class Track
 {
 	public:
-		Track(b2World &world);
+		Track(b2World &world,std::string img_filename,int _tile_size);
 		std::vector <Box*> walls;
+		void aff(sf::RenderWindow *_App);
 	private:
-		/* add your private declarations */
+		int tile_size;
+		std::vector <sf::Image*> tiles_img;
+		std::vector <sf::Sprite*> tiles_spr;
+		int nbr_tiles_x;
+		int nbr_tiles_y;
 };
 
 #endif /* TRACK_H */ 

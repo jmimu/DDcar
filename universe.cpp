@@ -32,7 +32,7 @@ Universe::Universe(sf::RenderWindow *_App)
 	bool doSleep = true;
 	world=new b2World(worldAABB, gravity, doSleep);
 	
-	track=new Track(*world);
+	track=new Track(*world,"data/circuit.jpg",32);
 	
 	//images
 	car_image.LoadFromFile("data/car.png");
@@ -56,6 +56,9 @@ void Universe::step()
 void Universe::render()
 {
 	camera.set_target(player1->get_x(),player1->get_y(),player1->get_speed()/10);
+
+	track->aff(App);
+
 	for (int i=0;i<track->walls.size();i++)
 		track->walls.at(i)->aff(App);
 	for (int i=0;i<cars.size();i++)
