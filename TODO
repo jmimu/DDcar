@@ -1,0 +1,9 @@
+Rapide :
+* Permettre des Box circulaire
+* la caméra regarde en avant suivant la direction et la vitesse de la voiture
+
+Important :
+* comment détruire les Box et tout le reste ?
+
+Plus tard :
+* faire que PIXEL_PER_UNIT varie pour chaque image ?
