@@ -35,8 +35,8 @@ Universe::Universe(sf::RenderWindow *_App)
 	track=new Track(*world);
 	
 	//images
-	car_image.LoadFromFile("car.png");
-	wheel_image.LoadFromFile("wheel.png");
+	car_image.LoadFromFile("data/car.png");
+	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
 	cars.push_back(new Car(*world,0,40,&car_image,&wheel_image));
 	cars.push_back(new Car(*world,20,20,&car_image,&wheel_image));
