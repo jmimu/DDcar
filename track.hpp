@@ -25,7 +25,7 @@
 #include <string>
 #include "box.hpp"
 
-#define TRACK_PIXEL_PER_UNIT 1
+#define TRACK_PIXEL_PER_UNIT 4
 
 class b2World;
 /*

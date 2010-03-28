@@ -2,16 +2,16 @@
 
 
 Car::Car(b2World &world,float x,float y,sf::Image *car_image,sf::Image *wheel_image)
-  : main_body(world,x,y,10,16,0.0,sf::Color::Red, car_image,0.2,false,0.3,1.0,1.0),
+  : main_body(world,x,y,10,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3,1.0,1.0),
     frontR_wheel(world,x+3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true)
 {
-	MAX_STEER_ANGLE = 0.4;
+	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
 	SIDEWAYS_FRICTION_FORCE = 10;
-	HORSEPOWERS = 1000;
+	HORSEPOWERS = 1000*2;
 	engineSpeed =0;
 	steeringAngle = 0;
 	

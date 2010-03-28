@@ -26,6 +26,7 @@ public:
   double engineSpeed;
   double steeringAngle;
   
+  Box* get_main_body(){return &main_body;}
 private:
   void killOrthogonalVelocity(b2Body* targetBody);
   double x,y;

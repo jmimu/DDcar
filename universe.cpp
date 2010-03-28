@@ -20,6 +20,7 @@
 
 #include "universe.hpp"
 
+#include <iostream>
 
 Universe::Universe(sf::RenderWindow *_App)
  : player1(NULL),camera(),App(_App)
@@ -27,18 +28,18 @@ Universe::Universe(sf::RenderWindow *_App)
 	//create box2d world
 	b2AABB worldAABB;
 	worldAABB.lowerBound.Set(-1000.0f, -1000.0f);
-	worldAABB.upperBound.Set(1000.0f, 1000.0f);
+	worldAABB.upperBound.Set(10000.0f, 10000.0f);
 	b2Vec2 gravity(0.0f, -10.0f*0);
 	bool doSleep = true;
 	world=new b2World(worldAABB, gravity, doSleep);
 	
-	track=new Track(*world,"data/circuit.jpg",32);
+	track=new Track(*world,"data/track.png",32);
 	
 	//images
 	car_image.LoadFromFile("data/car.png");
 	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
-	cars.push_back(new Car(*world,0,40,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,0,0,&car_image,&wheel_image));
 	cars.push_back(new Car(*world,20,20,&car_image,&wheel_image));
 	player1=cars.at(0);
 	
@@ -55,7 +56,10 @@ void Universe::step()
 
 void Universe::render()
 {
-	camera.set_target(player1->get_x(),player1->get_y(),player1->get_speed()/10);
+	float point_before_player_x=player1->get_x()+sin(player1->get_main_body()->body->GetAngle())*player1->get_speed();
+	float point_before_player_y=player1->get_y()-cos(player1->get_main_body()->body->GetAngle())*player1->get_speed();
+	//std::cout<<"Speed: "<<player1->get_speed()<<std::endl;
+	camera.set_target(point_before_player_x,point_before_player_y,player1->get_speed()/10);
 
 	track->aff(App);
 

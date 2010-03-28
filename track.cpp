@@ -26,7 +26,7 @@
 Track::Track(b2World &world,std::string img_filename,int _tile_size)
 : walls(),tile_size(_tile_size)
 {
-	walls.push_back(new Box(world,0.0f, 5.0f,70.0f, 1.0f,0.2,sf::Color::Blue,NULL,0.0,false)); //down
+	walls.push_back(new Box(world,0.0f, -25.0f,70.0f, 1.0f,0.2,sf::Color::Blue,NULL,0.0,false)); //down
 	walls.push_back(new Box(world,-35.0f, 120.0f,150.0f, 1.0f,1.5,sf::Color::Blue,NULL,0.0,false)); //left
 	walls.push_back(new Box(world,0.0f, 240.0f,70.0f, 1.0f,-0.1,sf::Color::Blue,NULL,0.0,false)); //up
 	walls.push_back(new Box(world,35.0f, 120.0f,200.0f, 1.0f,1.5,sf::Color::Blue,NULL,0.0,false));	//right
@@ -47,6 +47,7 @@ Track::Track(b2World &world,std::string img_filename,int _tile_size)
 			sf::Image * img=new sf::Image();
 			img->Create(tile_size,tile_size);
 			img->Copy(image_full,0,0,sf::IntRect(tile_size*x, tile_size*y, tile_size*(x+1), tile_size*(y+1)),true);
+			img->SetSmooth(false);
 			tiles_img.push_back(img);
 		}
 	
@@ -54,8 +55,9 @@ Track::Track(b2World &world,std::string img_filename,int _tile_size)
 		for (int x=0;x<nbr_tiles_x;x++)
 		{
 			sf::Sprite * spr=new sf::Sprite();
-			spr->SetPosition(tile_size*x, tile_size*y); //? //scale ? TRACK_PIXEL_PER_UNIT
+			spr->SetPosition(float(tile_size*x)/TRACK_PIXEL_PER_UNIT, float(tile_size*y)/TRACK_PIXEL_PER_UNIT); //? //scale ? TRACK_PIXEL_PER_UNIT
 			spr->SetImage(*tiles_img[x+nbr_tiles_x*y]);
+			spr->SetScale(1.0/TRACK_PIXEL_PER_UNIT,1.0/TRACK_PIXEL_PER_UNIT);
 			tiles_spr.push_back(spr);
 		}
 }
