@@ -23,7 +23,7 @@
 #include <iostream>
 #include <Box2D.h>
 
-Track::Track(b2World &world,std::string img_filename,int _tile_size)
+Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size)
 : walls(),tile_size(_tile_size)
 {
 	walls.push_back(new Box(world,0.0f, -25.0f,70.0f, 1.0f,0.2,sf::Color::Blue,NULL,0.0,false)); //down
@@ -60,6 +60,10 @@ Track::Track(b2World &world,std::string img_filename,int _tile_size)
 			spr->SetScale(1.0/TRACK_PIXEL_PER_UNIT,1.0/TRACK_PIXEL_PER_UNIT);
 			tiles_spr.push_back(spr);
 		}
+	
+	//ground nature image
+	if (!ground_nature.LoadFromFile(gnd_img_filename))
+		std::cout<<"ERROR! Ground nature image not found: "<<img_filename<<std::endl;
 }
 
 void Track::aff(sf::RenderWindow *_App)
@@ -74,3 +78,14 @@ void Track::aff(sf::RenderWindow *_App)
 				_App->Draw(*tiles_spr[x+nbr_tiles_x*y]);
 		}
 }
+
+sf::Color Track::get_ground_nature(float x, float y)
+{
+	int _x=x*GROUND_PIXEL_PER_UNIT;
+	int _y=y*GROUND_PIXEL_PER_UNIT;
+	if ((_x<0) || (_x>=ground_nature.GetWidth()) || (_y<0) || (_y>=ground_nature.GetHeight()) )
+		return sf::Color(0,0,0);
+	return ground_nature.GetPixel(_x,_y);  
+}
+
+

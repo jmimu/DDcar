@@ -33,32 +33,39 @@ Universe::Universe(sf::RenderWindow *_App)
 	bool doSleep = true;
 	world=new b2World(worldAABB, gravity, doSleep);
 	
-	track=new Track(*world,"data/track.png",32);
+	track=new Track(*world,"data/track.png","data/trackB.png",32);
 	
 	//images
 	car_image.LoadFromFile("data/car.png");
 	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
-	cars.push_back(new Car(*world,0,0,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,10,20,&car_image,&wheel_image));
 	cars.push_back(new Car(*world,20,20,&car_image,&wheel_image));
 	player1=cars.at(0);
 	
-	//camera
-	App->SetView(*camera.get_view());
 }
 
 void Universe::step()
 {
 	world->Step(B2_TIMESTEP, B2_ITERATIONS);
 	for (int i=0;i<cars.size();i++)
-		cars.at(i)->update();
+	{
+		sf::Color ground_FR=track->get_ground_nature(player1->get_frontR_wheel()->body->GetWorldCenter().x,player1->get_frontR_wheel()->body->GetWorldCenter().y);
+		sf::Color ground_FL=track->get_ground_nature(player1->get_frontL_wheel()->body->GetWorldCenter().x,player1->get_frontL_wheel()->body->GetWorldCenter().y);
+		sf::Color ground_RR=track->get_ground_nature(player1->get_rearR_wheel()->body->GetWorldCenter().x,player1->get_rearR_wheel()->body->GetWorldCenter().y);
+		sf::Color ground_RL=track->get_ground_nature(player1->get_rearL_wheel()->body->GetWorldCenter().x,player1->get_rearL_wheel()->body->GetWorldCenter().y);
+		std::cout<<" "<<(int)ground_FL.r<<" "<<(int)ground_FR.r<<" / "<<(int)ground_RL.r<<" "<<(int)ground_RR.r<<std::endl;
+		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL);
+	}
 }
 
 void Universe::render()
 {
 	float point_before_player_x=player1->get_x()+sin(player1->get_main_body()->body->GetAngle())*player1->get_speed();
 	float point_before_player_y=player1->get_y()-cos(player1->get_main_body()->body->GetAngle())*player1->get_speed();
-	//std::cout<<"Speed: "<<player1->get_speed()<<std::endl;
+	std::cout<<"Speed: "<<player1->get_speed()<<std::endl;
+	
+	App->SetView(*camera.get_view());
 	camera.set_target(point_before_player_x,point_before_player_y,player1->get_speed()/10);
 
 	track->aff(App);

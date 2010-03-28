@@ -1,6 +1,6 @@
 Rapide :
 * Permettre des Box circulaire
-* la caméra regarde en avant suivant la direction et la vitesse de la voiture
+* Trouver la couleur du pixel de l'image de nature du terrain sous chaque roue. Permettre d'avoir des résolutions différentes pour les deux images.
 
 Important :
 * comment détruire les Box et tout le reste ?

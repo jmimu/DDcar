@@ -12,7 +12,7 @@ class Car
 public:
   Car(b2World &world,float x,float y,sf::Image *car_image=NULL,sf::Image *wheel_image=NULL);
   ~Car();
-  void update();
+  void update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL);
   void aff(sf::RenderWindow *_App);
   double get_x(){return x;}
   double get_y(){return y;}
@@ -27,6 +27,11 @@ public:
   double steeringAngle;
   
   Box* get_main_body(){return &main_body;}
+  Box* get_frontR_wheel(){return &frontR_wheel;}
+  Box* get_frontL_wheel(){return &frontL_wheel;}
+  Box* get_rearR_wheel(){return &rearR_wheel;}
+  Box* get_rearL_wheel(){return &rearL_wheel;}
+
 private:
   void killOrthogonalVelocity(b2Body* targetBody);
   double x,y;

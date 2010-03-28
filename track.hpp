@@ -26,6 +26,7 @@
 #include "box.hpp"
 
 #define TRACK_PIXEL_PER_UNIT 4
+#define GROUND_PIXEL_PER_UNIT 1
 
 class b2World;
 /*
@@ -35,13 +36,15 @@ class b2World;
 class Track
 {
 	public:
-		Track(b2World &world,std::string img_filename,int _tile_size);
+		Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size);
 		std::vector <Box*> walls;
 		void aff(sf::RenderWindow *_App);
+		sf::Color get_ground_nature(float x, float y);
 	private:
 		int tile_size;
-		std::vector <sf::Image*> tiles_img;
+		std::vector <sf::Image*> tiles_img; //picture of the track
 		std::vector <sf::Sprite*> tiles_spr;
+		sf::Image ground_nature;//unseen image !
 		int nbr_tiles_x;
 		int nbr_tiles_y;
 };
