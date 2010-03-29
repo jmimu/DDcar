@@ -40,7 +40,16 @@ Universe::Universe(sf::RenderWindow *_App)
 	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
 	cars.push_back(new Car(*world,10,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,20,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,80,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,100,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,120,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,140,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,160,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,180,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,200,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,220,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,240,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,260,20,&car_image,&wheel_image));
 	player1=cars.at(0);
 	
 }
@@ -54,15 +63,19 @@ void Universe::step()
 		sf::Color ground_FL=track->get_ground_nature(player1->get_frontL_wheel()->body->GetWorldCenter().x,player1->get_frontL_wheel()->body->GetWorldCenter().y);
 		sf::Color ground_RR=track->get_ground_nature(player1->get_rearR_wheel()->body->GetWorldCenter().x,player1->get_rearR_wheel()->body->GetWorldCenter().y);
 		sf::Color ground_RL=track->get_ground_nature(player1->get_rearL_wheel()->body->GetWorldCenter().x,player1->get_rearL_wheel()->body->GetWorldCenter().y);
-		std::cout<<" "<<(int)ground_FL.r<<" "<<(int)ground_FR.r<<" / "<<(int)ground_RL.r<<" "<<(int)ground_RR.r<<std::endl;
+		//std::cout<<" "<<(int)ground_FL.r<<" "<<(int)ground_FR.r<<" / "<<(int)ground_RL.r<<" "<<(int)ground_RR.r<<std::endl;
 		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL);
+		
+		//AI
+		if (i>0)
+			cars.at(i)->follow(player1->get_x(),player1->get_y());
 	}
 }
 
 void Universe::render()
 {
-	float point_before_player_x=player1->get_x()+sin(player1->get_main_body()->body->GetAngle())*player1->get_speed();
-	float point_before_player_y=player1->get_y()-cos(player1->get_main_body()->body->GetAngle())*player1->get_speed();
+	float point_before_player_x=player1->get_x()+sin(player1->get_main_body()->body->GetAngle())*player1->get_speed()/2;
+	float point_before_player_y=player1->get_y()-cos(player1->get_main_body()->body->GetAngle())*player1->get_speed()/2;
 	std::cout<<"Speed: "<<player1->get_speed()<<std::endl;
 	
 	App->SetView(*camera.get_view());

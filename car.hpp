@@ -17,7 +17,7 @@ public:
   double get_x(){return x;}
   double get_y(){return y;}
   double get_speed();
-  
+  void follow(float t_x,float t_y);
   
   double MAX_STEER_ANGLE;
   double STEER_SPEED;

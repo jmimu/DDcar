@@ -1,5 +1,6 @@
 #include "car.hpp"
 
+#include <iostream>
 
 Car::Car(b2World &world,float x,float y,sf::Image *car_image,sf::Image *wheel_image)
   : main_body(world,x,y,10,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
@@ -58,6 +59,51 @@ void Car::killOrthogonalVelocity(b2Body* targetBody)
   sidewaysAxis*=(b2Dot(velocity,sidewaysAxis));
   //print sidewaysAxis,"\n"
   targetBody->SetLinearVelocity(sidewaysAxis);//targetBody.GetWorldPoint(localPoint));
+}
+
+void Car::follow(float t_x,float t_y) //IA
+{
+	b2Vec2 car_to_target;
+	car_to_target.x=t_x-main_body.body->GetPosition().x;
+	car_to_target.y=t_y-main_body.body->GetPosition().y;
+	
+	float dist_to_target=sqrt(car_to_target.x*car_to_target.x+car_to_target.y*car_to_target.y);
+	
+	b2Vec2 orientation = main_body.body->GetXForm().R.col2;
+	//std::cout<<"car_to_target ("<<car_to_target.x<<","<<car_to_target.y<<") orientation ("<<orientation.x<<","<<orientation.y<<")"<<std::endl;
+	
+	b2Vec2 car_to_target_colin=orientation;
+	car_to_target_colin*=(b2Dot(orientation,car_to_target));//colinear part
+	b2Vec2 car_to_target_normal;//normal part
+	car_to_target_normal.x=car_to_target.x-car_to_target_colin.x;
+	car_to_target_normal.y=car_to_target.y-car_to_target_colin.y;
+	//std::cout<<"car_to_target_colin  ("<<car_to_target_colin.x<<","<<car_to_target_colin.y<<")"<<std::endl;
+	//std::cout<<"car_to_target_normal ("<<car_to_target_normal.x<<","<<car_to_target_normal.y<<")"<<std::endl;
+	
+	float dist_normal=sqrt(car_to_target_normal.x*car_to_target_normal.x+car_to_target_normal.y*car_to_target_normal.y);
+	
+	if (dist_to_target>10)
+	{
+		if (b2Dot(orientation,car_to_target)>0)
+		{
+			engineSpeed = -HORSEPOWERS;
+			steeringAngle = -MAX_STEER_ANGLE;
+			return;
+		}else{
+			engineSpeed = -HORSEPOWERS;
+		}
+	}else 
+		engineSpeed=0;
+	
+	if (dist_normal>10)
+	{
+		if (car_to_target_normal.x*car_to_target_colin.y-car_to_target_colin.x*car_to_target_normal.y>0)
+			steeringAngle = -MAX_STEER_ANGLE;
+		else
+			steeringAngle = MAX_STEER_ANGLE;
+	}else 
+		steeringAngle = 0;
+	
 }
 
 double Car::get_speed()
