@@ -3,7 +3,7 @@
 #include <iostream>
 
 Car::Car(b2World &world,float x,float y,sf::Image *car_image,sf::Image *wheel_image)
-  : main_body(world,x,y,10,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
+  : main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
     frontR_wheel(world,x+3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
@@ -169,9 +169,9 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 void Car::aff(sf::RenderWindow *_App)
 {
 
-  main_body.aff(_App);
   frontR_wheel.aff(_App);
   frontL_wheel.aff(_App);
   rearR_wheel.aff(_App);
   rearL_wheel.aff(_App);
+  main_body.aff(_App);
 }

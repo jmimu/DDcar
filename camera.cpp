@@ -30,7 +30,7 @@ void Camera::set_target(float t_x,float t_y,float t_z)
 {
 	x+=(t_x-x)/10;
 	y+=(t_y-y)/10;
-	float target_zoom=6-t_z/2;
+	float target_zoom=8-t_z/1.5;
 	zoom+=(target_zoom-zoom)/30;
 	
 	view.SetCenter(x, y);
