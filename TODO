@@ -1,9 +1,15 @@
 Rapide :
 * Permettre des Box circulaire
-* Trouver la couleur du pixel de l'image de nature du terrain sous chaque roue. Permettre d'avoir des résolutions différentes pour les deux images.
+* enregistrer les résolutions des images dans la classe Track, lire tout le xml
+* organisation de l'IA : faire une fonction IA qui connaît la liste des points de trajectoire
+
+Ensuite :
+* créer des "portes", au moins pour la ligne de départ.
 
 Important :
 * comment détruire les Box et tout le reste ?
 
 Plus tard :
-* faire que PIXEL_PER_UNIT varie pour chaque image ?
+* trajectoire avec point + vitesse associés ?
+* IA : permettre d'aller en arrière
+

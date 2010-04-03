@@ -38,8 +38,6 @@ int main(int argc, char** argv)
 	
 	Universe universe(&App);
 	
-	Camera camera;
-
 
 	App.SetFramerateLimit(60);
 	const sf::Input& Input = App.GetInput();
@@ -53,13 +51,13 @@ int main(int argc, char** argv)
 		      App.Close();
 		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape))
 		      App.Close();
-		    if ((Event.Type == sf::Event::MouseWheelMoved))
+/*		    if ((Event.Type == sf::Event::MouseWheelMoved))
 		    {
 				if (Event.MouseWheel.Delta>0)
 					camera.set_zoom(camera.get_zoom()*1.1);
 				else
 					camera.set_zoom(camera.get_zoom()/1.1);
-			}
+			}*/
 		}	
 		bool LeftKeyDown = Input.IsKeyDown(sf::Key::Left);
 		bool RightKeyDown = Input.IsKeyDown(sf::Key::Right);

@@ -2,17 +2,18 @@
 
 #include <iostream>
 
-Car::Car(b2World &world,float x,float y,sf::Image *car_image,sf::Image *wheel_image)
+Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_image)
   : main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
     frontR_wheel(world,x+3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true)
+    rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
+    x(_x),y(_y),index_trajectory_point_target(0)
 {
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
 	SIDEWAYS_FRICTION_FORCE = 10;
-	HORSEPOWERS = 1000*2;
+	HORSEPOWERS = 1000*1.5;
 	engineSpeed =0;
 	steeringAngle = 0;
 	
@@ -61,13 +62,20 @@ void Car::killOrthogonalVelocity(b2Body* targetBody)
   targetBody->SetLinearVelocity(sidewaysAxis);//targetBody.GetWorldPoint(localPoint));
 }
 
-void Car::follow(float t_x,float t_y) //IA
+void Car::follow(float t_x,float t_y) //AI
 {
 	b2Vec2 car_to_target;
 	car_to_target.x=t_x-main_body.body->GetPosition().x;
 	car_to_target.y=t_y-main_body.body->GetPosition().y;
 	
 	float dist_to_target=sqrt(car_to_target.x*car_to_target.x+car_to_target.y*car_to_target.y);
+	
+	if (dist_to_target<30)
+	{
+		index_trajectory_point_target++;
+		return;
+	}
+	
 	
 	b2Vec2 orientation = main_body.body->GetXForm().R.col2;
 	//std::cout<<"car_to_target ("<<car_to_target.x<<","<<car_to_target.y<<") orientation ("<<orientation.x<<","<<orientation.y<<")"<<std::endl;
@@ -92,9 +100,12 @@ void Car::follow(float t_x,float t_y) //IA
 		}else{
 			engineSpeed = -HORSEPOWERS;
 		}
-	}else 
+	}else{
 		engineSpeed=0;
-	
+		//point reached => next trajectory point
+		index_trajectory_point_target++;
+		
+	}
 	if (dist_normal>10)
 	{
 		if (car_to_target_normal.x*car_to_target_colin.y-car_to_target_colin.x*car_to_target_normal.y>0)

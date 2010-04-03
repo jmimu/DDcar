@@ -1,4 +1,6 @@
+<?xml version="1.0" ?>
 <track>
+	<version>0.1</version>
 	<name>First track</name>
 	<author></author>
 	<date></date>
@@ -14,28 +16,28 @@
 	<walls>
 		<wall>
 			<x_center>0.0</x_center>
-			<y_center>-25.0</x_center>
+			<y_center>-25.0</y_center>
 			<height>70.0</height>
 			<width>1.0</width>
 			<angle>0.2</angle>
 		</wall>
 		<wall>
 			<x_center>-35.0</x_center>
-			<y_center>120.0</x_center>
+			<y_center>120.0</y_center>
 			<height>150.0</height>
 			<width>1.0</width>
 			<angle>1.5</angle>
 		</wall>
 		<wall>
 			<x_center>0.0</x_center>
-			<y_center>240.0</x_center>
+			<y_center>240.0</y_center>
 			<height>70.0</height>
 			<width>1.0</width>
 			<angle>-0.1</angle>
 		</wall>
 		<wall>
 			<x_center>35.0</x_center>
-			<y_center>120.0</x_center>
+			<y_center>120.0</y_center>
 			<height>200.0</height>
 			<width>1.0</width>
 			<angle>1.5</angle>
@@ -53,68 +55,63 @@
 	<trajectory>
 		<point>
 			<nb>1</nb>
-			<x>57</x>
-			<y>176</y>
+			<x>57 </x>
+			<y>177</y>
 		</point>
 		<point>
 			<nb>2</nb>
-			<x>62</x>
-			<y>122</y>
+			<x>88 </x>
+			<y>120</y>
 		</point>
 		<point>
 			<nb>3</nb>
-			<x>128</x>
-			<y>77</y>
+			<x>167</x>
+			<y>87 </y>
 		</point>
 		<point>
 			<nb>4</nb>
-			<x>210</x>
-			<y>70</y>
+			<x>300</x>
+			<y>69 </y>
 		</point>
 		<point>
 			<nb>5</nb>
-			<x>373</x>
-			<y>70</y>
+			<x>410</x>
+			<y>94 </y>
 		</point>
 		<point>
 			<nb>6</nb>
-			<x>444</x>
-			<y>93</y>
+			<x>451</x>
+			<y>177</y>
 		</point>
 		<point>
 			<nb>7</nb>
-			<x>448</x>
-			<y>175</y>
+			<x>420</x>
+			<y>305</y>
 		</point>
 		<point>
 			<nb>8</nb>
-			<x>424</x>
-			<y>281</y>
+			<x>365</x>
+			<y>371</y>
 		</point>
 		<point>
 			<nb>9</nb>
-			<x>381</x>
-			<y>380</y>
-		</point>
-		<point>
-			<nb>10</nb>
-			<x>278</x>
-			<y>412</y>
-		</point>
-		<point>
-			<nb>11</nb>
-			<x>143</x>
+			<x>267</x>
 			<y>419</y>
 		</point>
 		<point>
-			<nb>12</nb>
-			<x>65</x>
-			<y>394</y>
+			<nb>10</nb>
+			<x>125</x>
+			<y>418</y>
 		</point>
 		<point>
-			<nb>13</nb>
-			<x>55</x>
-			<y>284</y>
+			<nb>11</nb>
+			<x>75 </x>
+			<y>368</y>
+		</point>
+		<point>
+			<nb>12</nb>
+			<x>56 </x>
+			<y>262</y>
 		</point>
 	</trajectory>
 </track>

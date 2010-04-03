@@ -24,11 +24,11 @@
 #include <vector>
 #include <string>
 #include "box.hpp"
+#include <Box2D.h>
 
 #define TRACK_PIXEL_PER_UNIT 4
 #define GROUND_PIXEL_PER_UNIT 1
 
-class b2World;
 /*
  * Track: walls
  * map : big image cut into tiles
@@ -40,6 +40,7 @@ class Track
 		std::vector <Box*> walls;
 		void aff(sf::RenderWindow *_App);
 		sf::Color get_ground_nature(float x, float y);
+		std::vector <b2Vec2> trajectory;
 	private:
 		int tile_size;
 		std::vector <sf::Image*> tiles_img; //picture of the track

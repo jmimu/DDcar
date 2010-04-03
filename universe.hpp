@@ -45,7 +45,7 @@ class Universe
 		
 		Track *track;
 		std::vector <Car*> cars;
-		Car* player1;
+		Car *player1;
 		b2World *world;
 	private:
 		sf::Image car_image;

@@ -21,15 +21,95 @@
 #include "track.hpp"
 
 #include <iostream>
-#include <Box2D.h>
+#include <sstream>
+#include "tinyxml/tinyxml.h"
+
+
+#define XML_VERSION "0.1"
 
 Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size)
-: walls(),tile_size(_tile_size)
+: walls(),tile_size(_tile_size),trajectory()
 {
-	walls.push_back(new Box(world,0.0f, -25.0f,70.0f, 1.0f,0.2,sf::Color::Blue,NULL,0.0,false)); //down
-	walls.push_back(new Box(world,-35.0f, 120.0f,150.0f, 1.0f,1.5,sf::Color::Blue,NULL,0.0,false)); //left
-	walls.push_back(new Box(world,0.0f, 240.0f,70.0f, 1.0f,-0.1,sf::Color::Blue,NULL,0.0,false)); //up
-	walls.push_back(new Box(world,35.0f, 120.0f,200.0f, 1.0f,1.5,sf::Color::Blue,NULL,0.0,false));	//right
+	//read xml file
+	std::string track_file="data/track.xml";
+	TiXmlDocument doc( track_file.c_str() );
+	bool loadOkay = doc.LoadFile();
+	if ( !loadOkay )
+	{
+		std::cout<<"Could not load test xml file. Error='"<<doc.ErrorDesc()<<"'. Exiting.\n";
+	}
+	else
+	{
+		std::cout<<"XML file OK"<<std::endl;
+		
+		TiXmlHandle hDoc( &doc );
+		TiXmlElement* root;
+		try{
+			// check that we have "track" root node...
+			// ... and that version is XML_VERSION
+				root = doc.FirstChildElement( "track" );
+				
+				if ( !root )
+					throw std::string( "Unable to find track root node !" );
+				std::string rootNode( root->Value() );
+				if ( rootNode != "track" )
+					throw std::string( "Root node MUST be 'track' !" );
+				
+				TiXmlElement* version = root->FirstChildElement("version");
+				if ( !version )
+					throw std::string( "Unable to find 'version' node !" );
+				std::string versionNode( version->GetText() );
+				if ( versionNode != XML_VERSION )
+				{
+					std::ostringstream oss;
+					oss << "'version' MUST be '"<<XML_VERSION<<"' ! Value is '" << versionNode << "'." << std::endl;
+					throw std::string( oss.str() );
+				}
+				
+				TiXmlElement* track_name = root->FirstChildElement("name");
+				if ( !track_name )
+					throw std::string( "Unable to find 'name' node !" );
+				std::cout<<"Track name: "<<track_name->GetText()<<std::endl;
+				
+				//read trajectory
+				TiXmlElement* traj_el = root->FirstChildElement("trajectory");
+				if ( !traj_el )
+					throw std::string( "Unable to find 'trajectory' node !" );
+				
+				TiXmlElement* traj_pt_el = traj_el->FirstChildElement("point");
+				if ( !traj_pt_el )
+					throw std::string( "Unable to find 'trajectory>point' node !" );
+				trajectory.clear();
+				while (traj_pt_el)
+				{
+					TiXmlElement* traj_pt_x_el = traj_pt_el->FirstChildElement("x");
+					if ( !traj_pt_x_el )
+						throw std::string( "Unable to find 'trajectory>point>x' node !" );
+					TiXmlElement* traj_pt_y_el = traj_pt_el->FirstChildElement("y");
+					if ( !traj_pt_y_el )
+						throw std::string( "Unable to find 'trajectory>point>y' node !" );
+					
+					b2Vec2 pt;
+					pt.x=atof(traj_pt_x_el->GetText());
+					pt.y=atof(traj_pt_y_el->GetText());
+					trajectory.push_back(pt);
+					traj_pt_el = traj_pt_el->NextSiblingElement("point");
+				}
+				std::cout<<"Trajectory: "<<trajectory.size()<<std::endl;
+				
+				std::cout << "File " << track_file << " is valid ..." << std::endl;
+			}
+		catch(const std::string& s)
+		{
+			std::cerr<<s<<"\n";
+		}
+	}
+	
+	//create walls
+	walls.push_back(new Box(world,0.0f, 250.0f,500.0f, 1.0f,1.5708,sf::Color::Blue,NULL,0.0,false)); //left
+	walls.push_back(new Box(world,250.0f, 500.0f,500.0f, 1.0f,0,sf::Color::Blue,NULL,0.0,false)); //down
+	walls.push_back(new Box(world,250.0f, 0.0f,500.0f, 1.0f,0,sf::Color::Blue,NULL,0.0,false)); //up
+	walls.push_back(new Box(world,500.0f, 250.0f,500.0f, 1.0f,1.5708,sf::Color::Blue,NULL,0.0,false));	//right
 	
 	std::cout<<"Loading track image..."<<std::endl;
 	sf::Image image_full;
@@ -37,8 +117,8 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 		std::cout<<"ERROR! Image not found: "<<img_filename<<std::endl;
 	int image_full_w=image_full.GetWidth();
 	int image_full_h=image_full.GetHeight();
-	nbr_tiles_x=(image_full_w-1)/tile_size+0;//+1 not full
-	nbr_tiles_y=(image_full_h-1)/tile_size+0;
+	nbr_tiles_x=(image_full_w-1)/tile_size+1;//+1 not full
+	nbr_tiles_y=(image_full_h-1)/tile_size+1;
 	
 	//image must be N*tile_size
 	for (int y=0;y<nbr_tiles_y;y++)

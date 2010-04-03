@@ -23,7 +23,7 @@
 Camera::Camera()
  : x(0),y(0),zoom(1),view()
 {
-	//don't forget to se the view to the application !
+	//don't forget to set the view to the application !
 }
 
 void Camera::set_target(float t_x,float t_y,float t_z)
@@ -31,7 +31,8 @@ void Camera::set_target(float t_x,float t_y,float t_z)
 	x+=(t_x-x)/10;
 	y+=(t_y-y)/10;
 	float target_zoom=8-t_z/1.5;
-	zoom+=(target_zoom-zoom)/30;
+	//target_zoom/=10;
+	zoom+=(target_zoom-zoom)/50;
 	
 	view.SetCenter(x, y);
 	view.SetHalfSize(400.0/zoom,300.0/zoom);

@@ -35,12 +35,21 @@ class Camera
 		sf::View * get_view(){return &view;} 
 		float get_x(){return x;}
 		float get_y(){return y;}
+		void set_xy(float _x,float _y)
+		{
+			x=_x;
+			y=_y;
+			//view.SetCenter(x, y);
+			//view.SetHalfSize(400.0/zoom,300.0/zoom);
+		}
 		float get_zoom(){return zoom;}
 		bool set_zoom(float _zoom)
 		{
 			if ((_zoom>0)&&(_zoom<100))
 			{
 				zoom=_zoom;
+				view.SetCenter(x, y);
+				view.SetHalfSize(400.0/zoom,300.0/zoom);
 				return true;
 			}else{
 				return false;

@@ -31,6 +31,8 @@ public:
   Box* get_frontL_wheel(){return &frontL_wheel;}
   Box* get_rearR_wheel(){return &rearR_wheel;}
   Box* get_rearL_wheel(){return &rearL_wheel;}
+  
+  int index_trajectory_point_target;//index of the point to go to in track->trajectory
 
 private:
   void killOrthogonalVelocity(b2Body* targetBody);

@@ -33,25 +33,28 @@ Universe::Universe(sf::RenderWindow *_App)
 	bool doSleep = true;
 	world=new b2World(worldAABB, gravity, doSleep);
 	
-	track=new Track(*world,"data/track.png","data/trackB.png",32);
+	track=new Track(*world,"data/track.png","data/trackB.png",41);
 	
 	//images
 	car_image.LoadFromFile("data/carB.png");
 	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
-	cars.push_back(new Car(*world,10,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,80,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,100,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,120,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,140,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,160,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,180,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,200,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,220,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,240,20,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,260,20,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,45,220,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,70,240,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,45,260,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,70,280,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,45,300,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,70,320,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,45,340,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,70,360,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,45,380,&car_image,&wheel_image));
 	player1=cars.at(0);
 	
+	
+	camera.set_xy(player1->get_x(),player1->get_y());
+	camera.set_zoom(0.20);
 }
 
 void Universe::step()
@@ -68,7 +71,11 @@ void Universe::step()
 		
 		//AI
 		if (i>0)
-			cars.at(i)->follow(player1->get_x(),player1->get_y());
+		{
+			if (cars.at(i)->index_trajectory_point_target >= track->trajectory.size())
+				cars.at(i)->index_trajectory_point_target =0;
+			cars.at(i)->follow(track->trajectory.at(cars.at(i)->index_trajectory_point_target).x,track->trajectory.at(cars.at(i)->index_trajectory_point_target).y);
+		}
 	}
 }
 
@@ -76,7 +83,7 @@ void Universe::render()
 {
 	float point_before_player_x=player1->get_x()+sin(player1->get_main_body()->body->GetAngle())*player1->get_speed()/1.5;
 	float point_before_player_y=player1->get_y()-cos(player1->get_main_body()->body->GetAngle())*player1->get_speed()/1.5;
-	std::cout<<"Speed: "<<player1->get_speed()<<std::endl;
+	//std::cout<<"Speed: "<<player1->get_speed()<<std::endl;
 	
 	App->SetView(*camera.get_view());
 	camera.set_target(point_before_player_x,point_before_player_y,player1->get_speed()/10);
