@@ -41,16 +41,18 @@ void Box::aff(sf::RenderWindow *_App)
 	float32 angle = body->GetAngle();
 	
 	if (image == NULL)
-	  {
-	    sf::Shape rect =sf::Shape::Rectangle(-m_w, -m_h, m_w, m_h, coul);
-	    rect.SetPosition (body->GetPosition().x ,body->GetPosition().y);
-	    rect.Rotate(-body->GetAngle()*180.0/3.14159265359);
-	    sprite.SetScale(1.0/PIXEL_PER_UNIT,1.0/PIXEL_PER_UNIT);
-	    _App->Draw(rect);
-	  }else{
-	    sprite.SetPosition (body->GetPosition().x ,body->GetPosition().y );
-	    sprite.SetRotation(-body->GetAngle()*180.0/3.14159265359);
-	    sprite.SetScale(1.0/PIXEL_PER_UNIT,1.0/PIXEL_PER_UNIT);
-	    _App->Draw(sprite);
+	{
+		sf::Shape rect =sf::Shape::Rectangle(-m_w, -m_h, m_w, m_h, coul);
+		rect.SetPosition (body->GetPosition().x ,body->GetPosition().y);
+		rect.Rotate(-body->GetAngle()*180.0/3.14159265359);
+		sprite.SetScale(1.0/PIXEL_PER_UNIT,1.0/PIXEL_PER_UNIT);
+		_App->Draw(rect);
+	}
+	else
+	{
+		sprite.SetPosition (body->GetPosition().x ,body->GetPosition().y );
+		sprite.SetRotation(-body->GetAngle()*180.0/3.14159265359);
+		sprite.SetScale(1.0/PIXEL_PER_UNIT,1.0/PIXEL_PER_UNIT);
+		_App->Draw(sprite);
 	}
 }

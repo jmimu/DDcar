@@ -13,7 +13,7 @@ Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
 	SIDEWAYS_FRICTION_FORCE = 10;
-	HORSEPOWERS = 1000*1.5;
+	HORSEPOWERS = 1000*1.8;
 	engineSpeed =0;
 	steeringAngle = 0;
 	

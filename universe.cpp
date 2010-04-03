@@ -37,19 +37,20 @@ Universe::Universe(sf::RenderWindow *_App)
 	
 	//images
 	car_image.LoadFromFile("data/carB.png");
+	car_image2.LoadFromFile("data/carC.png");
 	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
 	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image));
 	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,45,220,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,70,240,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,45,260,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,70,280,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,45,300,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,70,320,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,45,340,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,70,360,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,45,380,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,45,260,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,70,280,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,45,300,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,70,320,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,45,340,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,70,360,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image));
 	player1=cars.at(0);
 	
 	

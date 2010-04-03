@@ -1,6 +1,6 @@
-//      universe.h
+//      gui.h
 //      
-//      Copyright 2010  <jmmuller@myhost>
+//      Copyright 2010 Roa <roa@am>
 //      
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -18,41 +18,29 @@
 //      MA 02110-1301, USA.
 
 
-#ifndef UNIVERSE_H
-#define UNIVERSE_H
+#ifndef GUI_H
+#define GUI_H
 
-#include <vector>
+#include <SFML/Graphics.hpp>
 
-#include "track.hpp"
-#include "car.hpp"
-#include "camera.hpp"
+#define  GUI_WIN_W  800//800;
+#define  GUI_WIN_H  600//600;
 
-static const int32 B2_ITERATIONS = 10;
-static const float32 B2_TIMESTEP = 1.0f / 30.0f;
-
-/*
- * All the universe: track, cars, objects...
- * 
- * */
-class Universe
+class GUI
 {
 	public:
-		Universe(sf::RenderWindow *_App);
-		void step();
-		void render();
+		GUI(sf::RenderWindow *_App);
+		virtual ~GUI();
+		void draw(float speed);
+		sf::View * get_view(){return &view;} 
 		sf::RenderWindow * get_App(){return App;}
-		
-		
-		Track *track;
-		std::vector <Car*> cars;
-		Car *player1;
-		b2World *world;
 	private:
-		sf::Image car_image;
-		sf::Image car_image2;
-		sf::Image wheel_image;
-		Camera camera;
+		sf::View view;
+		sf::Image counter_img;
+		sf::Sprite counter_spr;
+		sf::Image hand_img;
+		sf::Sprite hand_spr;
 		sf::RenderWindow *App;
 };
 
-#endif /* UNIVERSE_H */ 
+#endif /* GUI_H */ 

@@ -21,8 +21,8 @@
 #include "car.hpp"
 #include "box.hpp"
 
-#include "camera.hpp"
 #include "universe.hpp"
+#include "gui.hpp"
 
 static const int32 SCREEN_W = 800;//800;
 static const int32 SCREEN_H = 600;//600;
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 
 	
 	Universe universe(&App);
-	
+	GUI gui(&App);;
 
 	App.SetFramerateLimit(60);
 	const sf::Input& Input = App.GetInput();
@@ -95,6 +95,9 @@ int main(int argc, char** argv)
 		
 		App.Clear();
 		universe.render();
+
+		gui.draw(universe.player1->get_speed());
+		
 		App.Display();
 
 	}

@@ -1,6 +1,6 @@
-//      universe.h
+//      gui.cpp
 //      
-//      Copyright 2010  <jmmuller@myhost>
+//      Copyright 2010 Roa <roa@am>
 //      
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -18,41 +18,36 @@
 //      MA 02110-1301, USA.
 
 
-#ifndef UNIVERSE_H
-#define UNIVERSE_H
+#include "gui.hpp"
 
-#include <vector>
 
-#include "track.hpp"
-#include "car.hpp"
-#include "camera.hpp"
-
-static const int32 B2_ITERATIONS = 10;
-static const float32 B2_TIMESTEP = 1.0f / 30.0f;
-
-/*
- * All the universe: track, cars, objects...
- * 
- * */
-class Universe
+GUI::GUI(sf::RenderWindow *_App)
+:view(sf::FloatRect(GUI_WIN_W/2, GUI_WIN_H/2, GUI_WIN_W, GUI_WIN_H)),counter_img(),counter_spr(),hand_img(),hand_spr(),App(_App)
 {
-	public:
-		Universe(sf::RenderWindow *_App);
-		void step();
-		void render();
-		sf::RenderWindow * get_App(){return App;}
-		
-		
-		Track *track;
-		std::vector <Car*> cars;
-		Car *player1;
-		b2World *world;
-	private:
-		sf::Image car_image;
-		sf::Image car_image2;
-		sf::Image wheel_image;
-		Camera camera;
-		sf::RenderWindow *App;
-};
+	counter_img.LoadFromFile("data/speed300.png");
+	counter_spr.SetImage(counter_img);
+	hand_img.LoadFromFile("data/speed_hand.png");
+	hand_spr.SetImage(hand_img);
+	
+	counter_spr.SetPosition (GUI_WIN_W-128,GUI_WIN_H-128);
+	counter_spr.SetScale(0.5,0.5);
 
-#endif /* UNIVERSE_H */ 
+	hand_spr.SetCenter(5, 85);
+	hand_spr.SetPosition (GUI_WIN_W-128+64,GUI_WIN_H-128+64);
+	hand_spr.SetScale(0.5,0.5);
+}
+
+
+GUI::~GUI()
+{
+	
+}
+
+void GUI::draw(float speed)
+{
+	App->SetView(view);
+	
+	hand_spr.SetRotation(-2*speed+135);
+	App->Draw(counter_spr);
+	App->Draw(hand_spr);
+}
