@@ -15,32 +15,32 @@
 	</ground_nature_image>
 	<walls>
 		<wall>
-			<x_center>0.0</x_center>
-			<y_center>-25.0</y_center>
-			<height>70.0</height>
-			<width>1.0</width>
-			<angle>0.2</angle>
+			<x_center>0</x_center>
+			<y_center>250</y_center>
+			<height>500</height>
+			<width>1</width>
+			<angle>1.5708</angle>
 		</wall>
 		<wall>
-			<x_center>-35.0</x_center>
-			<y_center>120.0</y_center>
-			<height>150.0</height>
-			<width>1.0</width>
-			<angle>1.5</angle>
+			<x_center>250</x_center>
+			<y_center>500</y_center>
+			<height>500</height>
+			<width>1</width>
+			<angle>0</angle>
 		</wall>
 		<wall>
-			<x_center>0.0</x_center>
-			<y_center>240.0</y_center>
-			<height>70.0</height>
-			<width>1.0</width>
-			<angle>-0.1</angle>
+			<x_center>250</x_center>
+			<y_center>0</y_center>
+			<height>500</height>
+			<width>1</width>
+			<angle>0</angle>
 		</wall>
 		<wall>
-			<x_center>35.0</x_center>
-			<y_center>120.0</y_center>
-			<height>200.0</height>
-			<width>1.0</width>
-			<angle>1.5</angle>
+			<x_center>500</x_center>
+			<y_center>250</y_center>
+			<height>500</height>
+			<width>1</width>
+			<angle>1.5708</angle>
 		</wall>
 		<coord_departure>
 			<x_car1>50.0</x_car1>

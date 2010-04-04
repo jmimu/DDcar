@@ -1,4 +1,5 @@
 DDcar : 2D racing game
-using SFML and Box2D
+using SFML 1.5 and Box2D 2.0.1
+
 
 

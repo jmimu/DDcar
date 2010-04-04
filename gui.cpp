@@ -22,19 +22,19 @@
 
 
 GUI::GUI(sf::RenderWindow *_App)
-:view(sf::FloatRect(GUI_WIN_W/2, GUI_WIN_H/2, GUI_WIN_W, GUI_WIN_H)),counter_img(),counter_spr(),hand_img(),hand_spr(),App(_App)
+:view(sf::FloatRect(GUI_WIN_W/2, GUI_WIN_H/2, GUI_WIN_W, GUI_WIN_H)),counter_img(),counter_spr(),hand_img(),hand_spr(),App(_App),previous_speed(0.0)
 {
 	counter_img.LoadFromFile("data/speed300.png");
 	counter_spr.SetImage(counter_img);
 	hand_img.LoadFromFile("data/speed_hand.png");
 	hand_spr.SetImage(hand_img);
 	
-	counter_spr.SetPosition (GUI_WIN_W-128,GUI_WIN_H-128);
-	counter_spr.SetScale(0.5,0.5);
+	counter_spr.SetPosition (GUI_WIN_W-256*0.33,GUI_WIN_H-256*0.33);
+	counter_spr.SetScale(0.33,0.33);
 
-	hand_spr.SetCenter(5, 85);
-	hand_spr.SetPosition (GUI_WIN_W-128+64,GUI_WIN_H-128+64);
-	hand_spr.SetScale(0.5,0.5);
+	hand_spr.SetCenter(5+1, 85);
+	hand_spr.SetPosition (GUI_WIN_W-128*0.33,GUI_WIN_H-128*0.33);
+	hand_spr.SetScale(0.33,0.33);
 }
 
 
@@ -45,9 +45,11 @@ GUI::~GUI()
 
 void GUI::draw(float speed)
 {
+	previous_speed=previous_speed+(speed-previous_speed)/10;
+	
 	App->SetView(view);
 	
-	hand_spr.SetRotation(-2*speed+135);
+	hand_spr.SetRotation(-2*previous_speed+135);
 	App->Draw(counter_spr);
 	App->Draw(hand_spr);
 }

@@ -47,69 +47,97 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 		try{
 			// check that we have "track" root node...
 			// ... and that version is XML_VERSION
-				root = doc.FirstChildElement( "track" );
-				
-				if ( !root )
-					throw std::string( "Unable to find track root node !" );
-				std::string rootNode( root->Value() );
-				if ( rootNode != "track" )
-					throw std::string( "Root node MUST be 'track' !" );
-				
-				TiXmlElement* version = root->FirstChildElement("version");
-				if ( !version )
-					throw std::string( "Unable to find 'version' node !" );
-				std::string versionNode( version->GetText() );
-				if ( versionNode != XML_VERSION )
-				{
-					std::ostringstream oss;
-					oss << "'version' MUST be '"<<XML_VERSION<<"' ! Value is '" << versionNode << "'." << std::endl;
-					throw std::string( oss.str() );
-				}
-				
-				TiXmlElement* track_name = root->FirstChildElement("name");
-				if ( !track_name )
-					throw std::string( "Unable to find 'name' node !" );
-				std::cout<<"Track name: "<<track_name->GetText()<<std::endl;
-				
-				//read trajectory
-				TiXmlElement* traj_el = root->FirstChildElement("trajectory");
-				if ( !traj_el )
-					throw std::string( "Unable to find 'trajectory' node !" );
-				
-				TiXmlElement* traj_pt_el = traj_el->FirstChildElement("point");
-				if ( !traj_pt_el )
-					throw std::string( "Unable to find 'trajectory>point' node !" );
-				trajectory.clear();
-				while (traj_pt_el)
-				{
-					TiXmlElement* traj_pt_x_el = traj_pt_el->FirstChildElement("x");
-					if ( !traj_pt_x_el )
-						throw std::string( "Unable to find 'trajectory>point>x' node !" );
-					TiXmlElement* traj_pt_y_el = traj_pt_el->FirstChildElement("y");
-					if ( !traj_pt_y_el )
-						throw std::string( "Unable to find 'trajectory>point>y' node !" );
-					
-					b2Vec2 pt;
-					pt.x=atof(traj_pt_x_el->GetText());
-					pt.y=atof(traj_pt_y_el->GetText());
-					trajectory.push_back(pt);
-					traj_pt_el = traj_pt_el->NextSiblingElement("point");
-				}
-				std::cout<<"Trajectory: "<<trajectory.size()<<std::endl;
-				
-				std::cout << "File " << track_file << " is valid ..." << std::endl;
+			root = doc.FirstChildElement( "track" );
+			
+			if ( !root )
+				throw std::string( "Unable to find track root node !" );
+			std::string rootNode( root->Value() );
+			if ( rootNode != "track" )
+				throw std::string( "Root node MUST be 'track' !" );
+			
+			TiXmlElement* version = root->FirstChildElement("version");
+			if ( !version )
+				throw std::string( "Unable to find 'version' node !" );
+			std::string versionNode( version->GetText() );
+			if ( versionNode != XML_VERSION )
+			{
+				std::ostringstream oss;
+				oss << "'version' MUST be '"<<XML_VERSION<<"' ! Value is '" << versionNode << "'." << std::endl;
+				throw std::string( oss.str() );
 			}
+			
+			TiXmlElement* track_name = root->FirstChildElement("name");
+			if ( !track_name )
+				throw std::string( "Unable to find 'name' node !" );
+			std::cout<<"Track name: "<<track_name->GetText()<<std::endl;
+			
+			//read walls
+			TiXmlElement* walls_el = root->FirstChildElement("walls");
+			if ( !walls_el )
+				throw std::string( "Unable to find 'walls' node !" );
+			
+			TiXmlElement* walls_wall_el = walls_el->FirstChildElement("wall");
+			if ( !walls_wall_el )
+				throw std::string( "Unable to find 'walls>wall' node !" );
+			walls.clear();
+			while (walls_wall_el)
+			{
+				TiXmlElement* wall_x_el = walls_wall_el->FirstChildElement("x_center");
+				if ( !wall_x_el )
+					throw std::string( "Unable to find 'walls>wall>x_center' node !" );
+				TiXmlElement* wall_y_el = walls_wall_el->FirstChildElement("y_center");
+				if ( !wall_y_el )
+					throw std::string( "Unable to find 'walls>wall>y_center' node !" );
+				TiXmlElement* wall_h_el = walls_wall_el->FirstChildElement("height");
+				if ( !wall_h_el )
+					throw std::string( "Unable to find 'walls>wall>height' node !" );
+				TiXmlElement* wall_w_el = walls_wall_el->FirstChildElement("width");
+				if ( !wall_w_el )
+					throw std::string( "Unable to find 'walls>wall>width' node !" );
+				TiXmlElement* wall_a_el = walls_wall_el->FirstChildElement("angle");
+				if ( !wall_a_el )
+					throw std::string( "Unable to find 'walls>wall>angle' node !" );
+				
+				walls.push_back(new Box(world,atof(wall_x_el->GetText()), atof(wall_y_el->GetText()),
+					atof(wall_h_el->GetText()), atof(wall_w_el->GetText()),atof(wall_a_el->GetText()),sf::Color::Blue,NULL,0.0,false)); //left
+				walls_wall_el = walls_wall_el->NextSiblingElement("wall");
+			}
+			std::cout<<"walls: "<<walls.size()<<std::endl;
+
+			
+			//read trajectory
+			TiXmlElement* traj_el = root->FirstChildElement("trajectory");
+			if ( !traj_el )
+				throw std::string( "Unable to find 'trajectory' node !" );
+			
+			TiXmlElement* traj_pt_el = traj_el->FirstChildElement("point");
+			if ( !traj_pt_el )
+				throw std::string( "Unable to find 'trajectory>point' node !" );
+			trajectory.clear();
+			while (traj_pt_el)
+			{
+				TiXmlElement* traj_pt_x_el = traj_pt_el->FirstChildElement("x");
+				if ( !traj_pt_x_el )
+					throw std::string( "Unable to find 'trajectory>point>x' node !" );
+				TiXmlElement* traj_pt_y_el = traj_pt_el->FirstChildElement("y");
+				if ( !traj_pt_y_el )
+					throw std::string( "Unable to find 'trajectory>point>y' node !" );
+				
+				b2Vec2 pt;
+				pt.x=atof(traj_pt_x_el->GetText());
+				pt.y=atof(traj_pt_y_el->GetText());
+				trajectory.push_back(pt);
+				traj_pt_el = traj_pt_el->NextSiblingElement("point");
+			}
+			std::cout<<"Trajectory: "<<trajectory.size()<<std::endl;
+			
+			std::cout << "File " << track_file << " is valid ..." << std::endl;
+		}
 		catch(const std::string& s)
 		{
 			std::cerr<<s<<"\n";
 		}
 	}
-	
-	//create walls
-	walls.push_back(new Box(world,0.0f, 250.0f,500.0f, 1.0f,1.5708,sf::Color::Blue,NULL,0.0,false)); //left
-	walls.push_back(new Box(world,250.0f, 500.0f,500.0f, 1.0f,0,sf::Color::Blue,NULL,0.0,false)); //down
-	walls.push_back(new Box(world,250.0f, 0.0f,500.0f, 1.0f,0,sf::Color::Blue,NULL,0.0,false)); //up
-	walls.push_back(new Box(world,500.0f, 250.0f,500.0f, 1.0f,1.5708,sf::Color::Blue,NULL,0.0,false));	//right
 	
 	std::cout<<"Loading track image..."<<std::endl;
 	sf::Image image_full;

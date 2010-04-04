@@ -41,6 +41,8 @@ class GUI
 		sf::Image hand_img;
 		sf::Sprite hand_spr;
 		sf::RenderWindow *App;
+		
+		float previous_speed;
 };
 
 #endif /* GUI_H */ 

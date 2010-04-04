@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 {
 	// Create main window
 	sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes");
-
+	App.UseVerticalSync(true);
 	
 	Universe universe(&App);
 	GUI gui(&App);;
