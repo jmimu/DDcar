@@ -78,6 +78,12 @@ void Universe::step()
 			cars.at(i)->follow(track->trajectory.at(cars.at(i)->index_trajectory_point_target).x,track->trajectory.at(cars.at(i)->index_trajectory_point_target).y);
 		}
 	}
+	
+	for (unsigned int i=0;i<track->checkpoints.size();i++)
+	{
+		track->checkpoints.at(i)->set_switched_on(((int)player1->get_y()/10)%2==0);
+	}
+
 }
 
 void Universe::render()

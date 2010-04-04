@@ -28,7 +28,7 @@
 #define XML_VERSION "0.1"
 
 Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size)
-: walls(),tile_size(_tile_size),trajectory()
+: walls(),tile_size(_tile_size),trajectory(),checkpoints()
 {
 	//read xml file
 	std::string track_file="data/track.xml";
@@ -172,6 +172,12 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 	//ground nature image
 	if (!ground_nature.LoadFromFile(gnd_img_filename))
 		std::cout<<"ERROR! Ground nature image not found: "<<img_filename<<std::endl;
+	
+	//checkpoints
+	checkpoints.push_back(new Checkpoint(25,186,90,185));
+	checkpoints.push_back(new Checkpoint(371,320,440,343));
+	
+
 }
 
 void Track::aff(sf::RenderWindow *_App)
@@ -185,6 +191,9 @@ void Track::aff(sf::RenderWindow *_App)
 				&& ( fabs((tiles_spr[x+nbr_tiles_x*y]->GetPosition().y+tile_size/2)-_view.GetCenter().y)< _view.GetHalfSize().y+tile_size/2) )
 				_App->Draw(*tiles_spr[x+nbr_tiles_x*y]);
 		}
+	
+	for (unsigned int i=0;i<checkpoints.size();i++)
+		checkpoints.at(i)->aff(_App);
 }
 
 sf::Color Track::get_ground_nature(float x, float y)

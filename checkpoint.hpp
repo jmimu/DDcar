@@ -1,6 +1,6 @@
-//      track.h
+//      checkpoint.h
 //      
-//      Copyright 2010  <jmmuller@myhost>
+//      Copyright 2010 Roa <roa@am>
 //      
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -18,41 +18,30 @@
 //      MA 02110-1301, USA.
 
 
-#ifndef TRACK_H
-#define TRACK_H
+#ifndef CHECKPOINT_H
+#define CHECKPOINT_H
 
-#include <vector>
-#include <string>
-#include "box.hpp"
-#include <Box2D.h>
+#include <SFML/Graphics.hpp>
 
-#include "checkpoint.hpp"
-
-#define TRACK_PIXEL_PER_UNIT 4
-#define GROUND_PIXEL_PER_UNIT 1
-
-/*
- * Track: walls
- * map : big image cut into tiles
- * */
-class Track
+class Checkpoint
 {
 	public:
-		Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size);
-		std::vector <Box*> walls;
+		Checkpoint(float _x1,float _y1,float _x2,float _y2);
+		virtual ~Checkpoint();
+		float get_x1(){return x1;}
+		float get_y1(){return y1;}
+		float get_x2(){return x2;}
+		float get_y2(){return y2;}
 		void aff(sf::RenderWindow *_App);
-		sf::Color get_ground_nature(float x, float y);
-		std::vector <b2Vec2> trajectory;
-		std::vector <Checkpoint *> checkpoints;
+		void set_switched_on(bool on=true);
 	private:
-		int tile_size;
-		std::vector <sf::Image*> tiles_img; //picture of the track
-		std::vector <sf::Sprite*> tiles_spr;
-		sf::Image ground_nature;//unseen image !
-		int nbr_tiles_x;
-		int nbr_tiles_y;
-		
-		
+		static sf::Image light_off_img;
+		static sf::Image light_on_img;
+		static bool img_loaded;
+		sf::Sprite light_spr1;//left flag
+		sf::Sprite light_spr2;//right flag
+		float x1,y1,x2,y2;
+		bool switched_on;
 };
 
-#endif /* TRACK_H */ 
+#endif /* CHECKPOINT_H */ 
