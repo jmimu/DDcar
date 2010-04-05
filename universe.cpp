@@ -79,16 +79,16 @@ void Universe::step()
 		//std::cout<<"test "<<checkpoint_index<<std::endl;
 		if (track->checkpoints.at(checkpoint_index)->test(cars.at(i)))
 		{
-			if (cars.at(i)==player1) std::cout<<"Checkpoint!"<<std::endl;
-			one_checkpoint_crossed=true;
-			cars.at(i)->nbr_checkpoints++;
-			cars.at(i)->time_last_checkpoint_in_lap=cars.at(i)->lap_time;
-			
 			if (checkpoint_index==0) //start line
 			{
 				double lap_time=cars.at(i)->new_lap()/60.0;
 				if (cars.at(i)==player1) std::cout<<"Lap: "<<lap_time<<std::endl;
-			}
+			} else if (cars.at(i)==player1) std::cout<<"Checkpoint!"<<std::endl;
+			
+			one_checkpoint_crossed=true;
+			cars.at(i)->nbr_checkpoints++;
+			cars.at(i)->time_last_checkpoint_in_lap=cars.at(i)->lap_time;
+			
 			
 			if (cars.at(i)==player1) track->checkpoints.at(checkpoint_index)->set_switched_on(false);
 			cars.at(i)->next_checkpoint_index++;
