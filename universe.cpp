@@ -40,7 +40,6 @@ Universe::Universe(sf::RenderWindow *_App)
 	car_image2.LoadFromFile("data/carC.png");
 	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
-	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image));
 	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image));
 	cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image));
@@ -51,8 +50,11 @@ Universe::Universe(sf::RenderWindow *_App)
 	cars.push_back(new Car(*world,45,340,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,70,360,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image));
-	player1=cars.at(0);
+	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image));
+	player1=cars.at(cars.size()-1);
 	
+	for (int i=0;i<cars.size();i++)
+		cars.at(i)->time_last_checkpoint_in_lap=i;
 	
 	camera.set_xy(player1->get_x(),player1->get_y());
 	camera.set_zoom(0.20);
@@ -85,7 +87,7 @@ void Universe::step()
 			if (checkpoint_index==0) //start line
 			{
 				double lap_time=cars.at(i)->new_lap()/60.0;
-				std::cout<<"Lap: "<<lap_time<<std::endl;
+				if (cars.at(i)==player1) std::cout<<"Lap: "<<lap_time<<std::endl;
 			}
 			
 			if (cars.at(i)==player1) track->checkpoints.at(checkpoint_index)->set_switched_on(false);

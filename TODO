@@ -3,7 +3,6 @@ Rapide :
 * enregistrer les résolutions des images dans la classe Track, lire tout le xml
 * enregistrer meilleur temps et liste des temps pour chaque voiture
 * faire les tests complets de passage de checkpoint
-* comment savoir qui est en premier ?
 
 Ensuite :
 * IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur

@@ -194,7 +194,7 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
   {
     //draw infromation
     std::ostringstream oss;
-    oss<<rank<<"\n"<<last_lap_time/60.0;
+    oss<<rank<<"\n"<<(last_lap_time/6)/10.0;
     sf::String Hello;
     Hello.SetText(oss.str());
     Hello.SetColor(sf::Color(0, 128, 128));
