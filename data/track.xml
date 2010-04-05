@@ -114,4 +114,18 @@
 			<y>262</y>
 		</point>
 	</trajectory>
+	<checkpoints>
+		<checkpoint>
+			<x1>25</x1>
+			<y1>186</y1>
+			<x2>90</x2>
+			<y2>185</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>371</x1>
+			<y1>320</y1>
+			<x2>440</x2>
+			<y2>343</y2>
+		</checkpoint>
+	</checkpoints>
 </track>

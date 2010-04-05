@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<car>
+	<name>CarB</name>
+	<pic>
+		<image_top_view>data/carB.png</image_top_view>
+		<dpi>10</dpi>
+	</pic>
+	<body>
+		<height>16</height>
+		<width>8</width>
+		<density>0.8</density>
+	</body>
+	<driving>
+		<max_steer_angle>0.3</max_steer_angle>
+		<horsepowers>1800</horsepowers>
+	</driving>
+	<gui>
+		<counter_image>data/speed300.png</counter_image>
+		<counter_hand_image>data/speed_hand.png</counter_hand_image>
+		<speed_counter_factor>2</speed_counter_factor>
+	</gui>
+</car>

@@ -131,6 +131,36 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 			}
 			std::cout<<"Trajectory: "<<trajectory.size()<<std::endl;
 			
+			//read checkpoints
+			TiXmlElement* checkpoints_el = root->FirstChildElement("checkpoints");
+			if ( !checkpoints_el )
+				throw std::string( "Unable to find 'checkpoints' node !" );
+			
+			TiXmlElement* checkpoints_checkpoint_el = checkpoints_el->FirstChildElement("checkpoint");
+			if ( !checkpoints_checkpoint_el )
+				throw std::string( "Unable to find 'checkpoints>checkpoint' node !" );
+			checkpoints.clear();
+			while (checkpoints_checkpoint_el)
+			{
+				TiXmlElement* checkpoint_x1_el = checkpoints_checkpoint_el->FirstChildElement("x1");
+				if ( !checkpoint_x1_el )
+					throw std::string( "Unable to find 'checkpoints>checkpoint>x1' node !" );
+				TiXmlElement* checkpoint_y1_el = checkpoints_checkpoint_el->FirstChildElement("y1");
+				if ( !checkpoint_y1_el )
+					throw std::string( "Unable to find 'checkpoints>checkpoint>y1' node !" );
+				TiXmlElement* checkpoint_x2_el = checkpoints_checkpoint_el->FirstChildElement("x2");
+				if ( !checkpoint_x2_el )
+					throw std::string( "Unable to find 'checkpoints>checkpoint>x2' node !" );
+				TiXmlElement* checkpoint_y2_el = checkpoints_checkpoint_el->FirstChildElement("y2");
+				if ( !checkpoint_y2_el )
+					throw std::string( "Unable to find 'checkpoints>checkpoint>y2' node !" );
+				
+				checkpoints.push_back(new Checkpoint(atof(checkpoint_x1_el->GetText()),atof(checkpoint_y1_el->GetText()),
+													atof(checkpoint_x2_el->GetText()),atof(checkpoint_y2_el->GetText())));
+				checkpoints_checkpoint_el = checkpoints_checkpoint_el->NextSiblingElement("checkpoint");
+			}
+			std::cout<<"checkpoints: "<<checkpoints.size()<<std::endl;
+			
 			std::cout << "File " << track_file << " is valid ..." << std::endl;
 		}
 		catch(const std::string& s)
@@ -174,8 +204,8 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 		std::cout<<"ERROR! Ground nature image not found: "<<img_filename<<std::endl;
 	
 	//checkpoints
-	checkpoints.push_back(new Checkpoint(25,186,90,185));
-	checkpoints.push_back(new Checkpoint(371,320,440,343));
+	/*checkpoints.push_back(new Checkpoint(25,186,90,185));
+	checkpoints.push_back(new Checkpoint(371,320,440,343));*/
 	
 
 }
