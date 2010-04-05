@@ -53,9 +53,18 @@ private:
   b2RevoluteJoint* frontRJoint;
   b2RevoluteJoint* frontLJoint;
   
+public:
   long last_lap_time;
   long lap_time;//nb of frames
+
+  //to order cars
+  long nbr_checkpoints;
+  long time_last_checkpoint_in_lap;
+  
+  int rank;
 };
+
+bool cmp_Cars( Car *a, Car *b );
 
 
 #endif

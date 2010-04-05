@@ -60,6 +60,7 @@ Universe::Universe(sf::RenderWindow *_App)
 
 void Universe::step()
 {
+	bool one_checkpoint_crossed=false;//to know if re-order needed
 	world->Step(B2_TIMESTEP, B2_ITERATIONS);
 	for (int i=0;i<cars.size();i++)
 	{
@@ -70,26 +71,32 @@ void Universe::step()
 		//std::cout<<" "<<(int)ground_FL.r<<" "<<(int)ground_FR.r<<" / "<<(int)ground_RL.r<<" "<<(int)ground_RR.r<<std::endl;
 		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL);
 		
+		
+		//test checkpoint
 		int checkpoint_index=cars.at(i)->next_checkpoint_index;
 		//std::cout<<"test "<<checkpoint_index<<std::endl;
 		if (track->checkpoints.at(checkpoint_index)->test(cars.at(i)))
 		{
-			if (i==0) std::cout<<"Checkpoint!"<<std::endl;
+			if (cars.at(i)==player1) std::cout<<"Checkpoint!"<<std::endl;
+			one_checkpoint_crossed=true;
+			cars.at(i)->nbr_checkpoints++;
+			cars.at(i)->time_last_checkpoint_in_lap=cars.at(i)->lap_time;
+			
 			if (checkpoint_index==0) //start line
 			{
 				double lap_time=cars.at(i)->new_lap()/60.0;
 				std::cout<<"Lap: "<<lap_time<<std::endl;
 			}
 			
-			if (i==0) track->checkpoints.at(checkpoint_index)->set_switched_on(false);
+			if (cars.at(i)==player1) track->checkpoints.at(checkpoint_index)->set_switched_on(false);
 			cars.at(i)->next_checkpoint_index++;
 			if (cars.at(i)->next_checkpoint_index>=track->checkpoints.size())
 				cars.at(i)->next_checkpoint_index=0;
-			if (i==0) track->checkpoints.at(cars.at(i)->next_checkpoint_index)->set_switched_on(true);
+			if (cars.at(i)==player1) track->checkpoints.at(cars.at(i)->next_checkpoint_index)->set_switched_on(true);
 		}
 		
 		//AI
-		if (i>0)
+		if (cars.at(i)!=player1)
 		{
 			if (cars.at(i)->index_trajectory_point_target >= track->trajectory.size())
 				cars.at(i)->index_trajectory_point_target =0;
@@ -97,11 +104,12 @@ void Universe::step()
 		}
 	}
 	
-	for (unsigned int i=0;i<track->checkpoints.size();i++)
+	if (one_checkpoint_crossed)
 	{
-		//track->checkpoints.at(i)->set_switched_on(((int)player1->get_y()/10)%2==0);
+		sort( cars.begin(), cars.end(), cmp_Cars );
+		for (int i=0;i<cars.size();i++)
+			cars.at(i)->rank=i+1;
 	}
-
 }
 
 void Universe::render()
