@@ -207,6 +207,8 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 	/*checkpoints.push_back(new Checkpoint(25,186,90,185));
 	checkpoints.push_back(new Checkpoint(371,320,440,343));*/
 	
+	//swich on first checkpoint
+	checkpoints.at(0)->set_switched_on(true);
 
 }
 

@@ -8,7 +8,7 @@ Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_
     frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    x(_x),y(_y),index_trajectory_point_target(0)
+    x(_x),y(_y),index_trajectory_point_target(0),next_checkpoint_index(0),h(16),w(8)
 {
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;

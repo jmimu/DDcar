@@ -70,6 +70,21 @@ void Universe::step()
 		//std::cout<<" "<<(int)ground_FL.r<<" "<<(int)ground_FR.r<<" / "<<(int)ground_RL.r<<" "<<(int)ground_RR.r<<std::endl;
 		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL);
 		
+		if (i==0)
+		{
+			int checkpoint_index=cars.at(i)->next_checkpoint_index;
+			//std::cout<<"test "<<checkpoint_index<<std::endl;
+			if (track->checkpoints.at(checkpoint_index)->test(cars.at(i)))
+			{
+				std::cout<<"Checkpoint!"<<std::endl;
+				track->checkpoints.at(checkpoint_index)->set_switched_on(false);
+				cars.at(i)->next_checkpoint_index++;
+				if (cars.at(i)->next_checkpoint_index>=track->checkpoints.size())
+					cars.at(i)->next_checkpoint_index=0;
+				track->checkpoints.at(cars.at(i)->next_checkpoint_index)->set_switched_on(true);
+			}
+		}
+		
 		//AI
 		if (i>0)
 		{
@@ -81,7 +96,7 @@ void Universe::step()
 	
 	for (unsigned int i=0;i<track->checkpoints.size();i++)
 	{
-		track->checkpoints.at(i)->set_switched_on(((int)player1->get_y()/10)%2==0);
+		//track->checkpoints.at(i)->set_switched_on(((int)player1->get_y()/10)%2==0);
 	}
 
 }

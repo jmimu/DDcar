@@ -22,6 +22,7 @@
 #define CHECKPOINT_H
 
 #include <SFML/Graphics.hpp>
+#include <car.hpp>
 
 class Checkpoint
 {
@@ -34,6 +35,7 @@ class Checkpoint
 		float get_y2(){return y2;}
 		void aff(sf::RenderWindow *_App);
 		void set_switched_on(bool on=true);
+		bool test(Car * car);//test if car crosses the checkpoint
 	private:
 		static sf::Image light_off_img;
 		static sf::Image light_on_img;
@@ -41,6 +43,8 @@ class Checkpoint
 		sf::Sprite light_spr1;//left flag
 		sf::Sprite light_spr2;//right flag
 		float x1,y1,x2,y2;
+		float xc,yc,len2;//center
+		float a,b,c;//equation
 		bool switched_on;
 };
 

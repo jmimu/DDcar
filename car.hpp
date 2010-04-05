@@ -16,6 +16,8 @@ public:
   void aff(sf::RenderWindow *_App);
   double get_x(){return x;}
   double get_y(){return y;}
+  double get_h(){return h;}
+  double get_w(){return w;}
   double get_speed();
   void follow(float t_x,float t_y);
   
@@ -33,10 +35,10 @@ public:
   Box* get_rearL_wheel(){return &rearL_wheel;}
   
   int index_trajectory_point_target;//index of the point to go to in track->trajectory
-
+  int next_checkpoint_index;
 private:
   void killOrthogonalVelocity(b2Body* targetBody);
-  double x,y;
+  double x,y,h,w;
 
   sf::Shape rect;  
 

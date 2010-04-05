@@ -20,13 +20,15 @@
 
 #include "checkpoint.hpp"
 
+#include <iostream>
+
 sf::Image Checkpoint::light_off_img;
 sf::Image Checkpoint::light_on_img;
 
 bool Checkpoint::img_loaded=false;
 
 Checkpoint::Checkpoint(float _x1,float _y1,float _x2,float _y2)
-: x1(_x1),y1(_y1),x2(_x2),y2(_y2),switched_on(false)
+: x1(_x1),y1(_y1),x2(_x2),y2(_y2),switched_on(false),xc((x1+x2)/2),yc((y1+y2)/2)
 {
 	if (!img_loaded)
 	{
@@ -42,6 +44,20 @@ Checkpoint::Checkpoint(float _x1,float _y1,float _x2,float _y2)
 	light_spr1.SetScale(0.2,0.2);
 	light_spr2.SetPosition(x2,y2);
 	light_spr2.SetScale(0.2,0.2);
+	
+	//equation:
+	float dx=x1-x2;
+	float dy=y1-y2;
+	if (fabs(dx)>fabs(dy))
+	{
+		b=1.0;
+		a=-dy/dx;
+	}else{
+		a=1.0;
+		b=-dx/dy;
+	}
+	c=-a*x1-b*y1;
+	len2=(dx*dx+dy*dy);
 }
 
 
@@ -78,4 +94,21 @@ void Checkpoint::aff(sf::RenderWindow *_App)
 	_App->Draw(light_spr2);
 }
 
+bool Checkpoint::test(Car * car)//test if car crosses the checkpoint
+{
+	//1st: approx test
+	//std::cout<<
+	float dx=car->get_x()-xc;
+	float dy=car->get_y()-yc;
+	float dist2=dx*dx+dy*dy;
+	if (dist2>len2/2)
+		return false;//too far
+	
+	//if dist to center is >40
+	//2nd: create car points
+	//3rd: if across line
+	//4th: if in segment
+	
+	return true;
+}
 
