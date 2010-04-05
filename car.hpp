@@ -13,7 +13,7 @@ public:
   Car(b2World &world,float x,float y,sf::Image *car_image=NULL,sf::Image *wheel_image=NULL);
   ~Car();
   void update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL);
-  void aff(sf::RenderWindow *_App);
+  void aff(sf::RenderWindow *_App,bool infos=false);
   double get_x(){return x;}
   double get_y(){return y;}
   double get_h(){return h;}
@@ -36,6 +36,7 @@ public:
   
   int index_trajectory_point_target;//index of the point to go to in track->trajectory
   int next_checkpoint_index;
+  long new_lap(){last_lap_time=lap_time;lap_time=0;return (last_lap_time);}
 private:
   void killOrthogonalVelocity(b2Body* targetBody);
   double x,y,h,w;
@@ -51,8 +52,9 @@ private:
   
   b2RevoluteJoint* frontRJoint;
   b2RevoluteJoint* frontLJoint;
-
-
+  
+  long last_lap_time;
+  long lap_time;//nb of frames
 };
 
 

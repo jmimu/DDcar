@@ -1,10 +1,12 @@
 Rapide :
 * Permettre des Box circulaire
 * enregistrer les résolutions des images dans la classe Track, lire tout le xml
-* organisation de l'IA : faire une fonction IA qui connaît la liste des points de trajectoire
+* enregistrer meilleur temps et liste des temps pour chaque voiture
+* faire les tests complets de passage de checkpoint
+* comment savoir qui est en premier ?
 
 Ensuite :
-* créer des "portes", au moins pour la ligne de départ.
+* IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur
 
 Important :
 * comment détruire les Box et tout le reste ?

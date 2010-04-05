@@ -1,6 +1,7 @@
 #include "car.hpp"
 
 #include <iostream>
+#include <sstream>
 
 Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_image)
   : main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
@@ -8,7 +9,7 @@ Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_
     frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    x(_x),y(_y),index_trajectory_point_target(0),next_checkpoint_index(0),h(16),w(8)
+    x(_x),y(_y),index_trajectory_point_target(0),next_checkpoint_index(0),h(16),w(8),lap_time(0),last_lap_time(0)
 {
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
@@ -175,9 +176,11 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
     
     x=main_body.body->GetPosition().x;
     y=main_body.body->GetPosition().y;
+    
+    lap_time++;
 }
 
-void Car::aff(sf::RenderWindow *_App)
+void Car::aff(sf::RenderWindow *_App,bool infos)
 {
 
   frontR_wheel.aff(_App);
@@ -185,4 +188,18 @@ void Car::aff(sf::RenderWindow *_App)
   rearR_wheel.aff(_App);
   rearL_wheel.aff(_App);
   main_body.aff(_App);
+  
+  if (infos)
+  {
+    //draw infromation
+    std::ostringstream oss;
+    oss<<last_lap_time/60.0;
+    sf::String Hello;
+    Hello.SetText(oss.str());
+    Hello.SetColor(sf::Color(0, 128, 128));
+    Hello.SetPosition(x, y);
+    Hello.SetRotation(15.f);
+    Hello.SetSize(5.f);
+    _App->Draw(Hello);
+  }
 }
