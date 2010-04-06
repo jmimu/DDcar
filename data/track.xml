@@ -117,9 +117,9 @@
 	<checkpoints>
 		<checkpoint>
 			<x1>25</x1>
-			<y1>186</y1>
+			<y1>180</y1>
 			<x2>90</x2>
-			<y2>185</y2>
+			<y2>180</y2>
 		</checkpoint>
 		<checkpoint>
 			<x1>371</x1>
@@ -127,5 +127,49 @@
 			<x2>440</x2>
 			<y2>343</y2>
 		</checkpoint>
+
+		<checkpoint>
+			<x1>25</x1>
+			<y1>320</y1>
+			<x2>90</x2>
+			<y2>320</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>25</x1>
+			<y1>300</y1>
+			<x2>90</x2>
+			<y2>300</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>25</x1>
+			<y1>280</y1>
+			<x2>90</x2>
+			<y2>280</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>25</x1>
+			<y1>260</y1>
+			<x2>90</x2>
+			<y2>260</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>25</x1>
+			<y1>240</y1>
+			<x2>90</x2>
+			<y2>240</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>25</x1>
+			<y1>220</y1>
+			<x2>90</x2>
+			<y2>220</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>25</x1>
+			<y1>200</y1>
+			<x2>90</x2>
+			<y2>200</y2>
+		</checkpoint>
+
 	</checkpoints>
 </track>
