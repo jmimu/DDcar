@@ -28,7 +28,7 @@
 #define XML_VERSION "0.1"
 
 Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size)
-: walls(),tile_size(_tile_size),trajectory(),checkpoints()
+: walls(),tile_size(_tile_size),trajectory(),checkpoints(),TRACK_PIXEL_PER_UNIT(4),GROUND_PIXEL_PER_UNIT(1)
 {
 	//read xml file
 	std::string track_file="data/track.xml";
@@ -98,8 +98,8 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 				if ( !wall_a_el )
 					throw std::string( "Unable to find 'walls>wall>angle' node !" );
 				
-				//walls.push_back(new Box(world,atof(wall_x_el->GetText()), atof(wall_y_el->GetText()),
-				//	atof(wall_h_el->GetText()), atof(wall_w_el->GetText()),atof(wall_a_el->GetText()),sf::Color::Blue,NULL,0.0,false)); //left
+				walls.push_back(new Box(world,atof(wall_x_el->GetText()), atof(wall_y_el->GetText()),
+					atof(wall_h_el->GetText()), atof(wall_w_el->GetText()),atof(wall_a_el->GetText()),sf::Color::Blue,NULL,0.0,false)); //left
 				walls_wall_el = walls_wall_el->NextSiblingElement("wall");
 			}
 			std::cout<<"walls: "<<walls.size()<<std::endl;

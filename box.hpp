@@ -4,7 +4,6 @@
 #include <Box2D.h>
 #include <SFML/Graphics.hpp>
 
-#define PIXEL_PER_UNIT 10
 
 /**
  * PIXEL_PER_UNIT px = 1 box2d unit ! 
@@ -23,6 +22,7 @@ public:
   b2BodyDef *bodyDef;
   b2Body* body;
   sf::Image * image;
+  float PIXEL_PER_UNIT;
   sf::Sprite sprite;
   
 private:

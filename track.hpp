@@ -28,8 +28,6 @@
 
 #include "checkpoint.hpp"
 
-#define TRACK_PIXEL_PER_UNIT 4
-#define GROUND_PIXEL_PER_UNIT 1
 
 /*
  * Track: walls
@@ -47,8 +45,10 @@ class Track
 	private:
 		int tile_size;
 		std::vector <sf::Image*> tiles_img; //picture of the track
+		float TRACK_PIXEL_PER_UNIT;
 		std::vector <sf::Sprite*> tiles_spr;
 		sf::Image ground_nature;//unseen image !
+		float GROUND_PIXEL_PER_UNIT;
 		int nbr_tiles_x;
 		int nbr_tiles_y;
 		

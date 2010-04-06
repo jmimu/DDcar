@@ -2,7 +2,7 @@
 
 
 Box::Box(b2World &world,float _x,float _y,float _w,float _h,float _angle,sf::Color _c,sf::Image *_image,float _density,bool _sensor,float _friction,float _linearDamping,float _angularDamping)
-  : m_w(_w/2),m_h(_h/2),image(_image)
+  : m_w(_w/2),m_h(_h/2),image(_image),PIXEL_PER_UNIT(10)
 {
   if (image != NULL)
     {
