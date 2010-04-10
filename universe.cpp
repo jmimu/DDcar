@@ -32,7 +32,6 @@ Universe::Universe(sf::RenderWindow *_App)
 	b2Vec2 gravity(0.0f, -10.0f*0);
 	bool doSleep = true;
 	world=new b2World(worldAABB, gravity, doSleep);
-	
 	track=new Track(*world,"data/track.png","data/trackB.png",41);
 	
 	//images
@@ -41,7 +40,7 @@ Universe::Universe(sf::RenderWindow *_App)
 	wheel_image.LoadFromFile("data/wheel.png");
 	//cars
 	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image));
-	cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image));
+	/*cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,45,260,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,70,280,&car_image2,&wheel_image));
@@ -50,14 +49,17 @@ Universe::Universe(sf::RenderWindow *_App)
 	cars.push_back(new Car(*world,45,340,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,70,360,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image));
+	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image));*/
 	player1=cars.at(cars.size()-1);
 	
+	//initialiee cars.at(i)->time_last_checkpoint_in_lap to have the starting order
 	for (int i=0;i<cars.size();i++)
 		cars.at(i)->time_last_checkpoint_in_lap=i;
 	
 	camera.set_xy(player1->get_x(),player1->get_y());
 	camera.set_zoom(0.20);
+	
+	world->SetContactListener(&contact_listener);
 }
 
 void Universe::step()
@@ -129,4 +131,6 @@ void Universe::render()
 		track->walls.at(i)->aff(App);
 	for (int i=0;i<cars.size();i++)
 		cars.at(i)->aff(App,true);
+	
+	//std::cout<<"contacts: "<<player1->contact_list.size()<<std::endl;
 }

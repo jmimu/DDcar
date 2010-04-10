@@ -1,4 +1,4 @@
-//      universe.h
+//      gameobject.h
 //      
 //      Copyright 2010  <jmmuller@myhost>
 //      
@@ -18,43 +18,26 @@
 //      MA 02110-1301, USA.
 
 
-#ifndef UNIVERSE_H
-#define UNIVERSE_H
+#ifndef CUSTOMCONTACTLISTENER_H
+#define  CUSTOMCONTACTLISTENER_H
 
-#include <vector>
 
-#include "track.hpp"
-#include "car.hpp"
-#include "camera.hpp"
-#include "customcontactlistener.hpp"
+#include <Box2D.h>
 
-static const int32 B2_ITERATIONS = 10;
-static const float32 B2_TIMESTEP = 1.0f / 30.0f;
-
-/*
- * All the universe: track, cars, objects...
- * 
+/* various classes to manage contact points
+ * http://www.box2d.org/wiki/index.php?title=Buffering_ContactPoints
  * */
-class Universe
-{
-	public:
-		Universe(sf::RenderWindow *_App);
-		void step();
-		void render();
-		sf::RenderWindow * get_App(){return App;}
-		
-		
-		Track *track;
-		std::vector <Car*> cars;
-		Car *player1;
-		b2World *world;
-		CustomContactListener contact_listener;
-	private:
-		sf::Image car_image;
-		sf::Image car_image2;
-		sf::Image wheel_image;
-		Camera camera;
-		sf::RenderWindow *App;
+
+
+class CustomContactListener : public b2ContactListener {
+public:
+	CustomContactListener();
+	void Add(b2ContactPoint *point);
+	void Remove(b2ContactPoint *point);
+	void Persist(const b2ContactPoint* point);
+	void Result(const b2ContactResult* point);
 };
 
-#endif /* UNIVERSE_H */ 
+
+
+#endif /*  CUSTOMCONTACTLISTENER_H */ 

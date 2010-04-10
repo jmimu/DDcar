@@ -46,6 +46,8 @@ Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_
 	rearLJointDef.upperTranslation = 0.0;
 	world.CreateJoint(&rearLJointDef);
 
+	//link between main_body.body and the car
+	main_body.body->SetUserData( (void *)this );
 }
 
 Car::~Car()

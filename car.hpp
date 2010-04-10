@@ -37,6 +37,9 @@ public:
   int index_trajectory_point_target;//index of the point to go to in track->trajectory
   int next_checkpoint_index;
   long new_lap(){last_lap_time=lap_time;lap_time=0;return (last_lap_time);}
+  
+  //map of all the contacts (to the main body)
+  std::map<int, b2ContactPoint *> contact_list;
 private:
   void killOrthogonalVelocity(b2Body* targetBody);
   double x,y,h,w;
