@@ -32,8 +32,8 @@
 class CustomContactListener : public b2ContactListener {
 public:
 	CustomContactListener();
-	void Add(b2ContactPoint *point);
-	void Remove(b2ContactPoint *point);
+	void Add(const b2ContactPoint *point);
+	void Remove(const b2ContactPoint *point);
 	void Persist(const b2ContactPoint* point);
 	void Result(const b2ContactResult* point);
 };

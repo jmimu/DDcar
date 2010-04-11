@@ -3,14 +3,14 @@
 #include <iostream>
 #include <sstream>
 
-Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_image)
+Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_image,sf::Image *_boom_image)
   : main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
     frontR_wheel(world,x+3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     x(_x),y(_y),index_trajectory_point_target(0),next_checkpoint_index(0),h(16),w(8),lap_time(0),last_lap_time(0),
-    nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0)
+    nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),boom_image(_boom_image)
 {
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
@@ -130,6 +130,21 @@ double Car::get_speed()
 
 void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL)
 {
+  //treat contacts !
+  for (unsigned int i=0;i<contact_list.size();i++)
+  {
+    std::cout<<"=== "<<contact_list.at(i)->normalImpulse
+	   <<" "<<contact_list.at(i)->tangentImpulse
+	   <<" "<<contact_list.at(i)->shape1->GetBody()->GetUserData()
+	   <<" "<<contact_list.at(i)->shape2->GetBody()->GetUserData()
+	   <<" "<<contact_list.at(i)->position.x<<","<<contact_list.at(i)->position.y
+	   <<" "<<contact_list.at(i)->normal.x<<","<<contact_list.at(i)->normal.y
+	   <<" "<<std::endl;
+  }
+
+  //contacts treated (contact_list is cleared in aff())
+
+
 	float frontR_wheel_linearDamping=(255-ground_FR.r)/255.0;
 	float frontL_wheel_linearDamping=(255-ground_FL.r)/255.0;
 	float rearR_wheel_linearDamping= (255-ground_RR.r)/255.0;
@@ -192,6 +207,23 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
   rearL_wheel.aff(_App);
   main_body.aff(_App);
   
+
+
+ //treat contacts !
+  for (unsigned int i=0;i<contact_list.size();i++)
+  {
+    //std::cout<<"!!"<<std::endl;
+    sf::Sprite spr(*boom_image);
+    spr.SetCenter(boom_image->GetWidth()/2,boom_image->GetHeight()/2);
+    spr.SetPosition (contact_list.at(i)->position.x ,contact_list.at(i)->position.y);
+    spr.SetScale(contact_list.at(i)->normalImpulse/4000,contact_list.at(i)->normalImpulse/4000);
+    _App->Draw(spr);
+  }
+
+  //contacts treated
+  contact_list.clear();
+
+
   if (infos)
   {
     //draw infromation

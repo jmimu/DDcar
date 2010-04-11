@@ -38,10 +38,11 @@ Universe::Universe(sf::RenderWindow *_App)
 	car_image.LoadFromFile("data/carB.png");
 	car_image2.LoadFromFile("data/carC.png");
 	wheel_image.LoadFromFile("data/wheel.png");
+	boom_image.LoadFromFile("data/star.png");
 	//cars
-	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image));
-	/*cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image));
+	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image,&boom_image));
+	/*cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,45,260,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,70,280,&car_image2,&wheel_image));
 	cars.push_back(new Car(*world,45,300,&car_image2,&wheel_image));
@@ -120,7 +121,10 @@ void Universe::render()
 {
 	float point_before_player_x=player1->get_x()+sin(player1->get_main_body()->body->GetAngle())*player1->get_speed()/1.5;
 	float point_before_player_y=player1->get_y()-cos(player1->get_main_body()->body->GetAngle())*player1->get_speed()/1.5;
-	//std::cout<<"Speed: "<<player1->get_speed()<<std::endl;
+
+	/*b2Vec2 localPoint(0,0);
+	b2Vec2 velocity = player1->get_main_body()->body->GetLinearVelocityFromLocalPoint(localPoint);
+	std::cout<<"Speed: "<<player1->get_speed()<<" "<<velocity.x<<" "<<velocity.y<<std::endl;*/
 	
 	App->SetView(*camera.get_view());
 	camera.set_target(point_before_player_x,point_before_player_y,player1->get_speed()/10);

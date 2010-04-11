@@ -30,9 +30,9 @@ CustomContactListener::CustomContactListener()
 	std::cout<<"CustomContactListener !!"<<std::endl;
 }
 
-void CustomContactListener::Add(b2ContactPoint *point)
+void CustomContactListener::Add(const b2ContactPoint *point)
 {
-	//std::cout<<"Boum !!"<<std::endl;
+  //std::cout<<"Boum !!"<<std::endl;
 	/*Car *gameobject1 = static_cast<Car *> ( point->shape1->GetBody()->GetUserData() );
 	Car *gameobject2 = static_cast<Car *> ( point->shape2->GetBody()->GetUserData() );
 
@@ -46,7 +46,7 @@ void CustomContactListener::Persist(const b2ContactPoint* point)
 	//std::cout<<"mp."<<std::endl;
 }
 
-void CustomContactListener::Remove(b2ContactPoint *point)
+void CustomContactListener::Remove(const b2ContactPoint *point)
 {
 	//std::cout<<"ak."<<std::endl;
 	/*Car *p1 = static_cast<Car *> ( point->shape1->GetBody()->GetUserData() );
@@ -69,5 +69,21 @@ void CustomContactListener::Remove(b2ContactPoint *point)
 
 void CustomContactListener::Result(const b2ContactResult* point)
 {
-	std::cout<<"OOIJMLML "<<point->normalImpulse<<std::endl;
+  if (fabs(point->normalImpulse)>100)
+    {
+      /* std::cout<<"% "<<point->normalImpulse
+	       <<" "<<point->tangentImpulse
+	       <<" "<<point->shape1->GetBody()->GetUserData()
+	       <<" "<<point->shape2->GetBody()->GetUserData()
+	       <<" "<<point->position.x<<","<<point->position.y
+	       <<" "<<point->normal.x<<","<<point->normal.y
+	       <<" "<<std::endl;
+      */
+      Car *car1 = static_cast<Car *> ( point->shape1->GetBody()->GetUserData() );
+      Car *car2 = static_cast<Car *> ( point->shape2->GetBody()->GetUserData() );
+      if (car1!=NULL)
+	car1->contact_list.push_back(new b2ContactResult(*point));
+      if (car2!=NULL)
+	car2->contact_list.push_back(new b2ContactResult(*point));
+    }
 }

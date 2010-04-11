@@ -4,6 +4,7 @@ Rapide :
 * enregistrer meilleur temps et liste des temps pour chaque voiture
 * faire les tests complets de passage de checkpoint
 * faire des traces
+* Gérer correctement les images des voitures (pas dans universe ?)
 
 Ensuite :
 * IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur

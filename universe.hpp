@@ -53,6 +53,7 @@ class Universe
 		sf::Image car_image;
 		sf::Image car_image2;
 		sf::Image wheel_image;
+		sf::Image boom_image;
 		Camera camera;
 		sf::RenderWindow *App;
 };
