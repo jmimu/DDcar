@@ -3,11 +3,12 @@ Rapide :
 * enregistrer les résolutions des images dans la classe Track, lire tout le xml
 * enregistrer meilleur temps et liste des temps pour chaque voiture
 * faire les tests complets de passage de checkpoint
-* faire des traces
 * Gérer correctement les images des voitures (pas dans universe ?)
 
 Ensuite :
 * IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur
+
+
 
 Important :
 * comment détruire les Box et tout le reste ?
@@ -18,31 +19,8 @@ Plus tard :
 * trajectoire avec point + vitesse associés ?
 * IA : permettre d'aller en arrière
 
-
-
-Gestion des collisions :
-http://www.box2d.org/wiki/index.php?title=Buffering_ContactPoints
-/// This structure is used to report contact points.
-struct b2ContactPoint
-{
-	b2Shape* shape1;		///< the first shape
-	b2Shape* shape2;		///< the second shape
-	b2Vec2 position;		///< position in world coordinates
-	b2Vec2 velocity;		///< velocity of point on body2 relative to point on body1 (pre-solver)
-	b2Vec2 normal;			///< points from shape1 to shape2
-	float32 separation;		///< the separation is negative when shapes are touching
-	float32 friction;		///< the combined friction coefficient
-	float32 restitution;	///< the combined restitution coefficient
-	b2ContactID id;			///< the contact id identifies the features in contact
-};
-void b2World::SetContactListener(b2ContactListener* listener)
-struct b2ContactResult
-{
-	b2Shape* shape1;		///< the first shape
-	b2Shape* shape2;		///< the second shape
-	b2Vec2 position;		///< position in world coordinates
-	b2Vec2 normal;			///< points from shape1 to shape2
-	float32 normalImpulse;	///< the normal impulse applied to body2
-	float32 tangentImpulse;	///< the tangent impulse applied to body2
-	b2ContactID id;			///< the contact id identifies the features in contact
-};
+Optimisation :
+* enregistrer les sprites pour les traces, plutot que les refabriquer à chaque fois,
+dans une classe avec un temps de création pour pouvoir les effacer doucement.
+Ne pas les afficher quand ils sont hors de l'écran, peut-être même les effacer ?
+=> std::list ?

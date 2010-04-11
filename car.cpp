@@ -50,10 +50,12 @@ Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_
 	main_body.body->SetUserData( (void *)this );
 }
 
+
 Car::~Car()
 {
 	//delete body;
 }
+
 
 //return true if wheel skids (more than threshold)
 bool Car::killOrthogonalVelocity(b2Body* targetBody,float threshold)
@@ -63,10 +65,12 @@ bool Car::killOrthogonalVelocity(b2Body* targetBody,float threshold)
   b2Vec2 localPoint(0,0);
   b2Vec2 velocity = targetBody->GetLinearVelocityFromLocalPoint(localPoint);
   b2Vec2 sidewaysAxis = targetBody->GetXForm().R.col2;
-  
-  std::cout<<b2Dot(velocity,sidewaysAxis)<<std::endl;
 
-  if ( -b2Dot(velocity,sidewaysAxis) > threshold) skids=true;
+  b2Vec2 otherAxis = targetBody->GetXForm().R.col1;
+
+  //std::cout<<b2Dot(velocity,otherAxis)<<std::endl;
+
+  if ( fabs(b2Dot(velocity,otherAxis)) > threshold) skids=true;
 
   sidewaysAxis*=(b2Dot(velocity,sidewaysAxis));
   //print sidewaysAxis,"\n"
@@ -74,6 +78,7 @@ bool Car::killOrthogonalVelocity(b2Body* targetBody,float threshold)
 
   return skids;
 }
+
 
 void Car::follow(float t_x,float t_y) //AI
 {
@@ -180,33 +185,29 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	rearL_wheel.body->SetLinearVelocity(rearL_wheel_velocity);
 	
 	
-	if (killOrthogonalVelocity(frontR_wheel.body,1))
+	if (killOrthogonalVelocity(frontR_wheel.body,15))
 	  {
-	    std::cout<<".";
 	    //add a tire mark
 	    tire_marks->push_back(frontR_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();
 	  }
-	if (killOrthogonalVelocity(frontL_wheel.body,1))
+	if (killOrthogonalVelocity(frontL_wheel.body,15))
 	  {
-	    std::cout<<".";
 	    //add a tire mark
 	    tire_marks->push_back(frontL_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();
 	  }
-	if (killOrthogonalVelocity(rearR_wheel.body,1))
+	if (killOrthogonalVelocity(rearR_wheel.body,15))
 	  {
-	    std::cout<<".";
 	    //add a tire mark
 	    tire_marks->push_back(rearR_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();
 	  }
-	if (killOrthogonalVelocity(rearL_wheel.body,1))
+	if (killOrthogonalVelocity(rearL_wheel.body,15))
 	  {
-	    std::cout<<".";
 	    //add a tire mark
 	    tire_marks->push_back(rearL_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)

@@ -7,7 +7,7 @@
 
 #include "box.hpp"
 
-#define MAX_TIRE_MARKS 100
+#define MAX_TIRE_MARKS 1000
 
 
 class Car

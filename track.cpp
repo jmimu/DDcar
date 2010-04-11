@@ -235,11 +235,16 @@ void Track::aff(sf::RenderWindow *_App)
 	while( iter1 != tire_marks.end())
 	  {
 	    b2Vec2* pos=&(*iter1);
-	    sf::Sprite spr(tire_mark_image);
-	    spr.SetCenter(tire_mark_image.GetWidth()/2,tire_mark_image.GetHeight()/2);
-	    spr.SetScale(0.1,0.1);
-	    spr.SetPosition (pos->x ,pos->y);
-	    _App->Draw(spr);
+	    if ( (fabs(pos->x-_view.GetCenter().x)< _view.GetHalfSize().x)
+		 && (fabs(pos->y-_view.GetCenter().y)< _view.GetHalfSize().y) )
+	      {
+
+		sf::Sprite spr(tire_mark_image);
+		spr.SetCenter(tire_mark_image.GetWidth()/2,tire_mark_image.GetHeight()/2);
+		spr.SetScale(0.1,0.1);
+		spr.SetPosition (pos->x ,pos->y);
+		_App->Draw(spr);
+	      }
 	    ++iter1;
 	  }
 
