@@ -25,6 +25,7 @@
 #include <string>
 #include "box.hpp"
 #include <Box2D.h>
+#include <deque>
 
 #include "checkpoint.hpp"
 
@@ -42,6 +43,8 @@ class Track
 		sf::Color get_ground_nature(float x, float y);
 		std::vector <b2Vec2> trajectory;
 		std::vector <Checkpoint *> checkpoints;
+
+  std::deque <b2Vec2> tire_marks;//modified by cars
 	private:
 		int tile_size;
 		std::vector <sf::Image*> tiles_img; //picture of the track
@@ -51,7 +54,7 @@ class Track
 		float GROUND_PIXEL_PER_UNIT;
 		int nbr_tiles_x;
 		int nbr_tiles_y;
-		
+  sf::Image tire_mark_image;
 		
 };
 

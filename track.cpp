@@ -30,6 +30,7 @@
 Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size)
 : walls(),tile_size(_tile_size),trajectory(),checkpoints(),TRACK_PIXEL_PER_UNIT(4),GROUND_PIXEL_PER_UNIT(1)
 {
+
 	//read xml file
 	std::string track_file="data/track.xml";
 	TiXmlDocument doc( track_file.c_str() );
@@ -203,19 +204,20 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 	if (!ground_nature.LoadFromFile(gnd_img_filename))
 		std::cout<<"ERROR! Ground nature image not found: "<<img_filename<<std::endl;
 	
-	//checkpoints
-	/*checkpoints.push_back(new Checkpoint(25,186,90,185));
-	checkpoints.push_back(new Checkpoint(371,320,440,343));*/
+
+	//tire mark image
+	tire_mark_image.LoadFromFile("data/tire_mark.png");
+
+
 	
 	//swich on first checkpoint
 	checkpoints.at(0)->set_switched_on(true);
-
 }
 
 void Track::aff(sf::RenderWindow *_App)
 {
 	sf::View _view=_App->GetView();
-	
+	//ground
 	for (int y=0;y<nbr_tiles_y;y++)
 		for (int x=0;x<nbr_tiles_x;x++)
 		{
@@ -224,8 +226,23 @@ void Track::aff(sf::RenderWindow *_App)
 				_App->Draw(*tiles_spr[x+nbr_tiles_x*y]);
 		}
 	
+	//checkpoints
 	for (unsigned int i=0;i<checkpoints.size();i++)
 		checkpoints.at(i)->aff(_App);
+
+	//tire marks
+	std::deque<b2Vec2>::iterator iter1 = tire_marks.begin();
+	while( iter1 != tire_marks.end())
+	  {
+	    b2Vec2* pos=&(*iter1);
+	    sf::Sprite spr(tire_mark_image);
+	    spr.SetCenter(tire_mark_image.GetWidth()/2,tire_mark_image.GetHeight()/2);
+	    spr.SetScale(0.1,0.1);
+	    spr.SetPosition (pos->x ,pos->y);
+	    _App->Draw(spr);
+	    ++iter1;
+	  }
+
 }
 
 sf::Color Track::get_ground_nature(float x, float y)

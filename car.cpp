@@ -55,15 +55,24 @@ Car::~Car()
 	//delete body;
 }
 
-void Car::killOrthogonalVelocity(b2Body* targetBody)
+//return true if wheel skids (more than threshold)
+bool Car::killOrthogonalVelocity(b2Body* targetBody,float threshold)
 {
+  bool skids=false;
+
   b2Vec2 localPoint(0,0);
   b2Vec2 velocity = targetBody->GetLinearVelocityFromLocalPoint(localPoint);
   b2Vec2 sidewaysAxis = targetBody->GetXForm().R.col2;
-  //print "! ",velocity," ",sidewaysAxis," ",b2Dot(velocity,sidewaysAxis),"\n"
+  
+  std::cout<<b2Dot(velocity,sidewaysAxis)<<std::endl;
+
+  if ( -b2Dot(velocity,sidewaysAxis) > threshold) skids=true;
+
   sidewaysAxis*=(b2Dot(velocity,sidewaysAxis));
   //print sidewaysAxis,"\n"
   targetBody->SetLinearVelocity(sidewaysAxis);//targetBody.GetWorldPoint(localPoint));
+
+  return skids;
 }
 
 void Car::follow(float t_x,float t_y) //AI
@@ -128,10 +137,10 @@ double Car::get_speed()
 	return sqrt(velocity.x*velocity.x + velocity.y*velocity.y);
 }
 
-void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL)
+void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL,std::deque <b2Vec2> * tire_marks)
 {
   //treat contacts !
-  for (unsigned int i=0;i<contact_list.size();i++)
+  /*for (unsigned int i=0;i<contact_list.size();i++)
   {
     std::cout<<"=== "<<contact_list.at(i)->normalImpulse
 	   <<" "<<contact_list.at(i)->tangentImpulse
@@ -140,7 +149,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	   <<" "<<contact_list.at(i)->position.x<<","<<contact_list.at(i)->position.y
 	   <<" "<<contact_list.at(i)->normal.x<<","<<contact_list.at(i)->normal.y
 	   <<" "<<std::endl;
-  }
+	   }*/
 
   //contacts treated (contact_list is cleared in aff())
 
@@ -171,10 +180,39 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	rearL_wheel.body->SetLinearVelocity(rearL_wheel_velocity);
 	
 	
-	killOrthogonalVelocity(frontR_wheel.body);
-	killOrthogonalVelocity(frontL_wheel.body);
-	killOrthogonalVelocity(rearR_wheel.body);
-	killOrthogonalVelocity(rearL_wheel.body);
+	if (killOrthogonalVelocity(frontR_wheel.body,1))
+	  {
+	    std::cout<<".";
+	    //add a tire mark
+	    tire_marks->push_back(frontR_wheel.body->GetPosition());
+	    if (tire_marks->size()>MAX_TIRE_MARKS)
+	      tire_marks->pop_front();
+	  }
+	if (killOrthogonalVelocity(frontL_wheel.body,1))
+	  {
+	    std::cout<<".";
+	    //add a tire mark
+	    tire_marks->push_back(frontL_wheel.body->GetPosition());
+	    if (tire_marks->size()>MAX_TIRE_MARKS)
+	      tire_marks->pop_front();
+	  }
+	if (killOrthogonalVelocity(rearR_wheel.body,1))
+	  {
+	    std::cout<<".";
+	    //add a tire mark
+	    tire_marks->push_back(rearR_wheel.body->GetPosition());
+	    if (tire_marks->size()>MAX_TIRE_MARKS)
+	      tire_marks->pop_front();
+	  }
+	if (killOrthogonalVelocity(rearL_wheel.body,1))
+	  {
+	    std::cout<<".";
+	    //add a tire mark
+	    tire_marks->push_back(rearL_wheel.body->GetPosition());
+	    if (tire_marks->size()>MAX_TIRE_MARKS)
+	      tire_marks->pop_front();
+	  }
+
 
 	//Driving
 	b2Vec2 direction = frontR_wheel.body->GetXForm().R.col2;
@@ -218,6 +256,7 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
     spr.SetPosition (contact_list.at(i)->position.x ,contact_list.at(i)->position.y);
     spr.SetScale(contact_list.at(i)->normalImpulse/4000,contact_list.at(i)->normalImpulse/4000);
     _App->Draw(spr);
+    //std::cout<<"!!?"<<std::endl;
   }
 
   //contacts treated

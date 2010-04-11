@@ -41,16 +41,16 @@ Universe::Universe(sf::RenderWindow *_App)
 	boom_image.LoadFromFile("data/star.png");
 	//cars
 	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image,&boom_image));
-	/*cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,45,260,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,70,280,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,45,300,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,70,320,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,45,340,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,70,360,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image));
-	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image));*/
+	/*cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,45,260,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,70,280,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,45,300,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,70,320,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,45,340,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,70,360,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image,&boom_image));*/
 	player1=cars.at(cars.size()-1);
 	
 	//initialiee cars.at(i)->time_last_checkpoint_in_lap to have the starting order
@@ -74,7 +74,7 @@ void Universe::step()
 		sf::Color ground_RR=track->get_ground_nature(cars.at(i)->get_rearR_wheel()->body->GetWorldCenter().x,cars.at(i)->get_rearR_wheel()->body->GetWorldCenter().y);
 		sf::Color ground_RL=track->get_ground_nature(cars.at(i)->get_rearL_wheel()->body->GetWorldCenter().x,cars.at(i)->get_rearL_wheel()->body->GetWorldCenter().y);
 		//std::cout<<" "<<(int)ground_FL.r<<" "<<(int)ground_FR.r<<" / "<<(int)ground_RL.r<<" "<<(int)ground_RR.r<<std::endl;
-		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL);
+		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL,& track->tire_marks);
 		
 		
 		//test checkpoint
