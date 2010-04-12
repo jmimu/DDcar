@@ -22,7 +22,7 @@
 #define CHECKPOINT_H
 
 #include <SFML/Graphics.hpp>
-#include <car.hpp>
+#include "car.hpp"
 
 class Checkpoint
 {

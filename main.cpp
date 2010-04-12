@@ -51,7 +51,10 @@ int main(int argc, char** argv)
 		      App.Close();
 		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape))
 		      App.Close();
-/*		    if ((Event.Type == sf::Event::MouseWheelMoved))
+		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Space))
+			system("read f");
+
+	/*		    if ((Event.Type == sf::Event::MouseWheelMoved))
 		    {
 				if (Event.MouseWheel.Delta>0)
 					camera.set_zoom(camera.get_zoom()*1.1);

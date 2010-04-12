@@ -7,7 +7,9 @@ Rapide :
 
 Ensuite :
 * IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur
-
+* faire un menu
+* gérer le nombre de tours et le démarrage de la course
+* gérer les dégâts
 
 
 Important :
@@ -16,11 +18,18 @@ Important :
 * réfléchir à l'échelle de tout ça => vraies vitesses et vrais circuits ?
 
 Plus tard :
-* trajectoire avec point + vitesse associés ?
 * IA : permettre d'aller en arrière
 
 Optimisation :
-* enregistrer les sprites pour les traces, plutot que les refabriquer à chaque fois,
-dans une classe avec un temps de création pour pouvoir les effacer doucement.
-Ne pas les afficher quand ils sont hors de l'écran, peut-être même les effacer ?
-=> std::list ?
+
+
+On ne fait plus :
+* traces au sol qui s'effacent :
+	* enregistrer les sprites pour les traces, plutot que les refabriquer à chaque fois,
+	dans une classe avec un temps de création pour pouvoir les effacer doucement.
+	Ne pas les afficher quand ils sont hors de l'écran, peut-être même les effacer ?
+	=> std::list ? => meilleure optimisation : mettre les traces de pneu dans les images
+	du terrain directement. Comment faire ?
+
+
+

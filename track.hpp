@@ -43,8 +43,10 @@ class Track
 		sf::Color get_ground_nature(float x, float y);
 		std::vector <b2Vec2> trajectory;
 		std::vector <Checkpoint *> checkpoints;
+		
+		void add_pixel(float x,float y,sf::Color c);//change the pixel in the background image
 
-  std::deque <b2Vec2> tire_marks;//modified by cars
+  //std::deque <b2Vec2> tire_marks;//modified by cars
 	private:
 		int tile_size;
 		std::vector <sf::Image*> tiles_img; //picture of the track
@@ -54,7 +56,7 @@ class Track
 		float GROUND_PIXEL_PER_UNIT;
 		int nbr_tiles_x;
 		int nbr_tiles_y;
-  sf::Image tire_mark_image;
+  //sf::Image tire_mark_image;
 		
 };
 

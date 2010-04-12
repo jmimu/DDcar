@@ -61,6 +61,8 @@ Universe::Universe(sf::RenderWindow *_App)
 	camera.set_zoom(0.20);
 	
 	world->SetContactListener(&contact_listener);
+	
+	std::cout<<"Universe created."<<std::endl;
 }
 
 void Universe::step()
@@ -74,7 +76,7 @@ void Universe::step()
 		sf::Color ground_RR=track->get_ground_nature(cars.at(i)->get_rearR_wheel()->body->GetWorldCenter().x,cars.at(i)->get_rearR_wheel()->body->GetWorldCenter().y);
 		sf::Color ground_RL=track->get_ground_nature(cars.at(i)->get_rearL_wheel()->body->GetWorldCenter().x,cars.at(i)->get_rearL_wheel()->body->GetWorldCenter().y);
 		//std::cout<<" "<<(int)ground_FL.r<<" "<<(int)ground_FR.r<<" / "<<(int)ground_RL.r<<" "<<(int)ground_RR.r<<std::endl;
-		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL,& track->tire_marks);
+		cars.at(i)->update(ground_FR,ground_FL,ground_RR,ground_RL/*,& track->tire_marks*/,track);
 		
 		
 		//test checkpoint
@@ -85,8 +87,8 @@ void Universe::step()
 			if (checkpoint_index==0) //start line
 			{
 				double lap_time=cars.at(i)->new_lap()/60.0;
-				if (cars.at(i)==player1) std::cout<<"Lap: "<<lap_time<<std::endl;
-			} else if (cars.at(i)==player1) std::cout<<"Checkpoint!"<<std::endl;
+				//if (cars.at(i)==player1) std::cout<<"Lap: "<<lap_time<<std::endl;
+			} //else if (cars.at(i)==player1) std::cout<<"Checkpoint!"<<std::endl;
 			
 			one_checkpoint_crossed=true;
 			cars.at(i)->nbr_checkpoints++;

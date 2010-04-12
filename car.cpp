@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sstream>
+#include "track.hpp"
 
 Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_image,sf::Image *_boom_image)
   : main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
@@ -142,7 +143,7 @@ double Car::get_speed()
 	return sqrt(velocity.x*velocity.x + velocity.y*velocity.y);
 }
 
-void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL,std::deque <b2Vec2> * tire_marks)
+void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL/*,std::deque <b2Vec2> * tire_marks*/,Track * track)
 {
   //treat contacts !
   /*for (unsigned int i=0;i<contact_list.size();i++)
@@ -188,30 +189,38 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	if (killOrthogonalVelocity(frontR_wheel.body,15))
 	  {
 	    //add a tire mark
-	    tire_marks->push_back(frontR_wheel.body->GetPosition());
+		sf::Color coul(0,0,0,255);
+	    track->add_pixel(frontR_wheel.body->GetPosition().x,frontR_wheel.body->GetPosition().y,coul);
+/*	    tire_marks->push_back(frontR_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
-	      tire_marks->pop_front();
+	      tire_marks->pop_front();*/
 	  }
 	if (killOrthogonalVelocity(frontL_wheel.body,15))
 	  {
 	    //add a tire mark
-	    tire_marks->push_back(frontL_wheel.body->GetPosition());
+		sf::Color coul(0,0,0,255);
+	    track->add_pixel(frontL_wheel.body->GetPosition().x,frontL_wheel.body->GetPosition().y,coul);
+/*	    tire_marks->push_back(frontL_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
-	      tire_marks->pop_front();
+	      tire_marks->pop_front();*/
 	  }
 	if (killOrthogonalVelocity(rearR_wheel.body,15))
 	  {
 	    //add a tire mark
-	    tire_marks->push_back(rearR_wheel.body->GetPosition());
+		sf::Color coul(0,0,0,255);
+	    track->add_pixel(rearR_wheel.body->GetPosition().x,rearR_wheel.body->GetPosition().y,coul);
+/*	    tire_marks->push_back(rearR_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
-	      tire_marks->pop_front();
+	      tire_marks->pop_front();*/
 	  }
 	if (killOrthogonalVelocity(rearL_wheel.body,15))
 	  {
 	    //add a tire mark
-	    tire_marks->push_back(rearL_wheel.body->GetPosition());
+		sf::Color coul(0,0,0,255);
+	    track->add_pixel(rearL_wheel.body->GetPosition().x,rearL_wheel.body->GetPosition().y,coul);
+/*	    tire_marks->push_back(rearL_wheel.body->GetPosition());
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
-	      tire_marks->pop_front();
+	      tire_marks->pop_front();*/
 	  }
 
 

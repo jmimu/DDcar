@@ -9,13 +9,14 @@
 
 #define MAX_TIRE_MARKS 1000
 
+class Track;
 
 class Car
 {
 public:
   Car(b2World &world,float x,float y,sf::Image *car_image=NULL,sf::Image *wheel_image=NULL,sf::Image *_boom_image=NULL);
   ~Car();
-  void update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL,std::deque <b2Vec2> * tire_marks);
+  void update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL/*,std::deque <b2Vec2> * tire_marks*/,Track * track);
   void aff(sf::RenderWindow *_App,bool infos=false);
   double get_x(){return x;}
   double get_y(){return y;}

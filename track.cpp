@@ -200,13 +200,14 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 			tiles_spr.push_back(spr);
 		}
 	
+	std::cout<<"Loading ground image..."<<std::endl;
 	//ground nature image
 	if (!ground_nature.LoadFromFile(gnd_img_filename))
 		std::cout<<"ERROR! Ground nature image not found: "<<img_filename<<std::endl;
 	
 
 	//tire mark image
-	tire_mark_image.LoadFromFile("data/tire_mark.png");
+	//tire_mark_image.LoadFromFile("data/tire_mark.png");
 
 
 	
@@ -218,18 +219,22 @@ void Track::aff(sf::RenderWindow *_App)
 {
 	sf::View _view=_App->GetView();
 	//ground
+	
+	
 	for (int y=0;y<nbr_tiles_y;y++)
 		for (int x=0;x<nbr_tiles_x;x++)
 		{
 			if (( fabs((tiles_spr[x+nbr_tiles_x*y]->GetPosition().x+tile_size/2)-_view.GetCenter().x)< _view.GetHalfSize().x+tile_size/2)
 				&& ( fabs((tiles_spr[x+nbr_tiles_x*y]->GetPosition().y+tile_size/2)-_view.GetCenter().y)< _view.GetHalfSize().y+tile_size/2) )
-				_App->Draw(*tiles_spr[x+nbr_tiles_x*y]);
+                                _App->Draw(*tiles_spr[x+nbr_tiles_x*y]);
 		}
+	
 	
 	//checkpoints
 	for (unsigned int i=0;i<checkpoints.size();i++)
 		checkpoints.at(i)->aff(_App);
 
+/*
 	//tire marks
 	std::deque<b2Vec2>::iterator iter1 = tire_marks.begin();
 	while( iter1 != tire_marks.end())
@@ -247,7 +252,30 @@ void Track::aff(sf::RenderWindow *_App)
 	      }
 	    ++iter1;
 	  }
+*/
+}
 
+//change the pixel in the background image
+void Track::add_pixel(float x,float y,sf::Color c)
+{
+	x*=TRACK_PIXEL_PER_UNIT;
+	y*=TRACK_PIXEL_PER_UNIT;
+	//std::cout<<"try to add at "<<x<<" "<<y<<" "<<tile_size*nbr_tiles_x<<" "<<tile_size*nbr_tiles_y<<std::endl;
+	if ((x<0)||(x>=tile_size*nbr_tiles_x)||(y<0)||(y>=tile_size*nbr_tiles_y))
+	{
+		//std::cout<<"no."<<std::endl;
+		return;
+	}
+	int tile_x=x/tile_size;
+	int tile_y=y/tile_size;
+	int offset_x=(int)x % tile_size;
+	int offset_y=(int)y % tile_size;
+	//std::cout<<"=> "<<tile_x<<" "<<tile_y<<" "<<offset_x<<" "<<offset_y<<std::endl;
+	
+	//smooth
+	sf::Color previous=tiles_img[tile_x+nbr_tiles_x*tile_y]->GetPixel(offset_x,offset_y);
+	sf::Color next(previous.r+(c.r-previous.r)/2,previous.g+(c.g-previous.g)/2,previous.b+(c.b-previous.b)/2,255);
+	tiles_img[tile_x+nbr_tiles_x*tile_y]->SetPixel(offset_x,offset_y,next);
 }
 
 sf::Color Track::get_ground_nature(float x, float y)
