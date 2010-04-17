@@ -70,6 +70,7 @@ public:
   long time_last_checkpoint_in_lap;
   
   int rank;
+  long damage;
 };
 
 bool cmp_Cars( Car *a, Car *b );
