@@ -37,7 +37,7 @@
 class Track
 {
 	public:
-		Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size);
+		Track(b2World &world,int _tile_size);
 		std::vector <Box*> walls;
 		void aff(sf::RenderWindow *_App);
 		sf::Color get_ground_nature(float x, float y);

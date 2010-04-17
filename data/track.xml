@@ -6,8 +6,8 @@
 	<date></date>
 	<description></description>
 	<background_image>
-		<filename>data/track.png</filename>
-		<dpi>4</dpi>
+		<filename>data/trackB.png</filename>
+		<dpi>1</dpi>
 	</background_image>
 	<ground_nature_image>
 		<filename>data/trackB.png</filename>

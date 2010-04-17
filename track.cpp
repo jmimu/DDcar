@@ -27,10 +27,12 @@
 
 #define XML_VERSION "0.1"
 
-Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filename,int _tile_size)
-: walls(),tile_size(_tile_size),trajectory(),checkpoints(),TRACK_PIXEL_PER_UNIT(4),GROUND_PIXEL_PER_UNIT(1)
+Track::Track(b2World &world,int _tile_size)
+: walls(),tile_size(_tile_size),trajectory(),checkpoints(),TRACK_PIXEL_PER_UNIT(1),GROUND_PIXEL_PER_UNIT(1)
 {
-
+	std::string img_filename;
+	std::string gnd_img_filename;
+	
 	//read xml file
 	std::string track_file="data/track.xml";
 	TiXmlDocument doc( track_file.c_str() );
@@ -56,6 +58,7 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 			if ( rootNode != "track" )
 				throw std::string( "Root node MUST be 'track' !" );
 			
+			//track version
 			TiXmlElement* version = root->FirstChildElement("version");
 			if ( !version )
 				throw std::string( "Unable to find 'version' node !" );
@@ -67,10 +70,42 @@ Track::Track(b2World &world,std::string img_filename,std::string gnd_img_filenam
 				throw std::string( oss.str() );
 			}
 			
+			//track name
 			TiXmlElement* track_name = root->FirstChildElement("name");
 			if ( !track_name )
 				throw std::string( "Unable to find 'name' node !" );
 			std::cout<<"Track name: "<<track_name->GetText()<<std::endl;
+			
+			
+			//background_image
+			TiXmlElement* track_background_image = root->FirstChildElement("background_image");
+			if ( !track_background_image )
+				throw std::string( "Unable to find 'background_image' node !" );
+				TiXmlElement* track_background_image_filename = track_background_image->FirstChildElement("filename");
+				if ( !track_background_image_filename )
+					throw std::string( "Unable to find 'track_background_image>filename' node !" );
+				TiXmlElement* track_background_image_dpi = track_background_image->FirstChildElement("dpi");
+				if ( !track_background_image_dpi )
+					throw std::string( "Unable to find 'track_background_image>dpi' node !" );
+				std::cout<<"Track background_image: "<<track_background_image_filename->GetText()
+					<<" @ "<<atof(track_background_image_dpi->GetText())<<" pix/B2Dunit"<<std::endl;
+				img_filename=track_background_image_filename->GetText();
+				TRACK_PIXEL_PER_UNIT=atof(track_background_image_dpi->GetText());
+			
+			//background_image
+			TiXmlElement* track_ground_nature_image = root->FirstChildElement("ground_nature_image");
+			if ( !track_ground_nature_image )
+				throw std::string( "Unable to find 'ground_nature_image' node !" );
+				TiXmlElement* track_ground_nature_image_filename = track_ground_nature_image->FirstChildElement("filename");
+				if ( !track_ground_nature_image_filename )
+					throw std::string( "Unable to find 'track_ground_nature_image>filename' node !" );
+				TiXmlElement* track_ground_nature_image_dpi = track_ground_nature_image->FirstChildElement("dpi");
+				if ( !track_ground_nature_image_dpi )
+					throw std::string( "Unable to find 'track_ground_nature_image>dpi' node !" );
+				std::cout<<"Track ground_nature_image: "<<track_ground_nature_image_filename->GetText()
+					<<" @ "<<atof(track_ground_nature_image_dpi->GetText())<<" pix/B2Dunit"<<std::endl;
+				gnd_img_filename=track_ground_nature_image_filename->GetText();
+				GROUND_PIXEL_PER_UNIT=atof(track_ground_nature_image_dpi->GetText());
 			
 			//read walls
 			TiXmlElement* walls_el = root->FirstChildElement("walls");

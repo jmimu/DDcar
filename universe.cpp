@@ -32,7 +32,7 @@ Universe::Universe(sf::RenderWindow *_App)
 	b2Vec2 gravity(0.0f, -10.0f*0);
 	bool doSleep = true;
 	world=new b2World(worldAABB, gravity, doSleep);
-	track=new Track(*world,"data/track.png","data/trackB.png",41);
+	track=new Track(*world,41);
 	
 	//images
 	car_image.LoadFromFile("data/carB.png");
