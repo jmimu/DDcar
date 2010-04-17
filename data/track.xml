@@ -6,8 +6,8 @@
 	<date></date>
 	<description></description>
 	<background_image>
-		<filename>data/trackB.png</filename>
-		<dpi>1</dpi>
+		<filename>data/track_.png</filename>
+		<dpi>2</dpi>
 	</background_image>
 	<ground_nature_image>
 		<filename>data/trackB.png</filename>
@@ -42,16 +42,16 @@
 			<width>1</width>
 			<angle>1.5708</angle>
 		</wall>
-		<coord_departure>
-			<x_car1>50.0</x_car1>
-			<y_car1>50.0</y_car1>
-			<angle_car1>0.0</angle_car1>
-			<add_vector>
-				<x>0.0</x>
-				<y>30.0</y>
-			</add_vector>
-		</coord_departure>
 	</walls>
+	<coord_departure>
+		<x_car1>50.0</x_car1>
+		<y_car1>50.0</y_car1>
+		<angle_car1>0.0</angle_car1>
+		<add_vector>
+			<x>0.0</x>
+			<y>30.0</y>
+		</add_vector>
+	</coord_departure>
 	<trajectory>
 		<point>
 			<nb>1</nb>

@@ -1,15 +1,16 @@
 Rapide :
-* Permettre des Box circulaire
-* enregistrer les résolutions des images dans la classe Track, lire tout le xml
+* reste à lire dans le Track xml : coord_departure, (date, auteur, description)
 * enregistrer meilleur temps et liste des temps pour chaque voiture
 * faire les tests complets de passage de checkpoint
 * Gérer correctement les images des voitures (pas dans universe ?)
 
+
 Ensuite :
 * IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur
-* faire un menu
+* faire un menu => classe race
 * gérer le nombre de tours et le démarrage de la course
-* gérer les dégâts
+* gérer les dégâts => limite
+* Permettre des Box circulaire
 
 
 Important :
@@ -17,19 +18,13 @@ Important :
 * découpage des images : la dernière peut ne pas être entière => pb ?
 * réfléchir à l'échelle de tout ça => vraies vitesses et vrais circuits ?
 
+
 Plus tard :
 * IA : permettre d'aller en arrière
 
+
 Optimisation :
 
-
-On ne fait plus :
-* traces au sol qui s'effacent :
-	* enregistrer les sprites pour les traces, plutot que les refabriquer à chaque fois,
-	dans une classe avec un temps de création pour pouvoir les effacer doucement.
-	Ne pas les afficher quand ils sont hors de l'écran, peut-être même les effacer ?
-	=> std::list ? => meilleure optimisation : mettre les traces de pneu dans les images
-	du terrain directement. Comment faire ?
 
 
 
