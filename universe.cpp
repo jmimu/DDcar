@@ -53,7 +53,7 @@ Universe::Universe(sf::RenderWindow *_App)
 	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image,&boom_image));*/
 	cars.push_back(new Car(*world,35,200,&car_image,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,15,220,&car_image2,&wheel_image,&boom_image));
-	/*cars.push_back(new Car(*world,35,240,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,35,240,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,15,260,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,35,280,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,15,300,&car_image2,&wheel_image,&boom_image));
@@ -61,7 +61,7 @@ Universe::Universe(sf::RenderWindow *_App)
 	cars.push_back(new Car(*world,15,340,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,35,360,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,15,380,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,35,400,&car_image,&wheel_image,&boom_image));*/
+	cars.push_back(new Car(*world,35,400,&car_image,&wheel_image,&boom_image));
 	player1=cars.at(cars.size()-1);
 	
 	//initialiee cars.at(i)->time_last_checkpoint_in_lap to have the starting order

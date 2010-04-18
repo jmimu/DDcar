@@ -44,9 +44,9 @@
 		</wall>
 		
 		<wall>
-			<x_center>381</x_center>
-			<y_center>162</y_center>
-			<height>140</height>
+			<x_center>383</x_center>
+			<y_center>140</y_center>
+			<height>150</height>
 			<width>1</width>
 			<angle>1.5708</angle>
 		</wall>
@@ -61,7 +61,7 @@
 		<wall>
 			<x_center>350</x_center>
 			<y_center>60</y_center>
-			<height>200</height>
+			<height>190</height>
 			<width>1</width>
 			<angle>-0.1</angle>
 		</wall>
@@ -80,6 +80,13 @@
 			<angle>1.5708</angle>
 		</wall>
 
+		<wall>
+			<x_center>170</x_center>
+			<y_center>100</y_center>
+			<height>180</height>
+			<width>1</width>
+			<angle>-0.35</angle>
+		</wall>
 	</walls>
 	<coord_departure>
 		<x_car1>50.0</x_car1>
