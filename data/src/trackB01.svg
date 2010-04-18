@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="trackB01.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective3663"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="403.67362"
+     inkscape:cy="574.36086"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="976"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#bcbcbc;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 244.45692,522.0321 c 0,-21.71828 0,-72.73099 0,-104.04572 0,-31.31473 12.69902,-36.09814 24.91239,-43.14953 12.21338,-7.0514 41.73789,-27.5618 102.86201,-27.5618 61.12412,0 129.14852,-31.69932 135.87541,5.55584 6.56631,36.36582 -51.80941,38.21358 -40.19479,81.55994 11.61462,43.34637 -73.06898,121.84262 -94.43391,84.83746 -21.36494,-37.00515 65.44382,-66.36822 65.44382,-113.35203 0,-46.9838 -45.65805,-29.79023 -61.53015,-25.53732 -15.8721,4.25292 -59.53222,24.34339 -59.53222,67.10837 0,42.76498 37.2451,82.79062 18.93113,114.51134 -18.31396,31.72072 -69.50545,52.02906 -84.90421,25.35763 -15.39875,-26.67142 -5.40918,-38.51514 -7.42948,-65.28418 z"
+       id="path2816"
+       sodipodi:nodetypes="csssssssssssc"
+       inkscape:export-filename="/home/roa/Desktop/track/DDcar01/data/track2.png"
+       inkscape:export-xdpi="309.77054"
+       inkscape:export-ydpi="309.77054" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:9, 9;stroke-dashoffset:0"
+       d="m 244.36572,522.33883 c 0,-21.71828 0,-72.73099 0,-104.04572 0,-31.31473 12.69902,-36.09814 24.91239,-43.14953 12.21338,-7.0514 41.73789,-27.5618 102.862,-27.5618 61.12412,0 129.14852,-31.69932 135.87541,5.55584 6.56631,36.36582 -51.80941,38.21358 -40.19479,81.55994 11.61462,43.34637 -73.06898,121.84262 -94.43391,84.83746 -21.36494,-37.00515 65.44382,-66.36822 65.44382,-113.35203 0,-46.9838 -45.65805,-29.79023 -61.53015,-25.53732 -15.8721,4.25292 -59.53221,24.34339 -59.53221,67.10837 0,42.76498 37.24509,82.79062 18.93112,114.51134 -18.31395,31.72072 -69.50544,52.02906 -84.9042,25.35763 -15.39875,-26.67142 -5.40918,-38.51514 -7.42948,-65.28418 z"
+       id="path2816-7"
+       sodipodi:nodetypes="csssssssssssc"
+       inkscape:export-filename="/home/roa/Desktop/track/DDcar01/data/track2.png"
+       inkscape:export-xdpi="309.77054"
+       inkscape:export-ydpi="309.77054" />
+  </g>
+</svg>

@@ -27,14 +27,13 @@
 
 #define XML_VERSION "0.1"
 
-Track::Track(b2World &world,int _tile_size)
+Track::Track(b2World &world,std::string track_file,int _tile_size)
 : walls(),tile_size(_tile_size),trajectory(),checkpoints(),TRACK_PIXEL_PER_UNIT(1),GROUND_PIXEL_PER_UNIT(1)
 {
 	std::string img_filename;
 	std::string gnd_img_filename;
 	
 	//read xml file
-	std::string track_file="data/track.xml";
 	TiXmlDocument doc( track_file.c_str() );
 	bool loadOkay = doc.LoadFile();
 	if ( !loadOkay )

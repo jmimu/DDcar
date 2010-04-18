@@ -32,7 +32,7 @@ Universe::Universe(sf::RenderWindow *_App)
 	b2Vec2 gravity(0.0f, -10.0f*0);
 	bool doSleep = true;
 	world=new b2World(worldAABB, gravity, doSleep);
-	track=new Track(*world,41);
+	track=new Track(*world,"data/track2.xml");
 	
 	//images
 	car_image.LoadFromFile("data/carB.png");
@@ -40,7 +40,7 @@ Universe::Universe(sf::RenderWindow *_App)
 	wheel_image.LoadFromFile("data/wheel.png");
 	boom_image.LoadFromFile("data/star.png");
 	//cars
-	cars.push_back(new Car(*world,70,200,&car_image,&wheel_image,&boom_image));
+	/*cars.push_back(new Car(*world,70,200,&car_image,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,45,260,&car_image2,&wheel_image,&boom_image));
@@ -50,7 +50,18 @@ Universe::Universe(sf::RenderWindow *_App)
 	cars.push_back(new Car(*world,45,340,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,70,360,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image,&boom_image));*/
+	cars.push_back(new Car(*world,35,200,&car_image,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,15,220,&car_image2,&wheel_image,&boom_image));
+	/*cars.push_back(new Car(*world,35,240,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,15,260,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,35,280,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,15,300,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,35,320,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,15,340,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,35,360,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,15,380,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,35,400,&car_image,&wheel_image,&boom_image));*/
 	player1=cars.at(cars.size()-1);
 	
 	//initialiee cars.at(i)->time_last_checkpoint_in_lap to have the starting order
