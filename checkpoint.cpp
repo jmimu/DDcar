@@ -19,7 +19,7 @@
 
 
 #include "checkpoint.hpp"
-
+#include <Box2D.h>
 #include <iostream>
 
 sf::Image Checkpoint::light_off_img;
@@ -105,10 +105,46 @@ bool Checkpoint::test(Car * car)//test if car crosses the checkpoint
 		return false;//too far
 	
 	//if dist to center is >40
+
 	//2nd: create car points
+	b2Vec2 car_points0[4];
+	car_points0[0].x= car->get_w()/2;car_points0[0].y= car->get_h()/2;
+	car_points0[1].x=-car->get_w()/2;car_points0[1].y= car->get_h()/2;
+	car_points0[2].x=-car->get_w()/2;car_points0[2].y=-car->get_h()/2;
+	car_points0[3].x= car->get_w()/2;car_points0[3].y=-car->get_h()/2;
+
+	float cos_a=cos(car->get_main_body()->body->GetAngle());
+	float sin_a=sin(car->get_main_body()->body->GetAngle());
+
+	b2Vec2 car_points[4];
+	for (int i=0;i<4;i++)
+	  {
+	    car_points[i].x= car_points0[i].x * cos_a - car_points0[i].y * sin_a + car->get_x();
+	    car_points[i].y= car_points0[i].x * sin_a + car_points0[i].y * cos_a + car->get_y();
+	  }
+
+
+	//std::cout<<car_points[0].x<<" "<<car_points[0].y<<" : "<<car_points[1].x<<" "<<car_points[1].y<<" : "
+	//	 <<car_points[2].x<<" "<<car_points[2].y<<" : "<<car_points[3].x<<" "<<car_points[3].y<<std::endl;
+
+
 	//3rd: if across line
+	bool is_negative=false;
+	bool is_positive=false;
+	float res=0.0;
+	for (int i=0;i<4;i++)
+	  {
+	    res=a*car_points[i].x + b*car_points[i].y + c;
+	    if (res<=0) is_negative=true;
+	    if (res>=0) is_positive=true;
+	  }
+
+	if (is_negative && is_positive) return true;
+	else return false;
+
+
 	//4th: if in segment
 	
-	return true;
+	//return false;//true;
 }
 

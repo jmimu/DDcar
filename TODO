@@ -1,7 +1,6 @@
 Rapide :
 * reste à lire dans le Track xml : coord_departure, (date, auteur, description)
 * enregistrer meilleur temps et liste des temps pour chaque voiture
-* faire les tests complets de passage de checkpoint
 * Gérer correctement les images des voitures (pas dans universe ?)
 
 
@@ -21,7 +20,7 @@ Important :
 
 Plus tard :
 * IA : permettre d'aller en arrière
-
+* afficher plusieurs pixels pour les traces de pneu
 
 Optimisation :
 
