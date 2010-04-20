@@ -28,8 +28,8 @@
 #include "camera.hpp"
 #include "customcontactlistener.hpp"
 
-static const int32 B2_VELOCITY_ITERATIONS = 6;
-static const int32 B2_POSITION_ITERATIONS = 3;
+static const int32 B2_VELOCITY_ITERATIONS = 10;
+static const int32 B2_POSITION_ITERATIONS = 10;
 static const float32 B2_TIMESTEP = 1.0f / 30.0f;
 
 /*

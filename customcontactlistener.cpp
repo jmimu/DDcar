@@ -25,10 +25,10 @@
 #include <map>
 #include <iostream>
 
-/*CustomContactListener::CustomContactListener()
+CustomContactListener::CustomContactListener()
 {
 	std::cout<<"CustomContactListener !!"<<std::endl;
-}*/
+}
 
 //void CustomContactListener::Add(const b2ContactPoint *point)
 //{
@@ -80,7 +80,7 @@
     }
 }*/
 
-/*void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+/*void CustomContactListener::PostSolve(const b2Contact* contact, const b2ContactImpulse* impulse)
 {
 	std::cout<<"Boom!"<<std::endl;
 }*/

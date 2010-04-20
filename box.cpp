@@ -36,7 +36,10 @@ Box::Box(b2World &world,float _x,float _y,float _w,float _h,float _angle,sf::Col
   */
   
   bodyDef=new b2BodyDef();
-  bodyDef->type = b2_dynamicBody;
+  
+  if (_density>0.0001)
+    bodyDef->type = b2_dynamicBody;
+  
   bodyDef->position.Set(_x, _y);
   bodyDef->angle=_angle;
   

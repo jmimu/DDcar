@@ -28,24 +28,38 @@
  * http://www.box2d.org/wiki/index.php?title=Buffering_ContactPoints (for version 2.0.1)
  * */
 
+#include <iostream>
 
 class CustomContactListener : public b2ContactListener {
 public:
-	CustomContactListener(){};
+	CustomContactListener();
 	/*void Add(const b2ContactPoint *point);
 	void Remove(const b2ContactPoint *point);
 	void Persist(const b2ContactPoint* point);
 	void Result(const b2ContactResult* point);*/
 
 	virtual ~CustomContactListener() {};
-	virtual void BeginContact(b2Contact* contact) { B2_NOT_USED(contact); }
-	virtual void EndContact(b2Contact* contact) { B2_NOT_USED(contact); }
-	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold){};
-	virtual void PostSolve(const b2Contact* contact, const b2ContactImpulse* impulse)
+	virtual void BeginContact(b2Contact* contact) { std::cout<<"BeginContact!"<<contact->IsTouching()<<std::endl; }
+	virtual void EndContact(b2Contact* contact) { std::cout<<"EndContact!"<<std::endl; }
+	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
 	{
-		B2_NOT_USED(contact);
-		B2_NOT_USED(impulse);
-	}
+		b2WorldManifold worldManifold;
+		contact->GetWorldManifold(&worldManifold);
+		b2PointState state1[2], state2[2];
+		b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
+		if (state2[0] == b2_addState)
+		{
+			const b2Body* bodyA = contact->GetFixtureA()->GetBody();
+			const b2Body* bodyB = contact->GetFixtureB()->GetBody();
+			b2Vec2 point = worldManifold.points[0];
+			b2Vec2 vA = bodyA->GetLinearVelocityFromWorldPoint(point);
+			b2Vec2 vB = bodyB->GetLinearVelocityFromWorldPoint(point);
+			float32 approachVelocity = b2Dot(vB - vA, worldManifold.normal);
+			std::cout<<"PreSolve! "<<approachVelocity<<std::endl;
+		}
+	};
+	
+	virtual void PostSolve(const b2Contact* contact, const b2ContactImpulse* impulse) { std::cout<<"PostSolve!"<<std::endl; }
 };
 
 
