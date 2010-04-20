@@ -27,11 +27,14 @@
 
 #define XML_VERSION "0.1"
 
-Track::Track(b2World &world,std::string track_file,int _tile_size)
+Track::Track(b2World &world,std::string track_file,std::vector <Car*> &cars,int _tile_size)
 : walls(),tile_size(_tile_size),trajectory(),checkpoints(),TRACK_PIXEL_PER_UNIT(1),GROUND_PIXEL_PER_UNIT(1)
 {
 	std::string img_filename;
 	std::string gnd_img_filename;
+	
+	std::vector <b2Vec2> starting_pos;
+	std::vector <float> starting_angle;
 	
 	//read xml file
 	TiXmlDocument doc( track_file.c_str() );
@@ -138,7 +141,38 @@ Track::Track(b2World &world,std::string track_file,int _tile_size)
 				walls_wall_el = walls_wall_el->NextSiblingElement("wall");
 			}
 			std::cout<<"walls: "<<walls.size()<<std::endl;
+			
+			
+			//read starting positions
+			TiXmlElement* start_el = root->FirstChildElement("coord_departure");
+			if ( !start_el )
+				throw std::string( "Unable to find 'coord_departure' node !" );
+			
+			TiXmlElement* start_car_el = start_el->FirstChildElement("car");
+			if ( !start_car_el )
+				throw std::string( "Unable to find 'coord_departure>car' node !" );
 
+			while (start_car_el)
+			{
+				TiXmlElement* start_car_x_el = start_car_el->FirstChildElement("x");
+				if ( !start_car_x_el )
+					throw std::string( "Unable to find 'coord_departure>car>x' node !" );
+				TiXmlElement* start_car_y_el = start_car_el->FirstChildElement("y");
+				if ( !start_car_y_el )
+					throw std::string( "Unable to find 'coord_departure>car>y' node !" );
+				TiXmlElement* start_car_a_el = start_car_el->FirstChildElement("a");
+				if ( !start_car_a_el )
+					throw std::string( "Unable to find 'coord_departure>car>a' node !" );
+				
+				b2Vec2 pt;
+				pt.x=atof(start_car_x_el->GetText());
+				pt.y=atof(start_car_y_el->GetText());
+				starting_pos.push_back(pt);
+				starting_angle.push_back(atof(start_car_a_el->GetText()));
+				start_car_el = start_car_el->NextSiblingElement("car");
+			}
+			std::cout<<"starting positions: "<<starting_pos.size()<<std::endl;
+			
 			
 			//read trajectory
 			TiXmlElement* traj_el = root->FirstChildElement("trajectory");
@@ -243,7 +277,12 @@ Track::Track(b2World &world,std::string track_file,int _tile_size)
 	//tire mark image
 	//tire_mark_image.LoadFromFile("data/tire_mark.png");
 
-
+	//setup starting pos:
+	/*for (unsigned int i=0; i<starting_pos.size() && i< cars.size();i++)
+	{
+		cars.at(i)->set_pos(starting_pos.at(i),0*starting_angle.at(i));
+	}*/
+	
 	
 	//swich on first checkpoint
 	checkpoints.at(0)->set_switched_on(true);

@@ -16,4 +16,4 @@ HEADERS += box.hpp camera.hpp car.hpp track.hpp universe.hpp gui.hpp checkpoint.
 SOURCES += box.cpp camera.cpp car.cpp main.cpp track.cpp universe.cpp gui.cpp checkpoint.cpp customcontactlistener.cpp\
 	tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
 
-LIBS += -lbox2d -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+LIBS += -lBox2D -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system

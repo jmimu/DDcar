@@ -1,3 +1,12 @@
+Pb : les murs sont des objets dynamiques ! (mais qui ne tournent pas...)
+
+
+pas moyen de déplacer par la force les voitures après création.
+	=> les créer dans Track ? => lire les xml des voitures et mettre les images en static dans Car
+	=> essayer avec la version suivante de Box2D
+
+
+
 Rapide :
 * reste à lire dans le Track xml : coord_departure, (date, auteur, description)
 * enregistrer meilleur temps et liste des temps pour chaque voiture
@@ -24,6 +33,96 @@ Plus tard :
 
 Optimisation :
 
+Pb box2d 2.1.2:
+error: invalid use of incomplete type ‘struct b2ContactResult’
+(b2ContactResult ne doit plus être utilisé)
 
+***inst box2d 2.1.2:
+Install the project...
+-- Install configuration: ""
+-- Installing: /usr/local/include/Box2D/Box2D.h
+-- Installing: /usr/local/include/Box2D/Collision/b2BroadPhase.h
+-- Installing: /usr/local/include/Box2D/Collision/b2Collision.h
+-- Installing: /usr/local/include/Box2D/Collision/b2Distance.h
+-- Installing: /usr/local/include/Box2D/Collision/b2DynamicTree.h
+-- Installing: /usr/local/include/Box2D/Collision/b2TimeOfImpact.h
+-- Installing: /usr/local/include/Box2D/Collision/Shapes/b2CircleShape.h
+-- Installing: /usr/local/include/Box2D/Collision/Shapes/b2PolygonShape.h
+-- Installing: /usr/local/include/Box2D/Collision/Shapes/b2Shape.h
+-- Installing: /usr/local/include/Box2D/Common/b2BlockAllocator.h
+-- Installing: /usr/local/include/Box2D/Common/b2Math.h
+-- Installing: /usr/local/include/Box2D/Common/b2Settings.h
+-- Installing: /usr/local/include/Box2D/Common/b2StackAllocator.h
+-- Installing: /usr/local/include/Box2D/Dynamics/b2Body.h
+-- Installing: /usr/local/include/Box2D/Dynamics/b2ContactManager.h
+-- Installing: /usr/local/include/Box2D/Dynamics/b2Fixture.h
+-- Installing: /usr/local/include/Box2D/Dynamics/b2Island.h
+-- Installing: /usr/local/include/Box2D/Dynamics/b2TimeStep.h
+-- Installing: /usr/local/include/Box2D/Dynamics/b2World.h
+-- Installing: /usr/local/include/Box2D/Dynamics/b2WorldCallbacks.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Contacts/b2CircleContact.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Contacts/b2Contact.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Contacts/b2ContactSolver.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Contacts/b2PolygonContact.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Contacts/b2TOISolver.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2DistanceJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2FrictionJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2GearJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2Joint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2LineJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2MouseJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2PulleyJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+-- Installing: /usr/local/include/Box2D/Dynamics/Joints/b2WeldJoint.h
+-- Installing: /usr/local/lib/libBox2D.a
+-- Installing: /usr/local/lib/Box2D/Box2D-targets.cmake
+-- Installing: /usr/local/lib/Box2D/Box2D-targets-noconfig.cmake
+-- Installing: /usr/local/lib/Box2D/Box2DConfig.cmake
 
+//apt:
+/usr/include/Box2D
+/usr/include/Box2D/Dynamics
+/usr/include/Box2D/Dynamics/b2ContactManager.h
+/usr/include/Box2D/Dynamics/b2Island.h
+/usr/include/Box2D/Dynamics/Joints
+/usr/include/Box2D/Dynamics/Joints/b2MouseJoint.h
+/usr/include/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+/usr/include/Box2D/Dynamics/Joints/b2Joint.h
+/usr/include/Box2D/Dynamics/Joints/b2DistanceJoint.h
+/usr/include/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+/usr/include/Box2D/Dynamics/Joints/b2PulleyJoint.h
+/usr/include/Box2D/Dynamics/Joints/b2GearJoint.h
+/usr/include/Box2D/Dynamics/b2Body.h
+/usr/include/Box2D/Dynamics/Contacts
+/usr/include/Box2D/Dynamics/Contacts/b2Contact.h
+/usr/include/Box2D/Dynamics/Contacts/b2NullContact.h
+/usr/include/Box2D/Dynamics/Contacts/b2PolyContact.h
+/usr/include/Box2D/Dynamics/Contacts/b2ContactSolver.h
+/usr/include/Box2D/Dynamics/Contacts/b2PolyAndCircleContact.h
+/usr/include/Box2D/Dynamics/Contacts/b2CircleContact.h
+/usr/include/Box2D/Dynamics/b2WorldCallbacks.h
+/usr/include/Box2D/Dynamics/b2World.h
+/usr/include/Box2D/Collision
+/usr/include/Box2D/Collision/Shapes
+/usr/include/Box2D/Collision/Shapes/b2CircleShape.h
+/usr/include/Box2D/Collision/Shapes/b2PolygonShape.h
+/usr/include/Box2D/Collision/Shapes/b2Shape.h
+/usr/include/Box2D/Collision/b2Collision.h
+/usr/include/Box2D/Collision/b2BroadPhase.h
+/usr/include/Box2D/Collision/b2PairManager.h
+/usr/include/Box2D/Common
+/usr/include/Box2D/Common/jtypes.h
+/usr/include/Box2D/Common/Fixed.h
+/usr/include/Box2D/Common/b2Settings.h
+/usr/include/Box2D/Common/b2Math.h
+/usr/include/Box2D/Common/b2BlockAllocator.h
+/usr/include/Box2D/Common/b2StackAllocator.h
+/usr/include/Box2D.h
+/usr/lib
+/usr/lib/libbox2d.a
+/usr/lib/pkgconfig
+/usr/lib/pkgconfig/box2d.pc
+/usr/lib/libbox2d.so
 

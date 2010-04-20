@@ -44,13 +44,61 @@
 		</wall>
 	</walls>
 	<coord_departure>
-		<x_car1>50.0</x_car1>
-		<y_car1>50.0</y_car1>
-		<angle_car1>0.0</angle_car1>
-		<add_vector>
-			<x>0.0</x>
-			<y>30.0</y>
-		</add_vector>
+		<car>
+			<x> 70</x>
+			<y>200</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 45</x>
+			<y>220</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 70</x>
+			<y>240</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 45</x>
+			<y>260</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 70</x>
+			<y>280</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 45</x>
+			<y>300</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 70</x>
+			<y>320</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 45</x>
+			<y>340</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 70</x>
+			<y>360</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 45</x>
+			<y>380</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 70</x>
+			<y>400</y>
+			<a>  0</a>
+		</car>
 	</coord_departure>
 	<trajectory>
 		<point>

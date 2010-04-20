@@ -25,17 +25,27 @@
 #include <Box2D.h>
 
 /* various classes to manage contact points
- * http://www.box2d.org/wiki/index.php?title=Buffering_ContactPoints
+ * http://www.box2d.org/wiki/index.php?title=Buffering_ContactPoints (for version 2.0.1)
  * */
 
 
 class CustomContactListener : public b2ContactListener {
 public:
-	CustomContactListener();
-	void Add(const b2ContactPoint *point);
+	CustomContactListener(){};
+	/*void Add(const b2ContactPoint *point);
 	void Remove(const b2ContactPoint *point);
 	void Persist(const b2ContactPoint* point);
-	void Result(const b2ContactResult* point);
+	void Result(const b2ContactResult* point);*/
+
+	virtual ~CustomContactListener() {};
+	virtual void BeginContact(b2Contact* contact) { B2_NOT_USED(contact); }
+	virtual void EndContact(b2Contact* contact) { B2_NOT_USED(contact); }
+	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold){};
+	virtual void PostSolve(const b2Contact* contact, const b2ContactImpulse* impulse)
+	{
+		B2_NOT_USED(contact);
+		B2_NOT_USED(impulse);
+	}
 };
 
 

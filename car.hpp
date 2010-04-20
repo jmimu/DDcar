@@ -44,6 +44,8 @@ public:
   
   //vector of all the contacts (to the main body) for last time step
   std::vector<b2ContactResult *> contact_list;
+  
+  void set_pos(b2Vec2 pos,float _a){main_body.bodyDef->position=pos;main_body.bodyDef->angle=_a;}
 private:
   bool killOrthogonalVelocity(b2Body* targetBody,float threshold);
   double x,y,h,w;

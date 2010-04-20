@@ -26,13 +26,12 @@ Universe::Universe(sf::RenderWindow *_App)
  : player1(NULL),camera(),App(_App)
 {
 	//create box2d world
-	b2AABB worldAABB;
+	/*b2AABB worldAABB;
 	worldAABB.lowerBound.Set(-1000.0f, -1000.0f);
-	worldAABB.upperBound.Set(10000.0f, 10000.0f);
+	worldAABB.upperBound.Set(10000.0f, 10000.0f);*/
 	b2Vec2 gravity(0.0f, -10.0f*0);
 	bool doSleep = true;
-	world=new b2World(worldAABB, gravity, doSleep);
-	track=new Track(*world,"data/track2.xml");
+	world=new b2World(/*worldAABB,*/ gravity, doSleep);
 	
 	//images
 	car_image.LoadFromFile("data/carB.png");
@@ -64,6 +63,8 @@ Universe::Universe(sf::RenderWindow *_App)
 	cars.push_back(new Car(*world,35,400,&car_image,&wheel_image,&boom_image));
 	player1=cars.at(cars.size()-1);
 	
+	track=new Track(*world,"data/track2.xml",cars);
+	
 	//initialiee cars.at(i)->time_last_checkpoint_in_lap to have the starting order
 	for (int i=0;i<cars.size();i++)
 		cars.at(i)->time_last_checkpoint_in_lap=i;
@@ -79,7 +80,7 @@ Universe::Universe(sf::RenderWindow *_App)
 void Universe::step()
 {
 	bool one_checkpoint_crossed=false;//to know if re-order needed
-	world->Step(B2_TIMESTEP, B2_ITERATIONS);
+	world->Step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS,B2_POSITION_ITERATIONS);
 	for (int i=0;i<cars.size();i++)
 	{
 		sf::Color ground_FR=track->get_ground_nature(cars.at(i)->get_frontR_wheel()->body->GetWorldCenter().x,cars.at(i)->get_frontR_wheel()->body->GetWorldCenter().y);

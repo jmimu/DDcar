@@ -89,13 +89,61 @@
 		</wall>
 	</walls>
 	<coord_departure>
-		<x_car1>50.0</x_car1>
-		<y_car1>50.0</y_car1>
-		<angle_car1>0.0</angle_car1>
-		<add_vector>
-			<x>0.0</x>
-			<y>30.0</y>
-		</add_vector>
+		<car>
+			<x> 35</x>
+			<y>200</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 15</x>
+			<y>220</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 35</x>
+			<y>240</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 15</x>
+			<y>260</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 35</x>
+			<y>280</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 15</x>
+			<y>300</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 35</x>
+			<y>320</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 15</x>
+			<y>340</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 35</x>
+			<y>360</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 15</x>
+			<y>380</y>
+			<a>  0</a>
+		</car>
+		<car>
+			<x> 35</x>
+			<y>400</y>
+			<a>  0</a>
+		</car>
 	</coord_departure>
 	<trajectory>
 		<point>
@@ -206,59 +254,58 @@
 	</trajectory>
 	<checkpoints>
 		<checkpoint>
-			<x1>25</x1>
-			<y1>180</y1>
-			<x2>90</x2>
-			<y2>180</y2>
+			<x1>-5</x1>
+			<y1>170</y1>
+			<x2>49</x2>
+			<y2>170</y2>
 		</checkpoint>
 		<checkpoint>
-			<x1>371</x1>
-			<y1>320</y1>
-			<x2>440</x2>
-			<y2>343</y2>
+			<x1>143</x1>
+			<y1>15</y1>
+			<x2>161</x2>
+			<y2>88</y2>
 		</checkpoint>
-
 		<checkpoint>
-			<x1>25</x1>
-			<y1>320</y1>
-			<x2>90</x2>
+			<x1>490</x1>
+			<y1>6</y1>
+			<x2>436</x2>
+			<y2>61</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>374</x1>
+			<y1>210</y1>
+			<x2>436</x2>
+			<y2>228</y2>
+		</checkpoint>
+		<checkpoint>
+			<x1>223</x1>
+			<y1>363</y1>
+			<x2>276</x2>
 			<y2>320</y2>
 		</checkpoint>
 		<checkpoint>
-			<x1>25</x1>
-			<y1>300</y1>
-			<x2>90</x2>
-			<y2>300</y2>
+			<x1>317</x1>
+			<y1>132</y1>
+			<x2>375</x2>
+			<y2>85</y2>
 		</checkpoint>
 		<checkpoint>
-			<x1>25</x1>
-			<y1>280</y1>
-			<x2>90</x2>
-			<y2>280</y2>
+			<x1>117</x1>
+			<y1>172</y1>
+			<x2>190</x2>
+			<y2>193</y2>
 		</checkpoint>
 		<checkpoint>
-			<x1>25</x1>
-			<y1>260</y1>
-			<x2>90</x2>
-			<y2>260</y2>
+			<x1>231</x1>
+			<y1>384</y1>
+			<x2>149</x2>
+			<y2>383</y2>
 		</checkpoint>
 		<checkpoint>
-			<x1>25</x1>
-			<y1>240</y1>
-			<x2>90</x2>
-			<y2>240</y2>
-		</checkpoint>
-		<checkpoint>
-			<x1>25</x1>
-			<y1>220</y1>
-			<x2>90</x2>
-			<y2>220</y2>
-		</checkpoint>
-		<checkpoint>
-			<x1>25</x1>
-			<y1>200</y1>
-			<x2>90</x2>
-			<y2>200</y2>
+			<x1>51</x1>
+			<y1>400</y1>
+			<x2>-3</x2>
+			<y2>400</y2>
 		</checkpoint>
 
 	</checkpoints>

@@ -25,13 +25,13 @@
 #include <map>
 #include <iostream>
 
-CustomContactListener::CustomContactListener()
+/*CustomContactListener::CustomContactListener()
 {
 	std::cout<<"CustomContactListener !!"<<std::endl;
-}
+}*/
 
-void CustomContactListener::Add(const b2ContactPoint *point)
-{
+//void CustomContactListener::Add(const b2ContactPoint *point)
+//{
   //std::cout<<"Boum !!"<<std::endl;
 	/*Car *gameobject1 = static_cast<Car *> ( point->shape1->GetBody()->GetUserData() );
 	Car *gameobject2 = static_cast<Car *> ( point->shape2->GetBody()->GetUserData() );
@@ -39,15 +39,15 @@ void CustomContactListener::Add(const b2ContactPoint *point)
 	gameobject1->contact_list[point->id.key] = new b2ContactPoint(*point); // copy constructor
 	gameobject2->contact_list[point->id.key] = new b2ContactPoint(*point); // copy constructor again
 	*/
-}
+//}
 
-void CustomContactListener::Persist(const b2ContactPoint* point)
-{
+//void CustomContactListener::Persist(const b2ContactPoint* point)
+//{
 	//std::cout<<"mp."<<std::endl;
-}
+//}
 
-void CustomContactListener::Remove(const b2ContactPoint *point)
-{
+//void CustomContactListener::Remove(const b2ContactPoint *point)
+//{
 	//std::cout<<"ak."<<std::endl;
 	/*Car *p1 = static_cast<Car *> ( point->shape1->GetBody()->GetUserData() );
 	Car *p2 = static_cast<Car *> ( point->shape2->GetBody()->GetUserData() );
@@ -65,20 +65,12 @@ void CustomContactListener::Remove(const b2ContactPoint *point)
 		delete (*iter).second;
 		p2->contact_list.erase(iter);
 	}*/
-}
+//}
 
-void CustomContactListener::Result(const b2ContactResult* point)
+/*void CustomContactListener::Result(const b2ContactResult* point)
 {
   if (fabs(point->normalImpulse)>100)
     {
-      /* std::cout<<"% "<<point->normalImpulse
-	       <<" "<<point->tangentImpulse
-	       <<" "<<point->shape1->GetBody()->GetUserData()
-	       <<" "<<point->shape2->GetBody()->GetUserData()
-	       <<" "<<point->position.x<<","<<point->position.y
-	       <<" "<<point->normal.x<<","<<point->normal.y
-	       <<" "<<std::endl;
-      */
       Car *car1 = static_cast<Car *> ( point->shape1->GetBody()->GetUserData() );
       Car *car2 = static_cast<Car *> ( point->shape2->GetBody()->GetUserData() );
       if (car1!=NULL)
@@ -86,4 +78,10 @@ void CustomContactListener::Result(const b2ContactResult* point)
       if (car2!=NULL)
 	car2->contact_list.push_back(new b2ContactResult(*point));
     }
-}
+}*/
+
+/*void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+{
+	std::cout<<"Boom!"<<std::endl;
+}*/
+

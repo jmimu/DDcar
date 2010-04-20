@@ -65,9 +65,9 @@ bool Car::killOrthogonalVelocity(b2Body* targetBody,float threshold)
 
   b2Vec2 localPoint(0,0);
   b2Vec2 velocity = targetBody->GetLinearVelocityFromLocalPoint(localPoint);
-  b2Vec2 sidewaysAxis = targetBody->GetXForm().R.col2;
+  b2Vec2 sidewaysAxis = targetBody->GetTransform().R.col2;
 
-  b2Vec2 otherAxis = targetBody->GetXForm().R.col1;
+  b2Vec2 otherAxis = targetBody->GetTransform().R.col1;
 
   //std::cout<<b2Dot(velocity,otherAxis)<<std::endl;
 
@@ -96,7 +96,7 @@ void Car::follow(float t_x,float t_y) //AI
 	}
 	
 	
-	b2Vec2 orientation = main_body.body->GetXForm().R.col2;
+	b2Vec2 orientation = main_body.body->GetTransform().R.col2;
 	//std::cout<<"car_to_target ("<<car_to_target.x<<","<<car_to_target.y<<") orientation ("<<orientation.x<<","<<orientation.y<<")"<<std::endl;
 	
 	b2Vec2 car_to_target_colin=orientation;
@@ -146,9 +146,9 @@ double Car::get_speed()
 void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL/*,std::deque <b2Vec2> * tire_marks*/,Track * track)
 {
   //treat contacts !
-  for (unsigned int i=0;i<contact_list.size();i++)
+  /*for (unsigned int i=0;i<contact_list.size();i++)
   {
-	damage+=contact_list.at(i)->normalImpulse/100;
+	damage+=contact_list.at(i)->normalImpulse/100;*/
     /*std::cout<<"=== "<<contact_list.at(i)->normalImpulse
 	   <<" "<<contact_list.at(i)->tangentImpulse
 	   <<" "<<contact_list.at(i)->shape1->GetBody()->GetUserData()
@@ -156,7 +156,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	   <<" "<<contact_list.at(i)->position.x<<","<<contact_list.at(i)->position.y
 	   <<" "<<contact_list.at(i)->normal.x<<","<<contact_list.at(i)->normal.y
 	   <<" "<<std::endl;*/
-	   }
+	   //}
 
   //contacts treated (contact_list is cleared in aff())
 
@@ -226,11 +226,11 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 
 
 	//Driving
-	b2Vec2 direction = frontR_wheel.body->GetXForm().R.col2;
+	b2Vec2 direction = frontR_wheel.body->GetTransform().R.col2;
 	direction*=engineSpeed;
 	frontR_wheel.body->ApplyForce(direction, frontR_wheel.body->GetPosition());
 
-	direction = frontL_wheel.body->GetXForm().R.col2;
+	direction = frontL_wheel.body->GetTransform().R.col2;
 	direction*=engineSpeed;
 	frontL_wheel.body->ApplyForce(direction, frontL_wheel.body->GetPosition());
 
@@ -259,7 +259,7 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
 
 
  //treat contacts !
-  for (unsigned int i=0;i<contact_list.size();i++)
+  /*for (unsigned int i=0;i<contact_list.size();i++)
   {
     //std::cout<<"!!"<<std::endl;
     sf::Sprite spr(*boom_image);
@@ -268,7 +268,7 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
     spr.SetScale(contact_list.at(i)->normalImpulse/4000,contact_list.at(i)->normalImpulse/4000);
     _App->Draw(spr);
     //std::cout<<"!!?"<<std::endl;
-  }
+  }*/
 
   //contacts treated
   contact_list.clear();

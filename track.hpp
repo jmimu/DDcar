@@ -26,6 +26,7 @@
 #include "box.hpp"
 #include <Box2D.h>
 #include <deque>
+#include "car.hpp"
 
 #include "checkpoint.hpp"
 
@@ -37,7 +38,7 @@
 class Track
 {
 	public:
-		Track(b2World &world,std::string track_file,int _tile_size=41);
+		Track(b2World &world,std::string track_file,std::vector <Car*> &cars,int _tile_size=41);
 		std::vector <Box*> walls;
 		void aff(sf::RenderWindow *_App);
 		sf::Color get_ground_nature(float x, float y);
