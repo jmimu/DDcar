@@ -1,4 +1,4 @@
-Pb : pas facile de récupérer les impacts.
+Pb : faire une structure pour les collisions avec point + normalimpact => enreg pour chaque voiture.
 
 
 pas moyen de déplacer par la force les voitures après création.

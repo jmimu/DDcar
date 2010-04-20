@@ -30,6 +30,9 @@
 
 #include <iostream>
 
+
+
+
 class CustomContactListener : public b2ContactListener {
 public:
 	CustomContactListener();
@@ -38,12 +41,13 @@ public:
 	void Persist(const b2ContactPoint* point);
 	void Result(const b2ContactResult* point);*/
 
+
 	virtual ~CustomContactListener() {};
-	virtual void BeginContact(b2Contact* contact) { std::cout<<"BeginContact!"<<contact->IsTouching()<<std::endl; }
-	virtual void EndContact(b2Contact* contact) { std::cout<<"EndContact!"<<std::endl; }
+	virtual void BeginContact(b2Contact* contact) {  }
+	virtual void EndContact(b2Contact* contact) {  }
 	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
 	{
-		b2WorldManifold worldManifold;
+		/*b2WorldManifold worldManifold;
 		contact->GetWorldManifold(&worldManifold);
 		b2PointState state1[2], state2[2];
 		b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
@@ -56,12 +60,12 @@ public:
 			b2Vec2 vB = bodyB->GetLinearVelocityFromWorldPoint(point);
 			float32 approachVelocity = b2Dot(vB - vA, worldManifold.normal);
 			std::cout<<"PreSolve! "<<approachVelocity<<std::endl;
-		}
+		}*/
 	};
 	
-	virtual void PostSolve(const b2Contact* contact, const b2ContactImpulse* impulse) { std::cout<<"PostSolve!"<<std::endl; }
+	virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);// { std::cout<<"PostSolve!"<<std::endl; }
+	
 };
-
 
 
 #endif /*  CUSTOMCONTACTLISTENER_H */ 

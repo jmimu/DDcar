@@ -145,18 +145,18 @@ double Car::get_speed()
 
 void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL/*,std::deque <b2Vec2> * tire_marks*/,Track * track)
 {
-  //treat contacts !
-  /*for (unsigned int i=0;i<contact_list.size();i++)
-  {
-	damage+=contact_list.at(i)->normalImpulse/100;*/
-    /*std::cout<<"=== "<<contact_list.at(i)->normalImpulse
-	   <<" "<<contact_list.at(i)->tangentImpulse
-	   <<" "<<contact_list.at(i)->shape1->GetBody()->GetUserData()
-	   <<" "<<contact_list.at(i)->shape2->GetBody()->GetUserData()
-	   <<" "<<contact_list.at(i)->position.x<<","<<contact_list.at(i)->position.y
-	   <<" "<<contact_list.at(i)->normal.x<<","<<contact_list.at(i)->normal.y
-	   <<" "<<std::endl;*/
-	   //}
+	//treat contacts !
+	/*for (unsigned int i=0;i<contact_list.size();i++)
+	{
+		damage+=contact_list.at(i)->normalImpulse/100;*/
+		/*std::cout<<"=== "<<contact_list.at(i)->normalImpulse
+		<<" "<<contact_list.at(i)->tangentImpulse
+		<<" "<<contact_list.at(i)->shape1->GetBody()->GetUserData()
+		<<" "<<contact_list.at(i)->shape2->GetBody()->GetUserData()
+		<<" "<<contact_list.at(i)->position.x<<","<<contact_list.at(i)->position.y
+		<<" "<<contact_list.at(i)->normal.x<<","<<contact_list.at(i)->normal.y
+		<<" "<<std::endl;*/
+	//}
 
   //contacts treated (contact_list is cleared in aff())
 

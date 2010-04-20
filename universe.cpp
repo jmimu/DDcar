@@ -51,8 +51,8 @@ Universe::Universe(sf::RenderWindow *_App)
 	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image,&boom_image));*/
 	cars.push_back(new Car(*world,35,200,&car_image,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,15,220,&car_image2,&wheel_image,&boom_image));
-	/*cars.push_back(new Car(*world,35,240,&car_image2,&wheel_image,&boom_image));
+	/*cars.push_back(new Car(*world,15,220,&car_image2,&wheel_image,&boom_image));
+	cars.push_back(new Car(*world,35,240,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,15,260,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,35,280,&car_image2,&wheel_image,&boom_image));
 	cars.push_back(new Car(*world,15,300,&car_image2,&wheel_image,&boom_image));
