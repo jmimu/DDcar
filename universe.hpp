@@ -39,7 +39,7 @@ static const float32 B2_TIMESTEP = 1.0f / 30.0f;
 class Universe
 {
 	public:
-		Universe(sf::RenderWindow *_App);
+		Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_cars=10);
 		void step();
 		void render();
 		sf::RenderWindow * get_App(){return App;}

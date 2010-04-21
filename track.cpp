@@ -27,14 +27,11 @@
 
 #define XML_VERSION "0.1"
 
-Track::Track(b2World &world,std::string track_file,std::vector <Car*> &cars,int _tile_size)
+Track::Track(b2World &world,std::string track_file,int _tile_size)
 : walls(),tile_size(_tile_size),trajectory(),checkpoints(),TRACK_PIXEL_PER_UNIT(1),GROUND_PIXEL_PER_UNIT(1)
 {
 	std::string img_filename;
 	std::string gnd_img_filename;
-	
-	std::vector <b2Vec2> starting_pos;
-	std::vector <float> starting_angle;
 	
 	//read xml file
 	TiXmlDocument doc( track_file.c_str() );
@@ -277,13 +274,6 @@ Track::Track(b2World &world,std::string track_file,std::vector <Car*> &cars,int 
 	//tire mark image
 	//tire_mark_image.LoadFromFile("data/tire_mark.png");
 
-	//setup starting pos:
-	/*for (unsigned int i=0; i<starting_pos.size() && i< cars.size();i++)
-	{
-		cars.at(i)->set_pos(starting_pos.at(i),0*starting_angle.at(i));
-	}*/
-	
-	
 	//swich on first checkpoint
 	checkpoints.at(0)->set_switched_on(true);
 }

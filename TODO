@@ -1,14 +1,6 @@
-Pb : faire une structure pour les collisions avec point + normalimpact => enreg pour chaque voiture.
-
-
-pas moyen de déplacer par la force les voitures après création.
-	=> les créer dans Track ? => lire les xml des voitures et mettre les images en static dans Car
-	=> essayer avec la version suivante de Box2D
-
-
-
 Rapide :
-* reste à lire dans le Track xml : coord_departure, (date, auteur, description)
+* Si une IA n'arrive pas à une point de trajectoire, la faire revenir au précédent
+* permettre à l'IA d'aller en arrière
 * enregistrer meilleur temps et liste des temps pour chaque voiture
 * Gérer correctement les images des voitures (pas dans universe ?)
 

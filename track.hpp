@@ -38,12 +38,17 @@
 class Track
 {
 	public:
-		Track(b2World &world,std::string track_file,std::vector <Car*> &cars,int _tile_size=41);
+		Track(b2World &world,std::string track_file,int _tile_size=41);
 		std::vector <Box*> walls;
 		void aff(sf::RenderWindow *_App);
 		sf::Color get_ground_nature(float x, float y);
 		std::vector <b2Vec2> trajectory;
 		std::vector <Checkpoint *> checkpoints;
+
+		std::vector <b2Vec2> starting_pos;
+		std::vector <float> starting_angle;
+	
+
 		
 		void add_pixel(float x,float y,sf::Color c);//change the pixel in the background image
 

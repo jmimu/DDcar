@@ -22,7 +22,7 @@
 
 #include <iostream>
 
-Universe::Universe(sf::RenderWindow *_App)
+Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
  : player1(NULL),camera(),App(_App)
 {
 	//create box2d world
@@ -38,32 +38,19 @@ Universe::Universe(sf::RenderWindow *_App)
 	car_image2.LoadFromFile("data/carC.png");
 	wheel_image.LoadFromFile("data/wheel.png");
 	boom_image.LoadFromFile("data/star.png");
-	//cars
-	/*cars.push_back(new Car(*world,70,200,&car_image,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,45,220,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,70,240,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,45,260,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,70,280,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,45,300,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,70,320,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,45,340,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,70,360,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,45,380,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,70,400,&car_image,&wheel_image,&boom_image));*/
-	cars.push_back(new Car(*world,35,200,&car_image,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,15,220,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,35,240,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,15,260,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,35,280,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,15,300,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,35,320,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,15,340,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,35,360,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,15,380,&car_image2,&wheel_image,&boom_image));
-	cars.push_back(new Car(*world,35,400,&car_image,&wheel_image,&boom_image));
-	player1=cars.at(cars.size()-1);
 	
-	track=new Track(*world,"data/track2.xml",cars);
+		
+	track=new Track(*world,track_filename);
+  	
+	//cars
+	for (unsigned int i=0; i<track->starting_pos.size() && i< nbr_cars;i++)
+	{
+	  cars.push_back(new Car(*world,track->starting_pos.at(i).x,track->starting_pos.at(i).y,
+				 &car_image,&wheel_image,&boom_image));
+	  cars.at(i)->get_main_body()->body->SetTransform(track->starting_pos.at(i), track->starting_angle.at(i));
+	}
+	
+	player1=cars.at(cars.size()-1);
 	
 	//initialiee cars.at(i)->time_last_checkpoint_in_lap to have the starting order
 	for (int i=0;i<cars.size();i++)

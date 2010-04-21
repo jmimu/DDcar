@@ -5,13 +5,14 @@
 #include "track.hpp"
 
 Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_image,sf::Image *_boom_image)
-  : main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
+  : index_trajectory_point_target(0),next_checkpoint_index(0),x(_x),y(_y),h(16),w(8),
+  main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
     frontR_wheel(world,x+3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
     rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    x(_x),y(_y),index_trajectory_point_target(0),next_checkpoint_index(0),h(16),w(8),lap_time(0),last_lap_time(0),
-    nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),boom_image(_boom_image),damage(0)
+    lap_time(0),last_lap_time(0),
+    nbr_checkpoints(0),time_last_checkpoint_in_lap(0),boom_image(_boom_image),rank(0),damage(0)
 {
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;

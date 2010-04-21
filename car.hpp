@@ -72,8 +72,8 @@ private:
 
   sf::Image *boom_image;
 public:
-  long last_lap_time;
   long lap_time;//nb of frames
+  long last_lap_time;
 
   //to order cars
   long nbr_checkpoints;

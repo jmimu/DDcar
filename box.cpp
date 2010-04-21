@@ -2,7 +2,7 @@
 
 
 Box::Box(b2World &world,float _x,float _y,float _w,float _h,float _angle,sf::Color _c,sf::Image *_image,float _density,bool _sensor,float _friction,float _linearDamping,float _angularDamping)
-  : m_w(_w/2),m_h(_h/2),image(_image),PIXEL_PER_UNIT(10)
+  : image(_image),PIXEL_PER_UNIT(10),m_w(_w/2),m_h(_h/2)
 {
   if (image != NULL)
     {
@@ -73,8 +73,8 @@ Box::~Box()
 
 void Box::aff(sf::RenderWindow *_App)
 {
-	b2Vec2 position = body->GetPosition();
-	float32 angle = body->GetAngle();
+  //b2Vec2 position = body->GetPosition();
+  //float32 angle = body->GetAngle();
 	
 	if (image == NULL)
 	{
