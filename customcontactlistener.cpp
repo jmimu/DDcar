@@ -86,26 +86,33 @@ void CustomContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse
 
 	float32 maxImpulse = 0.0f;
 	b2Vec2 contactPoint;
+	b2WorldManifold worldManifold;
+	contact->GetWorldManifold(&worldManifold);
 	for (int32 i = 0; i < count; ++i)
 	{
 		if (impulse->normalImpulses[i]>maxImpulse)
 		{
-			contactPoint=contact->GetManifold()->points[i].localPoint;
+			contactPoint=worldManifold.points[i];
 			maxImpulse = impulse->normalImpulses[i];
 		}
 	}
 	
 	if (maxImpulse<100) return;
 
-	std::cout<<"Boom! "<<maxImpulse<<std::endl;
+	//std::cout<<"Boom! "<<maxImpulse<<std::endl;
 
 	//get the two cars
 	Car *car1 = static_cast<Car *> ( contact->GetFixtureA()->GetBody()->GetUserData() );
 	Car *car2 = static_cast<Car *> ( contact->GetFixtureB()->GetBody()->GetUserData() );
-	
-	/*if (car1!=NULL)
-		car1->contact_list.push_back(new b2ContactResult(*point));
+
+	Car_contact cont;
+	cont.point=contactPoint;
+	cont.normal=maxImpulse;
+	cont.tangent=0.0;
+
+	if (car1!=NULL)
+		car1->contact_list.push_back(cont);
 	if (car2!=NULL)
-		car2->contact_list.push_back(new b2ContactResult(*point));*/
+		car2->contact_list.push_back(cont);
 }
 

@@ -9,6 +9,14 @@
 
 #define MAX_TIRE_MARKS 1000
 
+struct Car_contact
+{
+  b2Vec2 point;
+  float normal;
+  float tangent;
+};
+
+
 class Track;
 
 class Car
@@ -43,7 +51,7 @@ public:
   long new_lap(){last_lap_time=lap_time;lap_time=0;return (last_lap_time);}
   
   //vector of all the contacts (to the main body) for last time step
-  std::vector<b2ContactResult *> contact_list;
+  std::vector<Car_contact> contact_list;
   
   void set_pos(b2Vec2 pos,float _a){main_body.bodyDef->position=pos;main_body.bodyDef->angle=_a;}
 private:

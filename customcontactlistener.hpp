@@ -30,9 +30,6 @@
 
 #include <iostream>
 
-
-
-
 class CustomContactListener : public b2ContactListener {
 public:
 	CustomContactListener();

@@ -146,9 +146,9 @@ double Car::get_speed()
 void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL/*,std::deque <b2Vec2> * tire_marks*/,Track * track)
 {
 	//treat contacts !
-	/*for (unsigned int i=0;i<contact_list.size();i++)
+	for (unsigned int i=0;i<contact_list.size();i++)
 	{
-		damage+=contact_list.at(i)->normalImpulse/100;*/
+		damage+=contact_list.at(i).normal/100;
 		/*std::cout<<"=== "<<contact_list.at(i)->normalImpulse
 		<<" "<<contact_list.at(i)->tangentImpulse
 		<<" "<<contact_list.at(i)->shape1->GetBody()->GetUserData()
@@ -156,7 +156,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 		<<" "<<contact_list.at(i)->position.x<<","<<contact_list.at(i)->position.y
 		<<" "<<contact_list.at(i)->normal.x<<","<<contact_list.at(i)->normal.y
 		<<" "<<std::endl;*/
-	//}
+       }
 
   //contacts treated (contact_list is cleared in aff())
 
@@ -259,16 +259,16 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
 
 
  //treat contacts !
-  /*for (unsigned int i=0;i<contact_list.size();i++)
+  for (unsigned int i=0;i<contact_list.size();i++)
   {
     //std::cout<<"!!"<<std::endl;
     sf::Sprite spr(*boom_image);
     spr.SetCenter(boom_image->GetWidth()/2,boom_image->GetHeight()/2);
-    spr.SetPosition (contact_list.at(i)->position.x ,contact_list.at(i)->position.y);
-    spr.SetScale(contact_list.at(i)->normalImpulse/4000,contact_list.at(i)->normalImpulse/4000);
+    spr.SetPosition (contact_list.at(i).point.x ,contact_list.at(i).point.y);
+    spr.SetScale(contact_list.at(i).normal/4000,contact_list.at(i).normal/4000);
     _App->Draw(spr);
     //std::cout<<"!!?"<<std::endl;
-  }*/
+  }
 
   //contacts treated
   contact_list.clear();
