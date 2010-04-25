@@ -3,7 +3,7 @@ Rapide :
 * permettre à l'IA d'aller en arrière
 * enregistrer meilleur temps et liste des temps pour chaque voiture
 * gestion des pb si noms de fichiers faux (track, images...)
-
+* marques au sol : permettre différentes couleurs, ne toucher qu'un canal...
 
 Ensuite :
 * IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur

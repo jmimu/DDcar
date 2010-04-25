@@ -337,7 +337,8 @@ void Track::add_pixel(float x,float y,sf::Color c)
 	
 	//smooth
 	sf::Color previous=tiles_img[tile_x+nbr_tiles_x*tile_y]->GetPixel(offset_x,offset_y);
-	sf::Color next(previous.r+(c.r-previous.r)/4,previous.g+(c.g-previous.g)/4,previous.b+(c.b-previous.b)/4,255);
+	//sf::Color next(previous.r+(c.r-previous.r)/4,previous.g+(c.g-previous.g)/4,previous.b+(c.b-previous.b)/4,255);
+	sf::Color next(previous.r,previous.g+(c.g-previous.g)/8,previous.b,255);
 	tiles_img[tile_x+nbr_tiles_x*tile_y]->SetPixel(offset_x,offset_y,next);
 }
 

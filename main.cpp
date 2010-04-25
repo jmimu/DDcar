@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 	sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes");
 	App.UseVerticalSync(true);
 	
-	Universe universe(&App,"data/track.xml",50);
+	Universe universe(&App,"data/track2.xml",50);
 	GUI gui(&App);;
 
 	App.SetFramerateLimit(60);
