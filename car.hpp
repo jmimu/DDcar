@@ -22,7 +22,7 @@ class Track;
 class Car
 {
 public:
-  Car(b2World &world,float x,float y,sf::Image *car_image=NULL,sf::Image *wheel_image=NULL,sf::Image *_boom_image=NULL);
+  Car(b2World &world,float x,float y,std::string image_name);
   ~Car();
   void update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL/*,std::deque <b2Vec2> * tire_marks*/,Track * track);
   void aff(sf::RenderWindow *_App,bool infos=false);
@@ -70,7 +70,15 @@ private:
   b2RevoluteJoint* frontRJoint;
   b2RevoluteJoint* frontLJoint;
 
-  sf::Image *boom_image;
+
+  //images
+  static sf::Image wheel_image;
+  static sf::Image boom_image;
+  static std::map<std::string,sf::Image> main_images;
+  static bool images_loaded;
+  static bool load_images();
+  sf::Image * get_image(std::string image_name); // load the new image if not present in main_images
+
 public:
   long lap_time;//nb of frames
   long last_lap_time;

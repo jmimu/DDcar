@@ -4,16 +4,45 @@
 #include <sstream>
 #include "track.hpp"
 
-Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_image,sf::Image *_boom_image)
-  : index_trajectory_point_target(0),next_checkpoint_index(0),x(_x),y(_y),h(16),w(8),
-  main_body(world,x,y,8,16,0.0,sf::Color::Red, car_image,0.2*4,false,0.3*0,0.2*0,1.0),
-    frontR_wheel(world,x+3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    frontL_wheel(world,x-3,y-5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    rearR_wheel(world,x+3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    rearL_wheel(world,x-3,y+5,2,4,0.0,sf::Color::Green,wheel_image,0.2,true),
-    lap_time(0),last_lap_time(0),
-    nbr_checkpoints(0),time_last_checkpoint_in_lap(0),boom_image(_boom_image),rank(0),damage(0)
+sf::Image Car::wheel_image;
+sf::Image Car::boom_image;
+std::map<std::string,sf::Image> Car::main_images;
+bool Car::images_loaded=false;
+
+bool Car::load_images()
 {
+  bool res=true;
+
+  res&=wheel_image.LoadFromFile("data/wheel.png");
+  res&=boom_image.LoadFromFile("data/star.png");
+
+  /*sf::Image car_image1;
+  res&=car_image1.LoadFromFile("data/carA.png");
+  main_images.insert( std::make_pair( "data/carA.png",car_image1  ) );
+  sf::Image car_image2;
+  res&=car_image2.LoadFromFile("data/carB.png");
+  main_images.insert( std::make_pair( "data/carB.png",car_image2  ) );*/
+  
+  images_loaded=true;
+  
+  if (!res)
+    std::cout<<"Error reading car images !"<<std::endl;
+  return res;
+}
+
+
+
+Car::Car(b2World &world,float _x,float _y,std::string image_name)
+  : index_trajectory_point_target(0),next_checkpoint_index(0),x(_x),y(_y),h(16),w(8),
+    main_body(world,x,y,8,16,0.0,sf::Color::Red,get_image(image_name),0.2*4,false,0.3*0,0.2*0,1.0),
+    frontR_wheel(world,x+3.5,y-5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
+    frontL_wheel(world,x-3.5,y-5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
+    rearR_wheel(world,x+3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
+    rearL_wheel(world,x-3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
+    lap_time(0),last_lap_time(0),
+    nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),damage(0)
+{
+
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
 	SIDEWAYS_FRICTION_FORCE = 10;
@@ -56,6 +85,25 @@ Car::Car(b2World &world,float _x,float _y,sf::Image *car_image,sf::Image *wheel_
 Car::~Car()
 {
 	//delete body;
+}
+
+sf::Image * Car::get_image(std::string image_name)
+{
+  if (!images_loaded) load_images();
+
+  std::map<std::string,sf::Image>::iterator iter = main_images.find(image_name);
+  if( iter == main_images.end() ) {
+    std::cout<<"Have to load a new image: "<<image_name<<std::endl;
+    //...
+    sf::Image car_img;
+    if (!car_img.LoadFromFile(image_name))
+      std::cout<<"Error loading image."<<std::endl;
+    main_images.insert( std::make_pair( image_name,car_img ) );
+    iter = main_images.find(image_name);
+  }
+  
+  return &(iter->second);
+
 }
 
 
@@ -263,8 +311,8 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
   for (unsigned int i=0;i<contact_list.size();i++)
   {
     //std::cout<<"!!"<<std::endl;
-    sf::Sprite spr(*boom_image);
-    spr.SetCenter(boom_image->GetWidth()/2,boom_image->GetHeight()/2);
+    sf::Sprite spr(boom_image);
+    spr.SetCenter(boom_image.GetWidth()/2,boom_image.GetHeight()/2);
     spr.SetPosition (contact_list.at(i).point.x ,contact_list.at(i).point.y);
     spr.SetScale(contact_list.at(i).normal/4000,contact_list.at(i).normal/4000);
     _App->Draw(spr);
@@ -282,7 +330,7 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
     oss<<rank<<"  "<<(last_lap_time/6)/10.0<<"\n"<<damage;
     sf::String Hello;
     Hello.SetText(oss.str());
-    Hello.SetColor(sf::Color(0, 128, 128));
+    Hello.SetColor(sf::Color(200, 12, 12));
     Hello.SetPosition(x-10, y-5);
     Hello.SetRotation(15.f);
     Hello.SetSize(10.f);

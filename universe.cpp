@@ -33,20 +33,13 @@ Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_car
 	bool doSleep = true;
 	world=new b2World(/*worldAABB,*/ gravity, doSleep);
 	
-	//images
-	car_image.LoadFromFile("data/carB.png");
-	car_image2.LoadFromFile("data/carC.png");
-	wheel_image.LoadFromFile("data/wheel.png");
-	boom_image.LoadFromFile("data/star.png");
-	
 		
 	track=new Track(*world,track_filename);
   	
 	//cars
 	for (unsigned int i=0; i<track->starting_pos.size() && i< nbr_cars;i++)
 	{
-	  cars.push_back(new Car(*world,track->starting_pos.at(i).x,track->starting_pos.at(i).y,
-				 &car_image,&wheel_image,&boom_image));
+	  cars.push_back(new Car(*world,track->starting_pos.at(i).x,track->starting_pos.at(i).y,"data/carA.png"));
 	  cars.at(i)->get_main_body()->body->SetTransform(track->starting_pos.at(i), track->starting_angle.at(i));
 	}
 	
