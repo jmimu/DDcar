@@ -129,7 +129,10 @@ bool Car::killOrthogonalVelocity(b2Body* targetBody,float threshold)
 
   return skids;
 }
-
+void Car::follow(std::vector<b2Vec2> * trajectory)
+{
+  follow(trajectory->at(index_trajectory_point_target).x,trajectory->at(index_trajectory_point_target).y);
+}
 void Car::follow(float t_x,float t_y) //AI
 {
 	b2Vec2 car_to_target;
@@ -138,13 +141,13 @@ void Car::follow(float t_x,float t_y) //AI
 	
 	float dist_to_target=sqrt(car_to_target.x*car_to_target.x+car_to_target.y*car_to_target.y);
 	
-	if (dist_to_target<30)
+	/*	if (dist_to_target<30)
 	{
 		index_trajectory_point_target++;
 		going_backward=false;//once at the target, no need to continue backwards
 		//std::cout<<"Next point"<<std::endl;
 		return;
-	}
+		}*/
 	
 	
 	b2Vec2 orientation = main_body.body->GetTransform().R.col2;
@@ -242,6 +245,23 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 		<<" "<<contact_list.at(i)->normal.x<<","<<contact_list.at(i)->normal.y
 		<<" "<<std::endl;*/
        }
+
+	//where are we on trajectory ?
+	b2Vec2 car_to_target;
+	car_to_target.x=track->trajectory.at(index_trajectory_point_target).x-main_body.body->GetPosition().x;
+	car_to_target.y=track->trajectory.at(index_trajectory_point_target).y-main_body.body->GetPosition().y;
+	
+	float dist_to_target=sqrt(car_to_target.x*car_to_target.x+car_to_target.y*car_to_target.y);
+	
+	if (dist_to_target<30)
+	{
+		index_trajectory_point_target++;
+		going_backward=false;//once at the target, no need to continue backwards
+		//std::cout<<"Next point"<<std::endl;
+	}
+
+
+
 
   //contacts treated (contact_list is cleared in aff())
 

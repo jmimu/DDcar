@@ -99,7 +99,8 @@ void Universe::step()
 		{
 			if (cars.at(i)->index_trajectory_point_target >= track->trajectory.size())
 				cars.at(i)->index_trajectory_point_target =0;
-			cars.at(i)->follow(track->trajectory.at(cars.at(i)->index_trajectory_point_target).x,track->trajectory.at(cars.at(i)->index_trajectory_point_target).y);
+			//			cars.at(i)->follow(track->trajectory.at(cars.at(i)->index_trajectory_point_target).x,track->trajectory.at(cars.at(i)->index_trajectory_point_target).y);
+			cars.at(i)->follow(&(track->trajectory));
 		}
 	}
 	

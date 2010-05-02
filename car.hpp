@@ -83,6 +83,7 @@ private:
   int nbr_frames_without_tangent_speed;
   bool going_backward;//until next traj point, go backward (to come back from a dead-end)
 public:
+  void follow(std::vector<b2Vec2> * trajectory);
   void follow(float t_x,float t_y);
 
   static sf::Image boom_image;
