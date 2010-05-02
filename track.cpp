@@ -297,6 +297,16 @@ void Track::aff(sf::RenderWindow *_App)
 	for (unsigned int i=0;i<checkpoints.size();i++)
 		checkpoints.at(i)->aff(_App);
 
+	//trajectory
+	for (unsigned int i=0;i<trajectory.size();i++)
+	  {
+	    sf::Sprite spr(Car::boom_image);
+	    spr.SetCenter(Car::boom_image.GetWidth()/2,Car::boom_image.GetHeight()/2);
+	    spr.SetPosition (trajectory.at(i).x ,trajectory.at(i).y);
+	    spr.SetScale(0.1,0.1);
+	    _App->Draw(spr);
+	  }
+
 /*
 	//tire marks
 	std::deque<b2Vec2>::iterator iter1 = tire_marks.begin();

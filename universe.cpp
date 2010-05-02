@@ -23,7 +23,7 @@
 #include <iostream>
 
 Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
- : player1(NULL),camera(),App(_App)
+  : player1(NULL),camera(),App(_App),player1_autopilote(false)
 {
 	//create box2d world
 	/*b2AABB worldAABB;
@@ -95,7 +95,7 @@ void Universe::step()
 		}
 		
 		//AI
-		if (cars.at(i)!=player1)
+		if ((cars.at(i)!=player1) || player1_autopilote)
 		{
 			if (cars.at(i)->index_trajectory_point_target >= track->trajectory.size())
 				cars.at(i)->index_trajectory_point_target =0;

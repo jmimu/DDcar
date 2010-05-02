@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 	sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes");
 	App.UseVerticalSync(true);
 	
-	Universe universe(&App,"data/track2.xml",50);
+	Universe universe(&App,"data/track2.xml",20);
 	GUI gui(&App);;
 
 	App.SetFramerateLimit(60);
@@ -53,6 +53,8 @@ int main(int argc, char** argv)
 		      App.Close();
 		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Space))
 			system("read f");
+		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F1))
+		      universe.player1_autopilote=!universe.player1_autopilote;
 
 	/*		    if ((Event.Type == sf::Event::MouseWheelMoved))
 		    {
@@ -85,11 +87,11 @@ int main(int argc, char** argv)
 		  {
 		    universe.player1->engineSpeed = universe.player1->HORSEPOWERS;
 		  }
-		if (!UpKeyDown && !DownKeyDown)
+		if (!UpKeyDown && !DownKeyDown && !universe.player1_autopilote)
 		  {
 		    universe.player1->engineSpeed = 0.0;
 		  }
-		if (!LeftKeyDown && !RightKeyDown)
+		if (!LeftKeyDown && !RightKeyDown && !universe.player1_autopilote)
 		  {
 		    universe.player1->steeringAngle = 0.0;
 		  }

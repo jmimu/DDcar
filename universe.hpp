@@ -50,6 +50,7 @@ class Universe
 		Car *player1;
 		b2World *world;
 		CustomContactListener contact_listener;
+                bool player1_autopilote;
 	private:
 		Camera camera;
 		sf::RenderWindow *App;

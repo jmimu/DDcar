@@ -39,6 +39,7 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
     frontL_wheel(world,x-3.5,y-5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     rearR_wheel(world,x+3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     rearL_wheel(world,x-3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
+    nbr_frames_without_tangent_speed(0),going_backward(false),
     lap_time(0),last_lap_time(0),
     nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),damage(0)
 {
@@ -129,7 +130,6 @@ bool Car::killOrthogonalVelocity(b2Body* targetBody,float threshold)
   return skids;
 }
 
-
 void Car::follow(float t_x,float t_y) //AI
 {
 	b2Vec2 car_to_target;
@@ -141,6 +141,8 @@ void Car::follow(float t_x,float t_y) //AI
 	if (dist_to_target<30)
 	{
 		index_trajectory_point_target++;
+		going_backward=false;//once at the target, no need to continue backwards
+		//std::cout<<"Next point"<<std::endl;
 		return;
 	}
 	
@@ -158,22 +160,23 @@ void Car::follow(float t_x,float t_y) //AI
 	
 	float dist_normal=sqrt(car_to_target_normal.x*car_to_target_normal.x+car_to_target_normal.y*car_to_target_normal.y);
 	
-	if (dist_to_target>10)
+	if (dist_to_target>30)
 	{
 		if (b2Dot(orientation,car_to_target)>0)
 		{
-			engineSpeed = -HORSEPOWERS;
-			steeringAngle = -MAX_STEER_ANGLE;
-			return;
+			engineSpeed = HORSEPOWERS;
+			//steeringAngle = -MAX_STEER_ANGLE;
+			//return;
 		}else{
 			engineSpeed = -HORSEPOWERS;
 		}
-	}else{
+	}/*else{
 		engineSpeed=0;
 		//point reached => next trajectory point
 		index_trajectory_point_target++;
 		
-	}
+	}*/
+
 	if (dist_normal>10)
 	{
 		if (car_to_target_normal.x*car_to_target_colin.y-car_to_target_colin.x*car_to_target_normal.y>0)
@@ -182,7 +185,31 @@ void Car::follow(float t_x,float t_y) //AI
 			steeringAngle = MAX_STEER_ANGLE;
 	}else 
 		steeringAngle = 0;
-	
+
+	//test if need to go backwards
+	double tangent_speed=get_tangent_speed();
+	if (tangent_speed<0.2)
+	  {
+	    nbr_frames_without_tangent_speed++;
+	    if (nbr_frames_without_tangent_speed>5)
+	      {
+		going_backward=!going_backward;
+		nbr_frames_without_tangent_speed=0;
+	      }
+	  }
+	else
+	  {
+	    nbr_frames_without_tangent_speed=0;
+	  }
+
+	if (going_backward)
+	  {
+	    steeringAngle*=-1;
+	    engineSpeed*=-1;
+	  }
+
+	//std::cout<<tangent_speed<<" "<<nbr_frames_without_tangent_speed<<" "<<going_backward<<" "<<engineSpeed<<std::endl;
+
 }
 
 double Car::get_speed()
@@ -190,6 +217,15 @@ double Car::get_speed()
 	b2Vec2 localPoint(0,0);
 	b2Vec2 velocity = main_body.body->GetLinearVelocityFromLocalPoint(localPoint);
 	return sqrt(velocity.x*velocity.x + velocity.y*velocity.y);
+}
+
+double Car::get_tangent_speed()
+{
+	b2Vec2 localPoint(0,0);
+	b2Vec2 velocity = main_body.body->GetLinearVelocityFromLocalPoint(localPoint);
+	b2Vec2 sidewaysAxis = main_body.body->GetTransform().R.col2;
+	sidewaysAxis*=(b2Dot(velocity,sidewaysAxis));
+	return sqrt(sidewaysAxis.x*sidewaysAxis.x + sidewaysAxis.y*sidewaysAxis.y);
 }
 
 void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf::Color ground_RL/*,std::deque <b2Vec2> * tire_marks*/,Track * track)

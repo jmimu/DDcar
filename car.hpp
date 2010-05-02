@@ -31,7 +31,7 @@ public:
   double get_h(){return h;}
   double get_w(){return w;}
   double get_speed();
-  void follow(float t_x,float t_y);
+  double get_tangent_speed();
   
   double MAX_STEER_ANGLE;
   double STEER_SPEED;
@@ -73,12 +73,21 @@ private:
 
   //images
   static sf::Image wheel_image;
-  static sf::Image boom_image;
   static std::map<std::string,sf::Image> main_images;
   static bool images_loaded;
   static bool load_images();
   sf::Image * get_image(std::string image_name); // load the new image if not present in main_images
 
+
+//IA
+  int nbr_frames_without_tangent_speed;
+  bool going_backward;//until next traj point, go backward (to come back from a dead-end)
+public:
+  void follow(float t_x,float t_y);
+
+  static sf::Image boom_image;
+
+//laps & co.
 public:
   long lap_time;//nb of frames
   long last_lap_time;
