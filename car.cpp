@@ -256,6 +256,9 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	if (dist_to_target<30)
 	{
 		index_trajectory_point_target++;
+		if (index_trajectory_point_target >= track->trajectory.size())
+		  index_trajectory_point_target =0;
+
 		going_backward=false;//once at the target, no need to continue backwards
 		//std::cout<<"Next point"<<std::endl;
 	}
