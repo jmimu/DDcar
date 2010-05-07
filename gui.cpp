@@ -49,7 +49,7 @@ void GUI::draw(float speed)
 	
 	App->SetView(view);
 	
-	hand_spr.SetRotation(-2*previous_speed+135);
+	hand_spr.SetRotation(-previous_speed+135);
 	App->Draw(counter_spr);
 	App->Draw(hand_spr);
 }
