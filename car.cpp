@@ -59,7 +59,7 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
 	SIDEWAYS_FRICTION_FORCE = 10;
-	HORSEPOWERS = 1000*1.8;
+	HORSEPOWERS = 1000*1.6;
 	engineSpeed =0;
 	steeringAngle = 0;
 	
@@ -306,7 +306,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	rearL_wheel.body->SetLinearVelocity(rearL_wheel_velocity);
 	
 	
-	if (killOrthogonalVelocity(frontR_wheel.body,15*0))
+	if (killOrthogonalVelocity(frontR_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
@@ -320,7 +320,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();*/
 	  }
-	if (killOrthogonalVelocity(frontL_wheel.body,15*0))
+	if (killOrthogonalVelocity(frontL_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
@@ -334,7 +334,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();*/
 	  }
-	if (killOrthogonalVelocity(rearR_wheel.body,15*0))
+	if (killOrthogonalVelocity(rearR_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
@@ -348,7 +348,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();*/
 	  }
-	if (killOrthogonalVelocity(rearL_wheel.body,15*0))
+	if (killOrthogonalVelocity(rearL_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
