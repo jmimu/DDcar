@@ -7,6 +7,7 @@
 sf::Image Car::wheel_image;
 sf::Image Car::boom_image;
 std::map<std::string,sf::Image> Car::main_images;
+std::vector<sf::Image *> Car::animation;
 bool Car::images_loaded=false;
 
 bool Car::load_images()
@@ -23,6 +24,15 @@ bool Car::load_images()
   res&=car_image2.LoadFromFile("data/carB.png");
   main_images.insert( std::make_pair( "data/carB.png",car_image2  ) );*/
   
+  sf::Image *img1=new sf::Image();img1->LoadFromFile("data/anim/guy1.png");animation.push_back(img1);
+  sf::Image *img2=new sf::Image();img2->LoadFromFile("data/anim/guy2.png");animation.push_back(img2);
+  sf::Image *img3=new sf::Image();img3->LoadFromFile("data/anim/guy3.png");animation.push_back(img3);
+  sf::Image *img4=new sf::Image();img4->LoadFromFile("data/anim/guy4.png");animation.push_back(img4);
+  sf::Image *img5=new sf::Image();img5->LoadFromFile("data/anim/guy5.png");animation.push_back(img5);
+  sf::Image *img6=new sf::Image();img6->LoadFromFile("data/anim/guy6.png");animation.push_back(img6);
+  sf::Image *img7=new sf::Image();img7->LoadFromFile("data/anim/guy7.png");animation.push_back(img7);
+  sf::Image *img8=new sf::Image();img8->LoadFromFile("data/anim/guy8.png");animation.push_back(img8);
+  
   images_loaded=true;
   
   if (!res)
@@ -34,20 +44,22 @@ bool Car::load_images()
 
 Car::Car(b2World &world,float _x,float _y,std::string image_name)
   : index_trajectory_point_target(0),next_checkpoint_index(0),x(_x),y(_y),h(16),w(8),
-    main_body(world,x,y,8,16,0.0,sf::Color::Red,get_image(image_name),0.2*4,false,0.3*0,0.2*0,1.0),
+    main_body(world,x,y,9,14,0.0,sf::Color::Red,get_image(image_name),0.2*4,false,0.3*0,0.2*0,1.0),
     frontR_wheel(world,x+3.5,y-5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     frontL_wheel(world,x-3.5,y-5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     rearR_wheel(world,x+3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     rearL_wheel(world,x-3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
+    current_image(0.0),
     nbr_frames_without_tangent_speed(0),going_backward(false),
     lap_time(0),last_lap_time(0),
     nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),damage(0)
 {
+	main_body.PIXEL_PER_UNIT=4.5;
 
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
 	SIDEWAYS_FRICTION_FORCE = 10;
-	HORSEPOWERS = 1000*1.8;
+	HORSEPOWERS = 1000*1.6;
 	engineSpeed =0;
 	steeringAngle = 0;
 	
@@ -258,7 +270,6 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 		index_trajectory_point_target++;
 		if (index_trajectory_point_target >= track->trajectory.size())
 		  index_trajectory_point_target =0;
-
 		going_backward=false;//once at the target, no need to continue backwards
 		//std::cout<<"Next point"<<std::endl;
 	}
@@ -295,7 +306,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	rearL_wheel.body->SetLinearVelocity(rearL_wheel_velocity);
 	
 	
-	if (killOrthogonalVelocity(frontR_wheel.body,15*0))
+	if (killOrthogonalVelocity(frontR_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
@@ -309,7 +320,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();*/
 	  }
-	if (killOrthogonalVelocity(frontL_wheel.body,15*0))
+	if (killOrthogonalVelocity(frontL_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
@@ -323,7 +334,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();*/
 	  }
-	if (killOrthogonalVelocity(rearR_wheel.body,15*0))
+	if (killOrthogonalVelocity(rearR_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
@@ -337,7 +348,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    if (tire_marks->size()>MAX_TIRE_MARKS)
 	      tire_marks->pop_front();*/
 	  }
-	if (killOrthogonalVelocity(rearL_wheel.body,15*0))
+	if (killOrthogonalVelocity(rearL_wheel.body,15))
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
@@ -377,12 +388,15 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 
 void Car::aff(sf::RenderWindow *_App,bool infos)
 {
-
+  current_image+=get_speed()/200.0;
+  if ((unsigned int)current_image>=animation.size())
+    current_image=0.0;
+  main_body.sprite.SetImage(*animation.at((unsigned int)current_image));
+  main_body.aff(_App);
   frontR_wheel.aff(_App);
   frontL_wheel.aff(_App);
   rearR_wheel.aff(_App);
   rearL_wheel.aff(_App);
-  main_body.aff(_App);
   
 
 
@@ -409,7 +423,7 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
     oss<<rank<<"  "<<(last_lap_time/6)/10.0<<"\n"<<damage;
     sf::String Hello;
     Hello.SetText(oss.str());
-    Hello.SetColor(sf::Color(200, 12, 12));
+    Hello.SetColor(sf::Color(200, 200, 10,100));
     Hello.SetPosition(x-10, y-5);
     Hello.SetRotation(15.f);
     Hello.SetSize(10.f);

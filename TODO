@@ -1,12 +1,11 @@
 Rapide :
 * Si une IA n'arrive pas à une point de trajectoire, la faire revenir au précédent
-* permettre à l'IA d'aller en arrière
 * enregistrer meilleur temps et liste des temps pour chaque voiture
 * gestion des pb si noms de fichiers faux (track, images...)
-* marques au sol : permettre différentes couleurs, ne toucher qu'un canal...
+* nettoyer la partie animation
+* permettre de ne pas spécifier une image à la création d'un Car. Permettre de choisir l'animation ?x
 
 Ensuite :
-* IA points de trajectoire avec vitesse ? demi-tour si bloqué dans un mur
 * faire un menu => classe race
 * gérer le nombre de tours et le démarrage de la course
 * gérer les dégâts => limite
@@ -16,12 +15,4 @@ Ensuite :
 Important :
 * comment détruire les Box et tout le reste ?
 * découpage des images : la dernière peut ne pas être entière => pb ?
-* réfléchir à l'échelle de tout ça => vraies vitesses et vrais circuits ?
-
-
-Plus tard :
-* IA : permettre d'aller en arrière
-* afficher plusieurs pixels pour les traces de pneu
-
-Optimisation :
 

@@ -39,7 +39,7 @@ Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_car
 	//cars
 	for (unsigned int i=0; i<track->starting_pos.size() && i< nbr_cars;i++)
 	{
-	  cars.push_back(new Car(*world,track->starting_pos.at(i).x,track->starting_pos.at(i).y,"data/carA.png"));
+	  cars.push_back(new Car(*world,track->starting_pos.at(i).x,track->starting_pos.at(i).y,"data/anim/guy1.png"));
 	  cars.at(i)->get_main_body()->body->SetTransform(track->starting_pos.at(i), track->starting_angle.at(i));
 	}
 	

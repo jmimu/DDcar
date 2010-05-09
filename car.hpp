@@ -7,7 +7,6 @@
 
 #include "box.hpp"
 
-#define MAX_TIRE_MARKS 1000
 
 struct Car_contact
 {
@@ -46,8 +45,8 @@ public:
   Box* get_rearR_wheel(){return &rearR_wheel;}
   Box* get_rearL_wheel(){return &rearL_wheel;}
   
-  int index_trajectory_point_target;//index of the point to go to in track->trajectory
-  int next_checkpoint_index;
+  unsigned int index_trajectory_point_target;//index of the point to go to in track->trajectory
+  unsigned int next_checkpoint_index;
   long new_lap(){last_lap_time=lap_time;lap_time=0;return (last_lap_time);}
   
   //vector of all the contacts (to the main body) for last time step
@@ -74,10 +73,12 @@ private:
   //images
   static sf::Image wheel_image;
   static std::map<std::string,sf::Image> main_images;
+  static std::vector<sf::Image*> animation;
   static bool images_loaded;
   static bool load_images();
   sf::Image * get_image(std::string image_name); // load the new image if not present in main_images
 
+  float current_image;
 
 //IA
   int nbr_frames_without_tangent_speed;
