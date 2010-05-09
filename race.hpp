@@ -1,4 +1,4 @@
-//      universe.h
+//      race.hpp
 //      
 //      Copyright 2010  <jmmuller@myhost>
 //      
@@ -18,39 +18,38 @@
 //      MA 02110-1301, USA.
 
 
-#ifndef UNIVERSE_H
-#define UNIVERSE_H
+#ifndef RACE_HPP
+#define RACE_HPP
 
-#include <vector>
+#include <SFML/Graphics.hpp>
+#include "universe.hpp"
+#include "gui.hpp"
+#include "camera.hpp"
 
-#include "track.hpp"
-#include "car.hpp"
-#include "customcontactlistener.hpp"
-
-static const int32 B2_VELOCITY_ITERATIONS = 10;
-static const int32 B2_POSITION_ITERATIONS = 10;
-static const float32 B2_TIMESTEP = 1.0f / 30.0f;
-
-/*
- * All the universe: track, cars, objects...
+/**
+ * A Race is the universe + gui + input
+ * + race data : ranking, nbr of laps, begin/end...
  * 
  * */
-class Universe
+class Race
 {
 	public:
-		Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_cars=10);
-		void step();
-		void render();
-		sf::RenderWindow * get_App(){return App;}
-		
-		Track *track;
-		std::vector <Car*> cars;
-		Car *player1;
-		b2World *world;
-		CustomContactListener contact_listener;
-		bool player1_autopilote;
+		Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars=10);
+		virtual ~Race();
+		bool run();
 	private:
+		Universe universe;
 		sf::RenderWindow *App;
+		GUI gui;
+		const sf::Input& Input;
+		Camera camera;
+		
+		void update();
+		void render();
+		bool introduction();//begining of race
+		double time_to_start;
 };
 
-#endif /* UNIVERSE_H */ 
+#endif /* RACE_HPP */ 
+
+

@@ -11,9 +11,9 @@ CONFIG += debug console
 CONFIG -= qt
 
 # Input
-HEADERS += box.hpp camera.hpp car.hpp track.hpp universe.hpp gui.hpp checkpoint.hpp customcontactlistener.hpp\
+HEADERS += box.hpp camera.hpp car.hpp track.hpp universe.hpp gui.hpp checkpoint.hpp race.hpp customcontactlistener.hpp\
 	tinyxml/tinyxml.h tinyxml/tinystr.h
-SOURCES += box.cpp camera.cpp car.cpp main.cpp track.cpp universe.cpp gui.cpp checkpoint.cpp customcontactlistener.cpp\
+SOURCES += box.cpp camera.cpp car.cpp main.cpp track.cpp universe.cpp gui.cpp checkpoint.cpp race.cpp customcontactlistener.cpp\
 	tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
 
 LIBS += -lBox2D -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system

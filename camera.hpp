@@ -31,6 +31,9 @@ class Camera
 	public:
 		Camera();
 		
+		float zoom_inertia;
+		float plani_inertia;
+		
 		void set_target(float t_x,float t_y,float t_z);
 		sf::View * get_view(){return &view;} 
 		float get_x(){return x;}

@@ -23,7 +23,7 @@
 #include <iostream>
 
 Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
-  : player1(NULL),camera(),App(_App),player1_autopilote(false)
+  : player1(NULL),App(_App),player1_autopilote(false)
 {
 	//create box2d world
 	/*b2AABB worldAABB;
@@ -49,8 +49,7 @@ Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_car
 	for (int i=0;i<cars.size();i++)
 		cars.at(i)->time_last_checkpoint_in_lap=i;
 	
-	camera.set_xy(player1->get_x(),player1->get_y());
-	camera.set_zoom(0.20);
+
 	
 	world->SetContactListener(&contact_listener);
 	
@@ -112,15 +111,12 @@ void Universe::step()
 
 void Universe::render()
 {
-	float point_before_player_x=player1->get_x()+sin(player1->get_main_body()->body->GetAngle())*player1->get_speed()/1.5;
-	float point_before_player_y=player1->get_y()-cos(player1->get_main_body()->body->GetAngle())*player1->get_speed()/1.5;
+
 
 	/*b2Vec2 localPoint(0,0);
 	b2Vec2 velocity = player1->get_main_body()->body->GetLinearVelocityFromLocalPoint(localPoint);
 	std::cout<<"Speed: "<<player1->get_speed()<<" "<<velocity.x<<" "<<velocity.y<<std::endl;*/
 	
-	App->SetView(*camera.get_view());
-	camera.set_target(point_before_player_x,point_before_player_y,player1->get_speed()/10);
 
 	track->aff(App);
 

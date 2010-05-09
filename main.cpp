@@ -21,8 +21,7 @@
 #include "car.hpp"
 #include "box.hpp"
 
-#include "universe.hpp"
-#include "gui.hpp"
+#include "race.hpp"
 
 static const int32 SCREEN_W = 800;//800;
 static const int32 SCREEN_H = 600;//600;
@@ -36,76 +35,18 @@ int main(int argc, char** argv)
 	sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes");
 	App.UseVerticalSync(true);
 	
-	Universe universe(&App,"data/track2.xml",15);
-	GUI gui(&App);;
+	Race race(&App,"data/track2.xml",15);
 
 	App.SetFramerateLimit(60);
 	const sf::Input& Input = App.GetInput();
+	
+	//main menu ?
 
-	while (App.IsOpened())
+	if (race.run())
 	{
-		sf::Event Event;
-		while (App.GetEvent(Event))
-		{
-		    if (Event.Type == sf::Event::Closed)
-		      App.Close();
-		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape))
-		      App.Close();
-		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Space))
-			system("read f");
-		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F1))
-		      universe.player1_autopilote=!universe.player1_autopilote;
-
-	/*		    if ((Event.Type == sf::Event::MouseWheelMoved))
-		    {
-				if (Event.MouseWheel.Delta>0)
-					camera.set_zoom(camera.get_zoom()*1.1);
-				else
-					camera.set_zoom(camera.get_zoom()/1.1);
-			}*/
-		}	
-		bool LeftKeyDown = Input.IsKeyDown(sf::Key::Left);
-		bool RightKeyDown = Input.IsKeyDown(sf::Key::Right);
-		bool UpKeyDown = Input.IsKeyDown(sf::Key::Up);
-		bool DownKeyDown = Input.IsKeyDown(sf::Key::Down);
-
-		if (LeftKeyDown)
-		  {
-		    universe.player1->steeringAngle = -universe.player1->MAX_STEER_ANGLE;
-		  }
-
-		if (RightKeyDown)
-		  {
-		    universe.player1->steeringAngle = universe.player1->MAX_STEER_ANGLE;
-		  }		
-		
-		if (UpKeyDown)
-		  {		
-		    universe.player1->engineSpeed = -universe.player1->HORSEPOWERS;
-		  }
-		if (DownKeyDown)
-		  {
-		    universe.player1->engineSpeed = universe.player1->HORSEPOWERS;
-		  }
-		if (!UpKeyDown && !DownKeyDown && !universe.player1_autopilote)
-		  {
-		    universe.player1->engineSpeed = 0.0;
-		  }
-		if (!LeftKeyDown && !RightKeyDown && !universe.player1_autopilote)
-		  {
-		    universe.player1->steeringAngle = 0.0;
-		  }
-
-		universe.step();
-		
-		App.Clear();
-		universe.render();
-
-		gui.draw(universe.player1->get_speed());
-		
-		App.Display();
-
+		App.Close();
+		return 0;
 	}
-
+	
 	return 0;
 }

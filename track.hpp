@@ -51,6 +51,9 @@ class Track
 
 		
 		void add_pixel(float x,float y,sf::Color c);//change the pixel in the background image
+		
+		float x_size(){return tile_size*nbr_tiles_x/TRACK_PIXEL_PER_UNIT;}
+		float y_size(){return tile_size*nbr_tiles_y/TRACK_PIXEL_PER_UNIT;}
 
   //std::deque <b2Vec2> tire_marks;//modified by cars
 	private:

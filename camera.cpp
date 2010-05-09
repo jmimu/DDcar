@@ -21,18 +21,18 @@
 #include "camera.hpp"
 
 Camera::Camera()
- : x(0),y(0),zoom(1),view()
+ : zoom_inertia(50),plani_inertia(10),x(0),y(0),zoom(1),view()
 {
 	//don't forget to set the view to the application !
 }
 
 void Camera::set_target(float t_x,float t_y,float t_z)
 {
-	x+=(t_x-x)/10;
-	y+=(t_y-y)/10;
+	x+=(t_x-x)/plani_inertia;
+	y+=(t_y-y)/plani_inertia;
 	float target_zoom=12-t_z/0.8;
 	
-	zoom+=(target_zoom-zoom)/50;
+	zoom+=(target_zoom-zoom)/zoom_inertia;
 	
 	view.SetCenter(x, y);
 	view.SetHalfSize(400.0/zoom,300.0/zoom);
