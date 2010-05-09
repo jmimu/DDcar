@@ -2,6 +2,7 @@ Rapide :
 * gestion des images de circuit comme pour les voitures, pour pas tout recharger au redémarrage de la course => attention à vider à la prochaine
 * compter les tours, faire une fin de course. Comment on finit la course ?
 * faire une classe Game qui enregistre l'avancement dans le jeu : liste des courses, prochaine course, score...
+	liste des joueurs, et on refabrique leurs Car à chaque course
 
 
 * Si une IA n'arrive pas à une point de trajectoire, la faire revenir au précédent

@@ -14,8 +14,8 @@ bool Car::load_images()
 {
   bool res=true;
 
-  res&=wheel_image.LoadFromFile("data/wheel2.png");
-  res&=boom_image.LoadFromFile("data/star.png");
+  res&=wheel_image.LoadFromFile("data/wheel2.png");wheel_image.SetSmooth(false);
+  res&=boom_image.LoadFromFile("data/star.png");boom_image.SetSmooth(false);
 
   /*sf::Image car_image1;
   res&=car_image1.LoadFromFile("data/carA.png");
@@ -24,14 +24,14 @@ bool Car::load_images()
   res&=car_image2.LoadFromFile("data/carB.png");
   main_images.insert( std::make_pair( "data/carB.png",car_image2  ) );*/
   
-  sf::Image *img1=new sf::Image();img1->LoadFromFile("data/anim/guy1.png");animation.push_back(img1);
-  sf::Image *img2=new sf::Image();img2->LoadFromFile("data/anim/guy2.png");animation.push_back(img2);
-  sf::Image *img3=new sf::Image();img3->LoadFromFile("data/anim/guy3.png");animation.push_back(img3);
-  sf::Image *img4=new sf::Image();img4->LoadFromFile("data/anim/guy4.png");animation.push_back(img4);
-  sf::Image *img5=new sf::Image();img5->LoadFromFile("data/anim/guy5.png");animation.push_back(img5);
-  sf::Image *img6=new sf::Image();img6->LoadFromFile("data/anim/guy6.png");animation.push_back(img6);
-  sf::Image *img7=new sf::Image();img7->LoadFromFile("data/anim/guy7.png");animation.push_back(img7);
-  sf::Image *img8=new sf::Image();img8->LoadFromFile("data/anim/guy8.png");animation.push_back(img8);
+  sf::Image *img1=new sf::Image();img1->LoadFromFile("data/anim/guy1.png");animation.push_back(img1);img1->SetSmooth(false);
+  sf::Image *img2=new sf::Image();img2->LoadFromFile("data/anim/guy2.png");animation.push_back(img2);img2->SetSmooth(false);
+  sf::Image *img3=new sf::Image();img3->LoadFromFile("data/anim/guy3.png");animation.push_back(img3);img3->SetSmooth(false);
+  sf::Image *img4=new sf::Image();img4->LoadFromFile("data/anim/guy4.png");animation.push_back(img4);img4->SetSmooth(false);
+  sf::Image *img5=new sf::Image();img5->LoadFromFile("data/anim/guy5.png");animation.push_back(img5);img5->SetSmooth(false);
+  sf::Image *img6=new sf::Image();img6->LoadFromFile("data/anim/guy6.png");animation.push_back(img6);img6->SetSmooth(false);
+  sf::Image *img7=new sf::Image();img7->LoadFromFile("data/anim/guy7.png");animation.push_back(img7);img7->SetSmooth(false);
+  sf::Image *img8=new sf::Image();img8->LoadFromFile("data/anim/guy8.png");animation.push_back(img8);img8->SetSmooth(false);
   
   images_loaded=true;
   

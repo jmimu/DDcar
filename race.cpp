@@ -23,7 +23,7 @@
 #include <sstream>
 
 Race::Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
-	: status(before),App(_App),universe(_App,track_filename,nbr_cars),gui(App),Input(App->GetInput()),camera(),time_to_start(5.0)
+	: status(before),App(_App),universe(_App,track_filename,nbr_cars),gui(App),Input(App->GetInput()),camera(),time_to_start(3.0)
 {
 	camera.set_xy(universe.player1->get_x(),universe.player1->get_y());
 	camera.set_zoom(0.20);
@@ -159,7 +159,16 @@ bool Race::introduction()
 	time_to_start-=1.0/60.0;
 	camera.zoom_inertia=1000;
 	camera.plani_inertia=100;
-	
+	if (time_to_start<2)
+	{
+		camera.zoom_inertia=500;
+		camera.plani_inertia=60;
+	}
+	if (time_to_start<1)
+	{
+		camera.zoom_inertia=200;
+		camera.plani_inertia=30;
+	}
 	if (time_to_start<0)
 	{
 		camera.zoom_inertia=50;
