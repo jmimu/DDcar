@@ -23,7 +23,7 @@
 #include <sstream>
 
 Race::Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
-	: App(_App),universe(_App,track_filename,nbr_cars),gui(App),Input(App->GetInput()),camera(),time_to_start(5.0)
+	: status(before),App(_App),universe(_App,track_filename,nbr_cars),gui(App),Input(App->GetInput()),camera(),time_to_start(5.0)
 {
 	camera.set_xy(universe.player1->get_x(),universe.player1->get_y());
 	camera.set_zoom(0.20);
@@ -42,29 +42,31 @@ bool Race::run()
 	bool quit_game=false;
 	
 	//initial cam position
-	camera.set_xy(universe.track->x_size(),universe.track->y_size());
-	camera.set_zoom(0.01);
+	camera.set_xy(universe.track->x_size()/2,universe.track->y_size()/2);
+	camera.set_zoom(0.5);
 	
 	while (race_continue)
 	{
 		sf::Event Event;
 		while (App->GetEvent(Event))
 		{
-		    if (Event.Type == sf::Event::Closed)
-		    {
-		      race_continue=false;
-		      quit_game=true;
-		    }
-		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape))
-		      race_continue=false;
-		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Space))
-			system("read f");
-		    if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F1))
-		      universe.player1_autopilote=!universe.player1_autopilote;
+			if ((Event.Type == sf::Event::Closed) ||
+				((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape)) )
+			{
+				race_continue=false;
+				quit_game=true;
+			}
+			if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F2))
+				race_continue=false;
+			if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Space))
+				system("read f");
+			if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F1))
+				universe.player1_autopilote=!universe.player1_autopilote;
 		}
 
-		if (introduction())
-			update();
+		if ((status == before)||(status == start)) introduction();
+		else if (status == during) update();
+		
 		render();
 	}
 
@@ -123,7 +125,7 @@ void Race::render()
 	gui.draw(universe.player1->get_speed());
 
 
-	if (time_to_start>0)
+	if (status == before)
 	{
 		std::ostringstream oss;
 		oss<<"Start: "<<(int)(time_to_start+0.99)<<"s";
@@ -131,9 +133,20 @@ void Race::render()
 		Hello.SetText(oss.str());
 		Hello.SetColor(sf::Color(200, 00, 10,200));
 		//Hello.SetPosition(0*GUI_WIN_W/2+100, 0*GUI_WIN_H/2+50);
-		Hello.SetPosition(GUI_WIN_W*0.75-50, GUI_WIN_H*0.75-20);
-		//Hello.SetRotation(15.f);
-		//Hello.SetSize(20.f);
+		Hello.SetPosition(-50,-20);
+		Hello.SetRotation(15.f);
+		Hello.SetSize(200.f);
+		App->Draw(Hello);
+	}
+	if (status == start)
+	{
+		sf::String Hello;
+		Hello.SetText("Go!");
+		Hello.SetColor(sf::Color(200, 00, 10,200));
+		//Hello.SetPosition(0*GUI_WIN_W/2+100, 0*GUI_WIN_H/2+50);
+		Hello.SetPosition(-10,-20);
+		Hello.SetRotation(15.f);
+		Hello.SetSize(200.f);
 		App->Draw(Hello);
 	}
 
@@ -143,15 +156,19 @@ void Race::render()
 ///begining of race (true : race started)
 bool Race::introduction()
 {
-	if (time_to_start<0) return true;
 	time_to_start-=1.0/60.0;
-	camera.zoom_inertia=200;
-	camera.plani_inertia=200;
+	camera.zoom_inertia=1000;
+	camera.plani_inertia=100;
 	
 	if (time_to_start<0)
 	{
 		camera.zoom_inertia=50;
 		camera.plani_inertia=10;
+		status = start;
+	}
+	if (time_to_start<-0.3)
+	{
+		status = during;
 	}
 	return false;
 }

@@ -35,18 +35,20 @@ int main(int argc, char** argv)
 	sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes");
 	App.UseVerticalSync(true);
 	
-	Race race(&App,"data/track2.xml",15);
-
 	App.SetFramerateLimit(60);
 	const sf::Input& Input = App.GetInput();
 	
 	//main menu ?
-
-	if (race.run())
+	bool quit_game=false;
+	while (!quit_game)
 	{
-		App.Close();
-		return 0;
+		Race race(&App,"data/track.xml",15);
+		if (race.run())
+		{
+			quit_game=true;
+		}
 	}
-	
+	App.Close();
+
 	return 0;
 }

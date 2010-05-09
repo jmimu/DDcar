@@ -26,6 +26,11 @@
 #include "gui.hpp"
 #include "camera.hpp"
 
+enum race_status
+{
+	before,start,during,after
+};
+
 /**
  * A Race is the universe + gui + input
  * + race data : ranking, nbr of laps, begin/end...
@@ -38,6 +43,8 @@ class Race
 		virtual ~Race();
 		bool run();
 	private:
+		race_status status;
+		
 		Universe universe;
 		sf::RenderWindow *App;
 		GUI gui;
