@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = DDcar
 DEPENDPATH += .
-INCLUDEPATH += .
+INCLUDEPATH += . lib 
 
 CONFIG += debug console
 CONFIG -= qt
@@ -16,4 +16,4 @@ HEADERS += box.hpp camera.hpp car.hpp track.hpp universe.hpp gui.hpp checkpoint.
 SOURCES += box.cpp camera.cpp car.cpp main.cpp track.cpp universe.cpp gui.cpp checkpoint.cpp race.cpp customcontactlistener.cpp\
 	tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
 
-LIBS += -lBox2D -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+LIBS += libBox2D.a -lsfml-graphics -lsfml-window -lsfml-system
