@@ -1,3 +1,9 @@
+Règles :
+Une classe abstraite "DDc_Rule" : Nom, description, info (pendant la course), init(), is_won(), is_lost(), update()
+rules_manager.h qui donne les fonctions  globales d'utilisation des règles create_rule(int rule_type).
+get_rule_title(int rule_type),...
+
+
 Rapide :
 * gestion des images de circuit comme pour les voitures, pour pas tout recharger au redémarrage de la course => attention à vider à la prochaine
 * compter les tours, faire une fin de course. Comment on finit la course ?

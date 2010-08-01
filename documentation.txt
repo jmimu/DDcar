@@ -30,6 +30,6 @@ DDcar's documentation
 2 Add a new rule
 2.1 Create a new rule class
 	Herits from DDcar_Rule
-2.2 Add this rule to rules_handler.h
+2.2 Add this rule to rules_manager.h
 
 
