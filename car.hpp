@@ -47,7 +47,7 @@ public:
   
   unsigned int index_trajectory_point_target;//index of the point to go to in track->trajectory
   unsigned int next_checkpoint_index;
-  long new_lap(){last_lap_time=lap_time;lap_time=0;return (last_lap_time);}
+  long new_lap(){last_lap_time=lap_time;lap_time=0;nbr_laps++;return (last_lap_time);}
   
   //vector of all the contacts (to the main body) for last time step
   std::vector<Car_contact> contact_list;
@@ -93,6 +93,7 @@ public:
 public:
   long lap_time;//nb of frames
   long last_lap_time;
+  long nbr_laps;
 
   //to order cars
   long nbr_checkpoints;

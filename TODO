@@ -6,6 +6,10 @@ get_rule_title(int rule_type),...
 Les règles et les missions (défis?) ne sont pas la même chose: une mission c'est une règle et des conditions de départ
 (par exemple finir premier sur tel circuit, tant de concurrents et départ à cette position).
 
+Petit problème avec les règles : on peut pas faire de virtual static, donc les noms et descriptions peuvent pas être static.
+D'un côté c'est pas plus mal pour pouvoir mettre des paramètres.
+mettre la liste des types de règles dans un namespace
+
 
 Rapide :
 * gestion des images de circuit comme pour les voitures, pour pas tout recharger au redémarrage de la course => attention à vider à la prochaine

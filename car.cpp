@@ -51,7 +51,7 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
     rearL_wheel(world,x-3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     current_image(0.0),
     nbr_frames_without_tangent_speed(0),going_backward(false),
-    lap_time(0),last_lap_time(0),
+    lap_time(0),last_lap_time(0),nbr_laps(-1),
     nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),damage(0)
 {
 	main_body.PIXEL_PER_UNIT=4.5;
@@ -420,7 +420,7 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
   {
     //draw infromation
     std::ostringstream oss;
-    oss<<rank<<"  "<<(last_lap_time/6)/10.0<<"\n"<<damage;
+    oss<<rank<<"  "<<(last_lap_time/6)/10.0<<"\n"<<damage<<"  "<<nbr_laps;
     sf::String Hello;
     Hello.SetText(oss.str());
     Hello.SetColor(sf::Color(200, 200, 10,100));

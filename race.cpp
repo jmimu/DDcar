@@ -29,7 +29,7 @@ Race::Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
     camera.set_xy(universe.player1->get_x(),universe.player1->get_y());
     camera.set_zoom(0.20);
 
-    rule=create_rule(be_first);
+    rule=create_rule(laps,2);
     rule->set_universe(get_universe());
 }
 
@@ -138,7 +138,7 @@ void Race::render()
 
         {
             std::ostringstream oss;
-            oss<<"Objective: "<<rule->reminder;
+            oss<<"Goal: "<<rule->reminder();
             sf::String Hello;
             Hello.SetText(oss.str());
             Hello.SetColor(sf::Color(200, 00, 10,200));

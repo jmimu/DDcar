@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     (void) argv;
 
     // Create main window
-    sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes", sf::Style::Fullscreen);
+    sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "DDcar"/*, sf::Style::Fullscreen*/);
     App.UseVerticalSync(true);
 
     App.SetFramerateLimit(60);

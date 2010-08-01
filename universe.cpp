@@ -76,7 +76,7 @@ void Universe::step()
 		//std::cout<<"test "<<checkpoint_index<<std::endl;
 		if (track->checkpoints.at(checkpoint_index)->test(cars.at(i)))
 		{
-                    if (checkpoint_index==0) //start line
+                    if (checkpoint_index==0) //start line => this is a new lap !
                     {
                         cars.at(i)->new_lap();
                         //double lap_time=cars.at(i)->new_lap()/60.0;

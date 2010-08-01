@@ -26,7 +26,8 @@ HEADERS += box.hpp \
     tinyxml/tinystr.h \
     rules/rule.h \
     rules/rules_manager.h \
-    rules/rule_first.h
+    rules/rule_first.h \
+    rules/rule_laps.h
 SOURCES += box.cpp \
     camera.cpp \
     car.cpp \
@@ -42,8 +43,9 @@ SOURCES += box.cpp \
     tinyxml/tinyxmlerror.cpp \
     tinyxml/tinyxmlparser.cpp \
     rules/rule.cpp \
+    rules/rules_manager.cpp \
     rules/rule_first.cpp \
-    rules/rules_manager.cpp
+    rules/rule_laps.cpp
 LIBS += libBox2D.a \
     -lsfml-graphics \
     -lsfml-window \

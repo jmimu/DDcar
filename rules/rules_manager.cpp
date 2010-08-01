@@ -1,6 +1,6 @@
 #include "rules_manager.h"
 
-Rule* create_rule(rule_type t)
+Rule* create_rule(rule_type t,int option1)
 {
     Rule* r=NULL;
     switch (t)
@@ -8,6 +8,10 @@ Rule* create_rule(rule_type t)
         //here add your rule constructor
         case be_first:
             r=new Rule_First();
+            break;
+        case laps:
+            r=new Rule_Laps(option1);
+            break;
     }
     return r;
 }

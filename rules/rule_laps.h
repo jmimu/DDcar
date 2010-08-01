@@ -1,18 +1,21 @@
-#ifndef RULE_FIRST_H
-#define RULE_FIRST_H
+#ifndef RULE_LAPS_H
+#define RULE_LAPS_H
 
 #include "rule.h"
 
-class Rule_First : public Rule
+class Rule_Laps : public Rule
 {
 public:
-    Rule_First();
-    virtual ~Rule_First();
+    Rule_Laps(int _nbr_laps);
+    virtual ~Rule_Laps();
     virtual bool update();//true if something happened
 
     virtual std::string title();
     virtual std::string description();
     virtual std::string reminder();
+
+private:
+    long nbr_laps;
 };
 
-#endif // RULE_FIRST_H
+#endif // RULE_LAPS_H
