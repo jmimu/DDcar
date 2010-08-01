@@ -54,9 +54,12 @@ class Race
         const sf::Input& Input;
         Camera camera;
 
+        Rule * rule;
+
         void update();
         void render();
         bool introduction();//begining of race
+        bool conclusion();//end of race
         double time_to_start;
 };
 

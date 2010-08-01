@@ -23,16 +23,20 @@
 #include <sstream>
 
 Race::Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
-        : status(before),universe(_App,track_filename,nbr_cars),App(_App),gui(App),Input(App->GetInput()),camera(),time_to_start(3.0)
+        : status(before),universe(_App,track_filename,nbr_cars),App(_App),gui(App),
+        Input(App->GetInput()),camera(),rule(NULL),time_to_start(3.0)
 {
-	camera.set_xy(universe.player1->get_x(),universe.player1->get_y());
-	camera.set_zoom(0.20);
+    camera.set_xy(universe.player1->get_x(),universe.player1->get_y());
+    camera.set_zoom(0.20);
+
+    rule=create_rule(be_first);
+    rule->set_universe(get_universe());
 }
 
 
 Race::~Race()
 {
-	
+    delete rule;
 }
 
 //return true if asked to quit game
@@ -66,7 +70,15 @@ bool Race::run()
 
 		if ((status == before)||(status == start)) introduction();
 		else if (status == during) update();
-		
+                else if (status == after) if (conclusion()) race_continue=false;
+
+                if ((status == during) && (rule->update()))//rule is completed
+                {
+                    time_to_start=1;
+                    status= after;
+                    camera.set_zoom(0.5);
+                }
+
 		render();
 	}
 
@@ -149,7 +161,22 @@ void Race::render()
 		Hello.SetSize(200.f);
 		App->Draw(Hello);
 	}
-
+        if (status == after)
+        {
+                sf::String Hello;
+                if (rule->is_won())
+                {
+                    Hello.SetText("Won!");
+                }else{
+                    Hello.SetText("Lost!");
+                }
+                Hello.SetColor(sf::Color(200, 00, 10,200));
+                //Hello.SetPosition(0*GUI_WIN_W/2+100, 0*GUI_WIN_H/2+50);
+                Hello.SetPosition(-10,-20);
+                Hello.SetRotation(15.f);
+                Hello.SetSize(200.f);
+                App->Draw(Hello);
+        }
 	App->Display();
 }
 
@@ -180,4 +207,16 @@ bool Race::introduction()
 		status = during;
 	}
 	return false;
+}
+
+///end of race (true : finished)
+bool Race::conclusion()
+{
+        time_to_start-=1.0/60.0;
+
+        if (time_to_start<0)
+        {
+                return true;
+        }
+        return false;
 }

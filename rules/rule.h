@@ -14,9 +14,9 @@ public:
     bool is_finished(){return finished;}
     bool is_won(){return won;}
 
-    virtual std::string title()=0;
-    virtual std::string description()=0;
-    virtual std::string reminder()=0;
+    static std::string title;
+    static std::string description;
+    static std::string reminder;
 protected:
     Universe* universe;
     bool finished;

@@ -11,9 +11,6 @@ public:
     virtual bool update();//true if something happened
 
 
-    virtual std::string title(){return "Be first";}
-    virtual std::string description(){return "Become first as soon as possible";}
-    virtual std::string reminder(){return "Become first!";}
 };
 
 #endif // RULE_FIRST_H

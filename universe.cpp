@@ -49,7 +49,8 @@ Universe::Universe(sf::RenderWindow *_App,std::string track_filename,unsigned in
         for (unsigned int i=0;i<cars.size();i++)
 		cars.at(i)->time_last_checkpoint_in_lap=i;
 	
-
+        for (unsigned int i=0;i<cars.size();i++)
+                cars.at(i)->rank=i+1;
 	
 	world->SetContactListener(&contact_listener);
 	
