@@ -3,13 +3,15 @@ Une classe abstraite "DDc_Rule" : Nom, description, info (pendant la course), in
 rules_manager.h qui donne les fonctions  globales d'utilisation des règles create_rule(int rule_type).
 get_rule_title(int rule_type),...
 
+Les règles et les missions (défis?) ne sont pas la même chose: une mission c'est une règle et des conditions de départ
+(par exemple finir premier sur tel circuit, tant de concurrents et départ à cette position).
+
 
 Rapide :
 * gestion des images de circuit comme pour les voitures, pour pas tout recharger au redémarrage de la course => attention à vider à la prochaine
 * compter les tours, faire une fin de course. Comment on finit la course ?
 * faire une classe Game qui enregistre l'avancement dans le jeu : liste des courses, prochaine course, score...
 	liste des joueurs, et on refabrique leurs Car à chaque course
-
 
 * Si une IA n'arrive pas à une point de trajectoire, la faire revenir au précédent
 * enregistrer meilleur temps et liste des temps pour chaque voiture
@@ -23,8 +25,29 @@ Ensuite :
 * gérer les dégâts => limite
 * Permettre des Box circulaire
 
-
 Important :
 * comment détruire les Box et tout le reste ?
 * découpage des images : la dernière peut ne pas être entière => pb ?
+
+Bonus :
+* eau
+* nourriture
+* crochet
+* fatigue : 3 boutons de niveaux de vitesse. une jauge d'énergie qui monte ou descend en fonction de ça.
+
+Mini-jeux :
+* être premier le plus vite possible
+* être premier en un minimum de tours (ou de distance ?)
+* premier minimum de dégâts
+* arriver à mieux que tel temps au tour
+* en dépasser le max au 1er tour
+* tenir le plus longtemps 1er
+* tenir le plus longtemps 1er sans dégâts
+* tenir la plus grande distance premier
+* tenir la plus grande distance premier sans dégâts
+
+Championnats :
+* par ordre d'arrivée (3-5-10 tours)
+* par meilleur tour pour pondérer les points de l'ordre (3-5-10 tours)
+* par minimum de dégâts pour pondérer les points de l'ordre (3-5-10 tours)
 

@@ -28,7 +28,7 @@ sf::Image Checkpoint::light_on_img;
 bool Checkpoint::img_loaded=false;
 
 Checkpoint::Checkpoint(float _x1,float _y1,float _x2,float _y2)
-: x1(_x1),y1(_y1),x2(_x2),y2(_y2),switched_on(false),xc((x1+x2)/2),yc((y1+y2)/2)
+: x1(_x1),y1(_y1),x2(_x2),y2(_y2),xc((x1+x2)/2),yc((y1+y2)/2),switched_on(false)
 {
 	if (!img_loaded)
 	{

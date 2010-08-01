@@ -25,6 +25,8 @@
 #include "universe.hpp"
 #include "gui.hpp"
 #include "camera.hpp"
+#include "rules/rule.h"
+#include "rules/rules_manager.h"
 
 enum race_status
 {
@@ -38,23 +40,24 @@ enum race_status
  * */
 class Race
 {
-	public:
-		Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars=10);
-		virtual ~Race();
-		bool run();
-	private:
-		race_status status;
-		
-		Universe universe;
-		sf::RenderWindow *App;
-		GUI gui;
-		const sf::Input& Input;
-		Camera camera;
-		
-		void update();
-		void render();
-		bool introduction();//begining of race
-		double time_to_start;
+    public:
+        Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars=10);
+        virtual ~Race();
+        bool run();
+        Universe * get_universe(){return &universe;}
+    private:
+        race_status status;
+
+        Universe universe;
+        sf::RenderWindow *App;
+        GUI gui;
+        const sf::Input& Input;
+        Camera camera;
+
+        void update();
+        void render();
+        bool introduction();//begining of race
+        double time_to_start;
 };
 
 #endif /* RACE_HPP */ 

@@ -22,8 +22,8 @@
 
 #include <iostream>
 
-Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
-  : player1(NULL),App(_App),player1_autopilote(false)
+Universe::Universe(sf::RenderWindow *_App,std::string track_filename,unsigned int nbr_cars)
+  : player1(NULL),player1_autopilote(false),App(_App)
 {
 	//create box2d world
 	/*b2AABB worldAABB;
@@ -37,7 +37,7 @@ Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_car
 	track=new Track(*world,track_filename);
   	
 	//cars
-	for (unsigned int i=0; i<track->starting_pos.size() && i< nbr_cars;i++)
+        for (unsigned int i=0; (i<track->starting_pos.size()) && (i< nbr_cars);i++)
 	{
 	  cars.push_back(new Car(*world,track->starting_pos.at(i).x,track->starting_pos.at(i).y,"data/anim/guy1.png"));
 	  cars.at(i)->get_main_body()->body->SetTransform(track->starting_pos.at(i), track->starting_angle.at(i));
@@ -46,7 +46,7 @@ Universe::Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_car
 	player1=cars.at(cars.size()-1);
 	
 	//initialiee cars.at(i)->time_last_checkpoint_in_lap to have the starting order
-	for (int i=0;i<cars.size();i++)
+        for (unsigned int i=0;i<cars.size();i++)
 		cars.at(i)->time_last_checkpoint_in_lap=i;
 	
 
@@ -60,7 +60,7 @@ void Universe::step()
 {
 	bool one_checkpoint_crossed=false;//to know if re-order needed
 	world->Step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS,B2_POSITION_ITERATIONS);
-	for (int i=0;i<cars.size();i++)
+        for (unsigned int i=0;i<cars.size();i++)
 	{
 		sf::Color ground_FR=track->get_ground_nature(cars.at(i)->get_frontR_wheel()->body->GetWorldCenter().x,cars.at(i)->get_frontR_wheel()->body->GetWorldCenter().y);
 		sf::Color ground_FL=track->get_ground_nature(cars.at(i)->get_frontL_wheel()->body->GetWorldCenter().x,cars.at(i)->get_frontL_wheel()->body->GetWorldCenter().y);
@@ -75,22 +75,23 @@ void Universe::step()
 		//std::cout<<"test "<<checkpoint_index<<std::endl;
 		if (track->checkpoints.at(checkpoint_index)->test(cars.at(i)))
 		{
-			if (checkpoint_index==0) //start line
-			{
-				double lap_time=cars.at(i)->new_lap()/60.0;
-				//if (cars.at(i)==player1) std::cout<<"Lap: "<<lap_time<<std::endl;
-			} //else if (cars.at(i)==player1) std::cout<<"Checkpoint!"<<std::endl;
-			
-			one_checkpoint_crossed=true;
-			cars.at(i)->nbr_checkpoints++;
-			cars.at(i)->time_last_checkpoint_in_lap=cars.at(i)->lap_time;
-			
-			
-			if (cars.at(i)==player1) track->checkpoints.at(checkpoint_index)->set_switched_on(false);
-			cars.at(i)->next_checkpoint_index++;
-			if (cars.at(i)->next_checkpoint_index>=track->checkpoints.size())
-				cars.at(i)->next_checkpoint_index=0;
-			if (cars.at(i)==player1) track->checkpoints.at(cars.at(i)->next_checkpoint_index)->set_switched_on(true);
+                    if (checkpoint_index==0) //start line
+                    {
+                        cars.at(i)->new_lap();
+                        //double lap_time=cars.at(i)->new_lap()/60.0;
+                        //if (cars.at(i)==player1) std::cout<<"Lap: "<<lap_time<<std::endl;
+                    } //else if (cars.at(i)==player1) std::cout<<"Checkpoint!"<<std::endl;
+
+                    one_checkpoint_crossed=true;
+                    cars.at(i)->nbr_checkpoints++;
+                    cars.at(i)->time_last_checkpoint_in_lap=cars.at(i)->lap_time;
+
+
+                    if (cars.at(i)==player1) track->checkpoints.at(checkpoint_index)->set_switched_on(false);
+                    cars.at(i)->next_checkpoint_index++;
+                    if (cars.at(i)->next_checkpoint_index>=track->checkpoints.size())
+                        cars.at(i)->next_checkpoint_index=0;
+                    if (cars.at(i)==player1) track->checkpoints.at(cars.at(i)->next_checkpoint_index)->set_switched_on(true);
 		}
 		
 		//AI
@@ -104,7 +105,7 @@ void Universe::step()
 	if (one_checkpoint_crossed)
 	{
 		sort( cars.begin(), cars.end(), cmp_Cars );
-		for (int i=0;i<cars.size();i++)
+                for (unsigned int i=0;i<cars.size();i++)
 			cars.at(i)->rank=i+1;
 	}
 }
@@ -120,9 +121,9 @@ void Universe::render()
 
 	track->aff(App);
 
-	for (int i=0;i<track->walls.size();i++)
+        for (unsigned int i=0;i<track->walls.size();i++)
 		track->walls.at(i)->aff(App);
-	for (int i=0;i<cars.size();i++)
+        for (unsigned int i=0;i<cars.size();i++)
 		cars.at(i)->aff(App,true);
 	
 	//std::cout<<"contacts: "<<player1->contact_list.size()<<std::endl;

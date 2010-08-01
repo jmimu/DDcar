@@ -37,20 +37,20 @@ static const float32 B2_TIMESTEP = 1.0f / 30.0f;
  * */
 class Universe
 {
-	public:
-		Universe(sf::RenderWindow *_App,std::string track_filename,int nbr_cars=10);
-		void step();
-		void render();
-		sf::RenderWindow * get_App(){return App;}
-		
-		Track *track;
-		std::vector <Car*> cars;
-		Car *player1;
-		b2World *world;
-		CustomContactListener contact_listener;
-		bool player1_autopilote;
-	private:
-		sf::RenderWindow *App;
+    public:
+        Universe(sf::RenderWindow *_App,std::string track_filename,unsigned int nbr_cars=10);
+        void step();
+        void render();
+        sf::RenderWindow * get_App(){return App;}
+
+        Track *track;
+        std::vector <Car*> cars;
+        Car *player1;
+        b2World *world;
+        CustomContactListener contact_listener;
+        bool player1_autopilote;
+    private:
+        sf::RenderWindow *App;
 };
 
 #endif /* UNIVERSE_H */ 

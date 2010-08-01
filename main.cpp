@@ -23,32 +23,35 @@
 
 #include "race.hpp"
 
-static const int32 SCREEN_W = 800;//800;
-static const int32 SCREEN_H = 600;//600;
+static const int32 SCREEN_W = 640;//800;
+static const int32 SCREEN_H = 480;//600;
 
 
 //static const float PI = 3.14159265359;
 
 int main(int argc, char** argv)
 {
-	// Create main window
-	sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes");
-	App.UseVerticalSync(true);
-	
-	App.SetFramerateLimit(60);
-	const sf::Input& Input = App.GetInput();
-	
-	//main menu ?
-	bool quit_game=false;
-	while (!quit_game)
-	{
-		Race race(&App,"data/track.xml",15);
-		if (race.run())
-		{
-			quit_game=true;
-		}
-	}
-	App.Close();
+    (void) argc;
+    (void) argv;
+
+    // Create main window
+    sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "SFML Shapes", sf::Style::Fullscreen);
+    App.UseVerticalSync(true);
+
+    App.SetFramerateLimit(60);
+    //const sf::Input& Input = App.GetInput();
+
+    //main menu ?
+    bool quit_game=false;
+    while (!quit_game)
+    {
+        Race race(&App,"data/track.xml",15);
+        if (race.run())
+        {
+            quit_game=true;
+        }
+    }
+    App.Close();
 
 	return 0;
 }
