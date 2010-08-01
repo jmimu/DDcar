@@ -136,7 +136,21 @@ void Race::render()
 
 	gui.draw(universe.player1->get_speed());
 
+        {
+            std::ostringstream oss;
+            oss<<"Objective: "<<rule->reminder;
+            sf::String Hello;
+            Hello.SetText(oss.str());
+            Hello.SetColor(sf::Color(200, 00, 10,200));
+            Hello.SetPosition(-GUI_WIN_W/2+100, -GUI_WIN_H/2+50);
+            //Hello.SetPosition(-50,-20);
+            Hello.SetSize(50.f);
+            App->Draw(Hello);
+        }
+        if (status == during)
+        {
 
+        }
 	if (status == before)
 	{
 		std::ostringstream oss;
