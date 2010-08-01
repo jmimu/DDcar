@@ -14,10 +14,10 @@ enum rule_type
 };
 
 Rule* create_rule(rule_type t);
-std::string get_rule_title(rule_type t);
+/*std::string get_rule_title(rule_type t);
 std::string get_rule_description(rule_type t);
 std::string get_rule_reminder(rule_type t);
-
+*/
 
 
 

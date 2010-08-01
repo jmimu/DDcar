@@ -12,7 +12,7 @@ Rule* create_rule(rule_type t)
     return r;
 }
 
-std::string get_rule_title(rule_type t)
+/*std::string get_rule_title(rule_type t)
 {
     switch (t)
     {
@@ -44,4 +44,4 @@ std::string get_rule_reminder(rule_type t)
     }
     return "?";
 }
-
+*/
