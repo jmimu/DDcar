@@ -13,15 +13,16 @@
 class Menu_El;
 class Menu_Entry;
 
+//to add : go_back, nbr_laps, ...
 enum menu_entry_type
 {
-    exit_prog, //to quit programme
+    exit_prog=0, //to quit programme
     finish_menu, //to finish menu, and start the race
     goto_screen, //+ Menu_El_param
-    select_rule, //+ int_param
-    select_track, //+ str_param
-    select_stat_pos, //+ int_param
-    select_nbr_cars //+ int_param
+    select_rule, //+ int_param + Menu_El_param
+    select_track, //+ str_param + Menu_El_param
+    select_stat_pos, //+ int_param + Menu_El_param
+    select_nbr_cars //+ int_param + Menu_El_param
 };
 
 
