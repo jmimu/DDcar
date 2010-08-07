@@ -41,7 +41,7 @@ enum race_status
 class Race
 {
     public:
-        Race(sf::RenderWindow *_App,std::string track_filename,Rule *_rule,int nbr_cars=10);
+        Race(sf::RenderWindow *_App,sf::Font *_MyFont,std::string track_filename,Rule *_rule,int nbr_cars=10);
         virtual ~Race();
         bool run();
         Universe * get_universe(){return &universe;}
@@ -50,6 +50,7 @@ class Race
 
         Universe universe;
         sf::RenderWindow *App;
+        sf::Font *MyFont;
         GUI gui;
         const sf::Input& Input;
         Camera camera;

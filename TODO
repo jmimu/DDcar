@@ -12,6 +12,7 @@ mettre la liste des types de règles dans un namespace
 
 
 Rapide :
+* ajouter des images pour les entrées ? (genre miniatures de circuits)
 * afficher les infos dans la classe GUI !
 * il faudrait que le menu se construise à la volée (position de départ en fonction du nombre de voitures)
 * gestion des images de circuit comme pour les voitures, pour pas tout recharger au redémarrage de la course => attention à vider à la prochaine

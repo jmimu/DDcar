@@ -2,8 +2,8 @@
 
 #include <sstream>
 
-Menu::Menu(sf::RenderWindow *_App)
-: track(""),rule(NULL),nb_cars(1),App(_App),view(sf::FloatRect(-MENU_WIN_W/2, -MENU_WIN_H/2, MENU_WIN_W, MENU_WIN_H))
+Menu::Menu(sf::RenderWindow *_App,sf::Font *_MyFont)
+: track(""),rule(NULL),nb_cars(1),App(_App),MyFont(_MyFont),view(sf::FloatRect(-MENU_WIN_W/2, -MENU_WIN_H/2, MENU_WIN_W, MENU_WIN_H))
 {
     
 }
@@ -31,21 +31,21 @@ bool Menu::show() //true if quit
     Menu_El * el;//current menu element
     
     
-    Menu_El * el_begin=new Menu_El(App);
-    Menu_El * el_rule=new Menu_El(App);
-    Menu_El * el_track=new Menu_El(App);
-    Menu_El * el_nbr_cars=new Menu_El(App);
+    Menu_El * el_begin=new Menu_El(App,MyFont,"Welcome to DDCar!");
+    Menu_El * el_rule=new Menu_El(App,MyFont,"Select rule");
+    Menu_El * el_track=new Menu_El(App,MyFont,"Select Track");
+    Menu_El * el_nbr_cars=new Menu_El(App,MyFont,"Number of cars");
     //Menu_El * el_start_num=new Menu_El(App);
-    Menu_El * el_play=new Menu_El(App);
+    Menu_El * el_play=new Menu_El(App,MyFont,"Ready ?");
 
     el_begin->entries.push_back(new Menu_Entry(goto_screen,"New race",el_rule));
     el_begin->entries.push_back(new Menu_Entry(exit_prog,"Quit"));
     
-    el_rule->entries.push_back(new Menu_Entry(select_rule,"be_first",el_track,be_first));
-    el_rule->entries.push_back(new Menu_Entry(select_rule,"make 5 laps",el_track,laps));
+    el_rule->entries.push_back(new Menu_Entry(select_rule,"Be the first",el_track,be_first));
+    el_rule->entries.push_back(new Menu_Entry(select_rule,"Make 5 laps",el_track,laps));
 
-    el_track->entries.push_back(new Menu_Entry(select_track,"track1",el_nbr_cars,0,"data/track.xml"));
-    el_track->entries.push_back(new Menu_Entry(select_track,"track2",el_nbr_cars,0,"data/track2.xml"));
+    el_track->entries.push_back(new Menu_Entry(select_track,"Track 1",el_nbr_cars,0,"data/track.xml"));
+    el_track->entries.push_back(new Menu_Entry(select_track,"Track 2",el_nbr_cars,0,"data/track2.xml"));
 
     el_nbr_cars->entries.push_back(new Menu_Entry(select_nbr_cars,"2 cars",el_play,2));
     el_nbr_cars->entries.push_back(new Menu_Entry(select_nbr_cars,"6 cars",el_play,6));
@@ -54,7 +54,7 @@ bool Menu::show() //true if quit
 /*    el_start_num->entries.push_back(new Menu_Entry(select_track,"first",el_play,0,"data/track.xml"));
     el_start_num->entries.push_back(new Menu_Entry(select_track,"last",el_play,0,"data/track2.xml"));*/
 
-    el_play->entries.push_back(new Menu_Entry(finish_menu,"Play"));
+    el_play->entries.push_back(new Menu_Entry(finish_menu,"Go!"));
     
     el=el_begin;
 
@@ -127,8 +127,8 @@ bool Menu::show() //true if quit
 
 
 //----------------------------------------------------------------------
-Menu_El::Menu_El(sf::RenderWindow *_App)
-: entries(),pos(0),App(_App)
+Menu_El::Menu_El(sf::RenderWindow *_App,sf::Font *_MyFont,std::string _title)
+: title(_title),entries(),pos(0),App(_App),MyFont(_MyFont)
 {
     
 }
@@ -144,16 +144,25 @@ Menu_El::~Menu_El()
 
 void Menu_El::show()
 {
+	sf::String str_title;
+	str_title.SetText(title);
+	str_title.SetFont(*MyFont);
+	str_title.SetColor(sf::Color(200, 00, 10,200));
+	str_title.SetPosition(MENU_WIN_W/2-600, MENU_WIN_H/2-250);
+	str_title.SetSize(60.f);
+	App->Draw(str_title);
+	
     for (unsigned int i=0;i<entries.size();i++)
     {
         std::ostringstream oss_entry;
-        if ((signed)i==pos) oss_entry<<"=> "; else oss_entry<<"   ";
+        if ((signed)i==pos) oss_entry<<" => "; else oss_entry<<"  ";
         oss_entry<<entries.at(i)->text;
         //std::cout<<"Write entry: "<<oss_entry.str()<<std::endl;
         sf::String str_entry;
         str_entry.SetText(oss_entry.str());
+        str_entry.SetFont(*MyFont);
         str_entry.SetColor(sf::Color(200, 00, 10,200));
-        str_entry.SetPosition(MENU_WIN_W/2-300, MENU_WIN_H/2-250+i*100);
+        str_entry.SetPosition(MENU_WIN_W/2-300, MENU_WIN_H/2-100+i*100);
         str_entry.SetSize(50.f);
         App->Draw(str_entry);
     }

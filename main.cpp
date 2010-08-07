@@ -34,6 +34,10 @@ int main(int argc, char** argv)
     (void) argc;
     (void) argv;
 
+    sf::Font MyFont;
+    //MyFont.LoadFromFile("data/Polsku.ttf");
+    MyFont.LoadFromFile("data/Junicode-Bold.ttf");
+
     // Create main window
     sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "DDcar"/*, sf::Style::Fullscreen*/);
     App.UseVerticalSync(true);
@@ -42,7 +46,7 @@ int main(int argc, char** argv)
     //const sf::Input& Input = App.GetInput();
 
     //main menu ?
-    Menu menu(&App);
+    Menu menu(&App,&MyFont);
     menu.create();
 
     bool quit_game=false;
@@ -54,7 +58,7 @@ int main(int argc, char** argv)
 	}
 
       //Race race(&App,"data/track2.xml",15);
-      Race race(&App,menu.get_track(),menu.get_rule(),menu.get_nbr_cars());
+      Race race(&App,&MyFont,menu.get_track(),menu.get_rule(),menu.get_nbr_cars());
       if (race.run())
         {
 	  quit_game=true;

@@ -25,13 +25,13 @@ enum menu_entry_type
     select_nbr_cars //+ int_param + Menu_El_param
 };
 
-
+//todo : show status ?
 class Menu
 {
     friend class Menu_El;
     friend class Menu_Entry;
 public:
-    Menu(sf::RenderWindow *_App);
+    Menu(sf::RenderWindow *_App,sf::Font *_MyFont);
     ~Menu();
     std::string get_track(){return track;}
     Rule * get_rule(){return rule;}
@@ -45,17 +45,19 @@ protected:
     Rule * rule;
     int nb_cars;
     sf::RenderWindow *App;
+    sf::Font *MyFont;
     sf::View view;
 };
 
 //----------------------------------------------------------------------
 
+//todo : add a title...
 class Menu_El //menu screen
 {
     friend class Menu;
     friend class Menu_Entry;
 public:
-    Menu_El(sf::RenderWindow *_App);
+    Menu_El(sf::RenderWindow *_App,sf::Font *_MyFont,std::string _title);
     ~Menu_El();
     
     void show();
@@ -63,9 +65,11 @@ public:
     void go_down(){if (pos<((int)entries.size())-1) pos++;}
     Menu_Entry * get_selected_entry(){return entries.at(pos);}
 protected:
+    std::string title;
     std::vector<Menu_Entry*> entries;
     int pos;
     sf::RenderWindow *App;
+    sf::Font *MyFont;
 };
 
 //----------------------------------------------------------------------
