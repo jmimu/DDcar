@@ -24,12 +24,13 @@
 
 Race::Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
         : status(before),universe(_App,track_filename,nbr_cars),App(_App),gui(App),
-        Input(App->GetInput()),camera(),rule(NULL),time_to_start(3.0)
+	  Input(App->GetInput()),camera(),total_time(0),rule(NULL),time_to_start(3.0)
 {
     camera.set_xy(universe.player1->get_x(),universe.player1->get_y());
     camera.set_zoom(0.20);
 
-    rule=create_rule(laps,2);
+    rule=create_rule(be_first);
+    //rule=create_rule(laps,2);
     rule->set_universe(get_universe());
 }
 
@@ -121,6 +122,7 @@ void Race::update()
 	}
 
 	universe.step();//IA and dynamics
+	total_time+=1;
 }
 
 void Race::render()
@@ -136,17 +138,39 @@ void Race::render()
 
 	gui.draw(universe.player1->get_speed());
 
-        {
-            std::ostringstream oss;
-            oss<<"Goal: "<<rule->reminder();
-            sf::String Hello;
-            Hello.SetText(oss.str());
-            Hello.SetColor(sf::Color(200, 00, 10,200));
-            Hello.SetPosition(-GUI_WIN_W/2+100, -GUI_WIN_H/2+50);
-            //Hello.SetPosition(-50,-20);
-            Hello.SetSize(50.f);
-            App->Draw(Hello);
-        }
+        
+        std::ostringstream oss_total_time;
+        oss_total_time<<"Total time: "<<(total_time/6)/10.0;
+        sf::String str_total_time;
+        str_total_time.SetText(oss_total_time.str());
+        str_total_time.SetColor(sf::Color(200, 00, 10,200));
+        str_total_time.SetPosition(-GUI_WIN_W/2+30, -GUI_WIN_H/2+60);
+        //str_total_time.SetPosition(-50,-20);
+        str_total_time.SetSize(50.f);
+        App->Draw(str_total_time);
+
+        std::ostringstream oss_goal;
+        oss_goal<<"Goal: "<<rule->reminder();
+        sf::String str_goal;
+        str_goal.SetText(oss_goal.str());
+        str_goal.SetColor(sf::Color(200, 00, 10,200));
+        str_goal.SetPosition(-GUI_WIN_W/2+30, -GUI_WIN_H/2+10);
+        //str_goal.SetPosition(-50,-20);
+        str_goal.SetSize(50.f);
+        App->Draw(str_goal);
+
+
+        std::ostringstream oss_info;
+        oss_info<<"Lap "<<universe.player1->nbr_laps+1<<": "<<(universe.player1->lap_time/6)/10.0<<"\nPos: "<<universe.player1->rank<<"\nDamage: "<<universe.player1->damage;
+        sf::String str_info;
+        str_info.SetText(oss_info.str());
+        str_info.SetColor(sf::Color(200, 00, 10,200));
+        str_info.SetPosition(-GUI_WIN_W/2+30, -GUI_WIN_H/2+110);
+        //str_info.SetPosition(-50,-20);
+        str_info.SetSize(50.f);
+        App->Draw(str_info);
+
+        
         if (status == during)
         {
 

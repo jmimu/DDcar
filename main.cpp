@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     bool quit_game=false;
     while (!quit_game)
     {
-        Race race(&App,"data/track.xml",15);
+        Race race(&App,"data/track2.xml",15);
         if (race.run())
         {
             quit_game=true;

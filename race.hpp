@@ -53,6 +53,7 @@ class Race
         GUI gui;
         const sf::Input& Input;
         Camera camera;
+        long total_time;
 
         Rule * rule;
 
