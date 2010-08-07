@@ -41,7 +41,7 @@ enum race_status
 class Race
 {
     public:
-        Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars=10);
+        Race(sf::RenderWindow *_App,std::string track_filename,Rule *_rule,int nbr_cars=10);
         virtual ~Race();
         bool run();
         Universe * get_universe(){return &universe;}

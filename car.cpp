@@ -311,6 +311,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
 	    track->add_pixel(frontR_wheel.body->GetPosition().x,frontR_wheel.body->GetPosition().y,coul);
+	    track->add_pixel(frontR_wheel.body->GetPosition().x,frontR_wheel.body->GetPosition().y,coul);
 
 	    track->add_pixel(frontR_wheel.body->GetPosition().x-0.5,frontR_wheel.body->GetPosition().y,coul);
 	    track->add_pixel(frontR_wheel.body->GetPosition().x+0.5,frontR_wheel.body->GetPosition().y,coul);
@@ -324,6 +325,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
+	    track->add_pixel(frontL_wheel.body->GetPosition().x,frontL_wheel.body->GetPosition().y,coul);
 	    track->add_pixel(frontL_wheel.body->GetPosition().x,frontL_wheel.body->GetPosition().y,coul);
 
 	    track->add_pixel(frontL_wheel.body->GetPosition().x-0.5,frontL_wheel.body->GetPosition().y,coul);
@@ -339,6 +341,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
 	    track->add_pixel(rearR_wheel.body->GetPosition().x,rearR_wheel.body->GetPosition().y,coul);
+	    track->add_pixel(rearR_wheel.body->GetPosition().x,rearR_wheel.body->GetPosition().y,coul);
 
 	    track->add_pixel(rearR_wheel.body->GetPosition().x-0.5,rearR_wheel.body->GetPosition().y,coul);
 	    track->add_pixel(rearR_wheel.body->GetPosition().x+0.5,rearR_wheel.body->GetPosition().y,coul);
@@ -352,6 +355,7 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 	  {
 	    //add a tire mark
 		sf::Color coul(0,0,0,255);
+	    track->add_pixel(rearL_wheel.body->GetPosition().x,rearL_wheel.body->GetPosition().y,coul);
 	    track->add_pixel(rearL_wheel.body->GetPosition().x,rearL_wheel.body->GetPosition().y,coul);
 
 	    track->add_pixel(rearL_wheel.body->GetPosition().x-0.5,rearL_wheel.body->GetPosition().y,coul);

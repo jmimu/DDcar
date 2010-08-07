@@ -22,14 +22,14 @@
 #include <iostream>
 #include <sstream>
 
-Race::Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
+Race::Race(sf::RenderWindow *_App,std::string track_filename,Rule *_rule,int nbr_cars)
         : status(before),universe(_App,track_filename,nbr_cars),App(_App),gui(App),
-	  Input(App->GetInput()),camera(),total_time(0),rule(NULL),time_to_start(3.0)
+	  Input(App->GetInput()),camera(),total_time(0),rule(_rule),time_to_start(3.0)
 {
     camera.set_xy(universe.player1->get_x(),universe.player1->get_y());
     camera.set_zoom(0.20);
 
-    rule=create_rule(be_first);
+    //rule=create_rule(be_first);
     //rule=create_rule(laps,2);
     rule->set_universe(get_universe());
 }
@@ -37,7 +37,6 @@ Race::Race(sf::RenderWindow *_App,std::string track_filename,int nbr_cars)
 
 Race::~Race()
 {
-    delete rule;
 }
 
 //return true if asked to quit game

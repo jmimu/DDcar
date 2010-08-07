@@ -12,6 +12,7 @@ mettre la liste des types de règles dans un namespace
 
 
 Rapide :
+* afficher les infos dans la classe GUI !
 * gestion des images de circuit comme pour les voitures, pour pas tout recharger au redémarrage de la course => attention à vider à la prochaine
 * compter les tours, faire une fin de course. Comment on finit la course ?
 * faire une classe Game qui enregistre l'avancement dans le jeu : liste des courses, prochaine course, score...

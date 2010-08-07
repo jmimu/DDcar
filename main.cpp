@@ -20,7 +20,7 @@
 #include <SFML/Graphics.hpp>
 #include "car.hpp"
 #include "box.hpp"
-
+#include "menu.hpp"
 #include "race.hpp"
 
 static const int32 SCREEN_W = 640;//800;
@@ -42,13 +42,22 @@ int main(int argc, char** argv)
     //const sf::Input& Input = App.GetInput();
 
     //main menu ?
+    Menu menu(&App);
+    menu.create();
+
     bool quit_game=false;
     while (!quit_game)
     {
-        Race race(&App,"data/track2.xml",15);
-        if (race.run())
+      if (menu.show())
+	{
+	  quit_game=true;continue;
+	}
+
+      //Race race(&App,"data/track2.xml",15);
+      Race race(&App,menu.get_track(),menu.get_rule(),menu.get_nbr_cars());
+      if (race.run())
         {
-            quit_game=true;
+	  quit_game=true;
         }
     }
     App.Close();

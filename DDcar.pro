@@ -21,6 +21,7 @@ HEADERS += box.hpp \
     gui.hpp \
     checkpoint.hpp \
     race.hpp \
+    menu.hpp \
     customcontactlistener.hpp \
     tinyxml/tinyxml.h \
     tinyxml/tinystr.h \
@@ -37,6 +38,7 @@ SOURCES += box.cpp \
     gui.cpp \
     checkpoint.cpp \
     race.cpp \
+    menu.cpp \
     customcontactlistener.cpp \
     tinyxml/tinyxml.cpp \
     tinyxml/tinystr.cpp \
