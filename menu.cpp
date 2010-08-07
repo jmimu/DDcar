@@ -30,8 +30,8 @@ bool Menu::show() //true if quit
 
     Menu_El * el;//current menu element
     el=new Menu_El(App);
-    el->entries.push_back(new Menu_Entry("Play"));
-    el->entries.push_back(new Menu_Entry("Quit"));
+    el->entries.push_back(new Menu_Entry(finish_menu,"Play"));
+    el->entries.push_back(new Menu_Entry(exit_prog,"Quit"));
     
     
 
@@ -52,7 +52,30 @@ bool Menu::show() //true if quit
 				el->go_up();
 			if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Down))
 				el->go_down();
-			//if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Return))
+			if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Return))
+			{
+				switch (el->get_selected_entry()->type)
+				{
+					case exit_prog:
+						menu_continue=false;
+						quit_game=true;
+						break;
+					case finish_menu:
+						menu_continue=false;
+						quit_game=false;
+						break;
+					case select_rule:
+						break;
+					case select_track:
+						break;
+					case select_stat_pos:
+						break;
+					case select_nbr_cars:
+						break;
+					default:
+						;
+				}
+			}
 		}
 		App->Clear();
 		el->show();
@@ -61,7 +84,7 @@ bool Menu::show() //true if quit
 		//sleep(1);
 	}
 
-
+    delete el;
     return quit_game;
 }
 
@@ -100,8 +123,8 @@ void Menu_El::show()
 }
 
 //----------------------------------------------------------------------
-Menu_Entry::Menu_Entry(std::string _text)
-: text(_text)
+Menu_Entry::Menu_Entry(menu_entry_type _type,std::string _text,Menu_El * _Menu_El_param,int _int_param,std::string _str_param)
+: text(_text),type(_type),Menu_El_param(_Menu_El_param),int_param(_int_param),str_param(_str_param)
 {
     
 }

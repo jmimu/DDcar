@@ -54,11 +54,15 @@ bool Race::run()
 		sf::Event Event;
 		while (App->GetEvent(Event))
 		{
-			if ((Event.Type == sf::Event::Closed) ||
-				((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape)) )
+			if (Event.Type == sf::Event::Closed)
 			{
 				race_continue=false;
 				quit_game=true;
+			}
+			if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape))
+			{
+				race_continue=false;
+				quit_game=false;
 			}
 			if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F2))
 				race_continue=false;

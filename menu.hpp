@@ -13,6 +13,17 @@
 class Menu_El;
 class Menu_Entry;
 
+enum menu_entry_type
+{
+    exit_prog, //to quit programme
+    finish_menu, //to finish menu, and start the race
+    goto_screen, //+ Menu_El_param
+    select_rule, //+ int_param
+    select_track, //+ str_param
+    select_stat_pos, //+ int_param
+    select_nbr_cars //+ int_param
+};
+
 
 class Menu
 {
@@ -49,7 +60,7 @@ public:
     void show();
     void go_up(){if (pos>0) pos--;}
     void go_down(){if (pos<((int)entries.size())-1) pos++;}
-    
+    Menu_Entry * get_selected_entry(){return entries.at(pos);}
 protected:
     std::vector<Menu_Entry*> entries;
     int pos;
@@ -63,11 +74,15 @@ class Menu_Entry //menu screen entry
     friend class Menu;
     friend class Menu_El;
 public:
-    Menu_Entry(std::string _text);
+    Menu_Entry(menu_entry_type _type,std::string _text,Menu_El * _Menu_El_param=NULL,int _int_param=0,std::string _str_param="?");
     ~Menu_Entry();
     
 protected:
     std::string text;
+    menu_entry_type type; //the action
+    Menu_El * Menu_El_param;
+    int int_param; //the action int param
+    std::string str_param; //the action int param
 };
 
 #endif // MENU_H
