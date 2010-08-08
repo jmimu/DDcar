@@ -150,7 +150,7 @@ void Menu_El::show()
 	sf::String str_title;
 	str_title.SetText(title);
 	str_title.SetFont(*MyFont);
-	str_title.SetColor(sf::Color(180, 00, 190,255));
+	str_title.SetColor(sf::Color(94, 4, 36,255));
 	str_title.SetPosition(30, 250);
 	str_title.SetSize(60.f);
 	App->Draw(str_title);
@@ -158,13 +158,15 @@ void Menu_El::show()
     for (unsigned int i=0;i<entries.size();i++)
     {
         std::ostringstream oss_entry;
-        if ((signed)i==pos) oss_entry<<" => "; else oss_entry<<"  ";
+        if ((signed)i==pos) oss_entry<<"> "; else oss_entry<<"  ";
         oss_entry<<entries.at(i)->text;
+        if ((signed)i==pos) oss_entry<<" <"; else oss_entry<<"  ";
         //std::cout<<"Write entry: "<<oss_entry.str()<<std::endl;
         sf::String str_entry;
         str_entry.SetText(oss_entry.str());
         str_entry.SetFont(*MyFont);
-        str_entry.SetColor(sf::Color(200, 00, 10,255));
+        str_entry.SetColor(sf::Color(94, 4, 36,255));
+        if ((signed)i==pos) str_entry.SetColor(sf::Color(94, 4, 66,255));
         str_entry.SetPosition(250, 320+i*60);
         str_entry.SetSize(50.f);
         App->Draw(str_entry);
