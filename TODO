@@ -8,7 +8,13 @@ Les règles et les missions (défis?) ne sont pas la même chose: une mission c'
 
 Petit problème avec les règles : on peut pas faire de virtual static, donc les noms et descriptions peuvent pas être static.
 D'un côté c'est pas plus mal pour pouvoir mettre des paramètres.
-mettre la liste des types de règles dans un namespace
+Mettre la liste des types de règles dans un namespace
+
+Faire une classe mission (?) qui enregistre la configuration de jeu (créée par le menu, lue par Race).
+Faire un constructeur avec juste un int en param pour créer les config de défis (ajouter select_challenge + int_param dans le menu).
+
+Pouvoir enregistrer un score (tout : dégâts, temps, tours, pos arrivée) pour chaque combinaison de paramètre = mission.
+On pourra faire une liste de missions à débloquer les unes après les autres.
 
 
 Rapide :

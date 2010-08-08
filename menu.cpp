@@ -3,9 +3,11 @@
 #include <sstream>
 
 Menu::Menu(sf::RenderWindow *_App,sf::Font *_MyFont)
-: track(""),rule(NULL),nb_cars(1),App(_App),MyFont(_MyFont),view(sf::FloatRect(-MENU_WIN_W/2, -MENU_WIN_H/2, MENU_WIN_W, MENU_WIN_H))
+//: track(""),rule(NULL),nb_cars(1),App(_App),MyFont(_MyFont),view(sf::FloatRect(-MENU_WIN_W/2, -MENU_WIN_H/2, MENU_WIN_W, MENU_WIN_H)),back_image(),back_sprite()
+: track(""),rule(NULL),nb_cars(1),App(_App),MyFont(_MyFont),view(sf::FloatRect(0, 0, MENU_WIN_W, MENU_WIN_H)),back_image(),back_sprite()
 {
-    
+    back_image.LoadFromFile("data/title.png");
+    back_sprite.SetImage(back_image);
 }
 
 Menu::~Menu()
@@ -111,6 +113,7 @@ bool Menu::show() //true if quit
 			}
 		}
 		App->Clear();
+        App->Draw(back_sprite);
 		el->show();
 		App->Display();
 	}
@@ -147,8 +150,8 @@ void Menu_El::show()
 	sf::String str_title;
 	str_title.SetText(title);
 	str_title.SetFont(*MyFont);
-	str_title.SetColor(sf::Color(200, 00, 10,200));
-	str_title.SetPosition(MENU_WIN_W/2-600, MENU_WIN_H/2-250);
+	str_title.SetColor(sf::Color(180, 00, 190,255));
+	str_title.SetPosition(30, 250);
 	str_title.SetSize(60.f);
 	App->Draw(str_title);
 	
@@ -161,8 +164,8 @@ void Menu_El::show()
         sf::String str_entry;
         str_entry.SetText(oss_entry.str());
         str_entry.SetFont(*MyFont);
-        str_entry.SetColor(sf::Color(200, 00, 10,200));
-        str_entry.SetPosition(MENU_WIN_W/2-300, MENU_WIN_H/2-100+i*100);
+        str_entry.SetColor(sf::Color(200, 00, 10,255));
+        str_entry.SetPosition(250, 320+i*60);
         str_entry.SetSize(50.f);
         App->Draw(str_entry);
     }

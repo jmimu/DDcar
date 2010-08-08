@@ -47,6 +47,10 @@ protected:
     sf::RenderWindow *App;
     sf::Font *MyFont;
     sf::View view;
+    
+    sf::Image back_image;
+    sf::Sprite back_sprite;
+
 };
 
 //----------------------------------------------------------------------

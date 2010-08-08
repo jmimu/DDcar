@@ -148,9 +148,9 @@ void Race::render()
         str_total_time.SetText(oss_total_time.str());
         str_total_time.SetFont(*MyFont);
         str_total_time.SetColor(sf::Color(200, 00, 10,200));
-        str_total_time.SetPosition(-GUI_WIN_W/2+30, -GUI_WIN_H/2+60);
+        str_total_time.SetPosition(30, 60);
         //str_total_time.SetPosition(-50,-20);
-        str_total_time.SetSize(50.f);
+        str_total_time.SetSize(30.f);
         App->Draw(str_total_time);
 
         std::ostringstream oss_goal;
@@ -159,9 +159,9 @@ void Race::render()
         str_goal.SetText(oss_goal.str());
 		str_goal.SetFont(*MyFont);
         str_goal.SetColor(sf::Color(200, 00, 10,200));
-        str_goal.SetPosition(-GUI_WIN_W/2+30, -GUI_WIN_H/2+10);
+        str_goal.SetPosition(30, 10);
         //str_goal.SetPosition(-50,-20);
-        str_goal.SetSize(50.f);
+        str_goal.SetSize(30.f);
         App->Draw(str_goal);
 
 
@@ -171,9 +171,9 @@ void Race::render()
         str_info.SetText(oss_info.str());
 		str_info.SetFont(*MyFont);
         str_info.SetColor(sf::Color(200, 00, 10,200));
-        str_info.SetPosition(-GUI_WIN_W/2+30, -GUI_WIN_H/2+110);
+        str_info.SetPosition(30, 110);
         //str_info.SetPosition(-50,-20);
-        str_info.SetSize(50.f);
+        str_info.SetSize(30.f);
         App->Draw(str_info);
 
         
@@ -190,9 +190,9 @@ void Race::render()
 		Hello.SetFont(*MyFont);
 		Hello.SetColor(sf::Color(200, 00, 10,200));
 		//Hello.SetPosition(0*GUI_WIN_W/2+100, 0*GUI_WIN_H/2+50);
-		Hello.SetPosition(-50,-20);
+		Hello.SetPosition(GUI_WIN_W/2-50,GUI_WIN_H/2-20);
 		Hello.SetRotation(15.f);
-		Hello.SetSize(200.f);
+		Hello.SetSize(100.f);
 		App->Draw(Hello);
 	}
 	if (status == start)
@@ -202,9 +202,9 @@ void Race::render()
 		Hello.SetFont(*MyFont);
 		Hello.SetColor(sf::Color(200, 00, 10,200));
 		//Hello.SetPosition(0*GUI_WIN_W/2+100, 0*GUI_WIN_H/2+50);
-		Hello.SetPosition(-10,-20);
+		Hello.SetPosition(GUI_WIN_W/2-30,GUI_WIN_H/2-20);
 		Hello.SetRotation(15.f);
-		Hello.SetSize(200.f);
+		Hello.SetSize(150.f);
 		App->Draw(Hello);
 	}
         if (status == after)
@@ -218,9 +218,9 @@ void Race::render()
                 }
                 Hello.SetColor(sf::Color(200, 00, 10,200));
                 //Hello.SetPosition(0*GUI_WIN_W/2+100, 0*GUI_WIN_H/2+50);
-                Hello.SetPosition(-10,-20);
+                Hello.SetPosition(GUI_WIN_W/2-30,GUI_WIN_H/2-20);
                 Hello.SetRotation(15.f);
-                Hello.SetSize(200.f);
+                Hello.SetSize(100.f);
                 App->Draw(Hello);
         }
 	App->Display();
