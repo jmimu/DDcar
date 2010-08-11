@@ -27,8 +27,8 @@ bool Menu::show() //true if quit
     App->SetView(view);
     if (rule!=NULL) delete rule;
     track="data/track2.xml";
-    nb_cars=15;
-    rule=create_rule(be_first);
+    nb_cars=1;
+    rule=create_rule(laps,10);
 
     Menu_El * el;//current menu element
     
@@ -38,8 +38,9 @@ bool Menu::show() //true if quit
     Menu_El * el_track=new Menu_El(App,MyFont,"Select Track");
     Menu_El * el_nbr_cars=new Menu_El(App,MyFont,"Number of cars");
     //Menu_El * el_start_num=new Menu_El(App);
-    Menu_El * el_play=new Menu_El(App,MyFont,"Ready ?");
+    Menu_El * el_play=new Menu_El(App,MyFont,"Ready?");
 
+    el_begin->entries.push_back(new Menu_Entry(finish_menu,"Quick!"));
     el_begin->entries.push_back(new Menu_Entry(goto_screen,"New race",el_rule));
     el_begin->entries.push_back(new Menu_Entry(exit_prog,"Quit"));
     

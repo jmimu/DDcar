@@ -73,7 +73,8 @@ private:
   //images
   static sf::Image wheel_image;
   static std::map<std::string,sf::Image> main_images;
-  static std::vector<sf::Image*> animation;
+  static std::vector<sf::Image*> animation_feet;
+  static std::vector<sf::Image*> animation_arm;
   static bool images_loaded;
   static bool load_images();
   sf::Image * get_image(std::string image_name); // load the new image if not present in main_images

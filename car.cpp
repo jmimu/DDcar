@@ -7,7 +7,8 @@
 sf::Image Car::wheel_image;
 sf::Image Car::boom_image;
 std::map<std::string,sf::Image> Car::main_images;
-std::vector<sf::Image *> Car::animation;
+std::vector<sf::Image *> Car::animation_feet;
+std::vector<sf::Image *> Car::animation_arm;
 bool Car::images_loaded=false;
 
 bool Car::load_images()
@@ -24,14 +25,21 @@ bool Car::load_images()
   res&=car_image2.LoadFromFile("data/carB.png");
   main_images.insert( std::make_pair( "data/carB.png",car_image2  ) );*/
   
-  sf::Image *img1=new sf::Image();img1->LoadFromFile("data/anim/guy1.png");animation.push_back(img1);img1->SetSmooth(false);
-  sf::Image *img2=new sf::Image();img2->LoadFromFile("data/anim/guy2.png");animation.push_back(img2);img2->SetSmooth(false);
-  sf::Image *img3=new sf::Image();img3->LoadFromFile("data/anim/guy3.png");animation.push_back(img3);img3->SetSmooth(false);
-  sf::Image *img4=new sf::Image();img4->LoadFromFile("data/anim/guy4.png");animation.push_back(img4);img4->SetSmooth(false);
-  sf::Image *img5=new sf::Image();img5->LoadFromFile("data/anim/guy5.png");animation.push_back(img5);img5->SetSmooth(false);
-  sf::Image *img6=new sf::Image();img6->LoadFromFile("data/anim/guy6.png");animation.push_back(img6);img6->SetSmooth(false);
-  sf::Image *img7=new sf::Image();img7->LoadFromFile("data/anim/guy7.png");animation.push_back(img7);img7->SetSmooth(false);
-  sf::Image *img8=new sf::Image();img8->LoadFromFile("data/anim/guy8.png");animation.push_back(img8);img8->SetSmooth(false);
+  sf::Image *img1=new sf::Image();img1->LoadFromFile("data/anim/feet1.png");animation_feet.push_back(img1);img1->SetSmooth(false);
+  sf::Image *img2=new sf::Image();img2->LoadFromFile("data/anim/feet2.png");animation_feet.push_back(img2);img2->SetSmooth(false);
+  sf::Image *img3=new sf::Image();img3->LoadFromFile("data/anim/feet3.png");animation_feet.push_back(img3);img3->SetSmooth(false);
+  sf::Image *img4=new sf::Image();img4->LoadFromFile("data/anim/feet4.png");animation_feet.push_back(img4);img4->SetSmooth(false);
+  sf::Image *img5=new sf::Image();img5->LoadFromFile("data/anim/feet5.png");animation_feet.push_back(img5);img5->SetSmooth(false);
+  sf::Image *img6=new sf::Image();img6->LoadFromFile("data/anim/feet6.png");animation_feet.push_back(img6);img6->SetSmooth(false);
+  sf::Image *img7=new sf::Image();img7->LoadFromFile("data/anim/feet7.png");animation_feet.push_back(img7);img7->SetSmooth(false);
+  sf::Image *img8=new sf::Image();img8->LoadFromFile("data/anim/feet8.png");animation_feet.push_back(img8);img8->SetSmooth(false);
+
+  sf::Image *img1a=new sf::Image();img1a->LoadFromFile("data/anim/turn1.png");animation_arm.push_back(img1a);img1a->SetSmooth(false);
+  sf::Image *img2a=new sf::Image();img2a->LoadFromFile("data/anim/turn2.png");animation_arm.push_back(img2a);img2a->SetSmooth(false);
+  sf::Image *img3a=new sf::Image();img3a->LoadFromFile("data/anim/turn3.png");animation_arm.push_back(img3a);img3a->SetSmooth(false);
+  sf::Image *img4a=new sf::Image();img4a->LoadFromFile("data/anim/turn4.png");animation_arm.push_back(img4a);img4a->SetSmooth(false);
+  sf::Image *img5a=new sf::Image();img5a->LoadFromFile("data/anim/turn5.png");animation_arm.push_back(img5a);img5a->SetSmooth(false);
+
   
   images_loaded=true;
   
@@ -393,16 +401,23 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 void Car::aff(sf::RenderWindow *_App,bool infos)
 {
   current_image+=get_speed()/200.0;
-  if ((unsigned int)current_image>=animation.size())
+  if ((unsigned int)current_image>=animation_feet.size())
     current_image=0.0;
-  main_body.sprite.SetImage(*animation.at((unsigned int)current_image));
+  main_body.sprite.SetImage(*animation_feet.at((unsigned int)current_image));
   main_body.aff(_App);
+
+  //choose arm picture (ex : 5 images, 3 = center, 1 = left, 5 = right)
+  double arm_img=animation_arm.size()/2+1.5-((frontR_wheel.body->GetAngle()-main_body.body->GetAngle())/MAX_STEER_ANGLE*((animation_arm.size()-1)/2))/1.2;
+  //std::cout<<"Image: "<<arm_img<<"   "<<frontR_wheel.body->GetAngle()<<"/"<<MAX_STEER_ANGLE<<" "<<frontR_wheel.body->GetAngle()/MAX_STEER_ANGLE<<"   "<<(unsigned int)arm_img<<std::endl;
+  main_body.sprite.SetImage(*animation_arm.at((unsigned int)arm_img-1));
+  main_body.aff(_App);
+
+
   frontR_wheel.aff(_App);
   frontL_wheel.aff(_App);
   rearR_wheel.aff(_App);
   rearL_wheel.aff(_App);
   
-
 
  //treat contacts !
   for (unsigned int i=0;i<contact_list.size();i++)
