@@ -18,6 +18,7 @@ On pourra faire une liste de missions à débloquer les unes après les autres.
 
 
 Rapide :
+* ajouter (automatiquement ?) une entrée "back" dans chaque écran du menu ?
 * ajouter des images pour les entrées ? (genre miniatures de circuits)
 * afficher les infos dans la classe GUI !
 * il faudrait que le menu se construise à la volée (position de départ en fonction du nombre de voitures)

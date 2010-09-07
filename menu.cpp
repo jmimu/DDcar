@@ -46,18 +46,22 @@ bool Menu::show() //true if quit
     
     el_rule->entries.push_back(new Menu_Entry(select_rule,"Be the first",el_track,be_first));
     el_rule->entries.push_back(new Menu_Entry(select_rule,"Make 5 laps",el_track,laps));
+    el_rule->entries.push_back(new Menu_Entry(goto_screen,"Previous",el_begin));
 
     el_track->entries.push_back(new Menu_Entry(select_track,"Track 1",el_nbr_cars,0,"data/track.xml"));
     el_track->entries.push_back(new Menu_Entry(select_track,"Track 2",el_nbr_cars,0,"data/track2.xml"));
+    el_track->entries.push_back(new Menu_Entry(goto_screen,"Previous",el_rule));
 
     el_nbr_cars->entries.push_back(new Menu_Entry(select_nbr_cars,"2 cars",el_play,2));
     el_nbr_cars->entries.push_back(new Menu_Entry(select_nbr_cars,"6 cars",el_play,6));
     el_nbr_cars->entries.push_back(new Menu_Entry(select_nbr_cars,"11 cars",el_play,11));
+    el_nbr_cars->entries.push_back(new Menu_Entry(goto_screen,"Previous",el_track));
     
 /*    el_start_num->entries.push_back(new Menu_Entry(select_track,"first",el_play,0,"data/track.xml"));
     el_start_num->entries.push_back(new Menu_Entry(select_track,"last",el_play,0,"data/track2.xml"));*/
 
     el_play->entries.push_back(new Menu_Entry(finish_menu,"Go!"));
+    el_play->entries.push_back(new Menu_Entry(goto_screen,"Previous",el_nbr_cars));
     
     el=el_begin;
 
@@ -111,6 +115,7 @@ bool Menu::show() //true if quit
 					default:
 						;
 				}
+                el->pos=0;
 			}
 		}
 		App->Clear();
