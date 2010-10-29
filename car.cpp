@@ -409,7 +409,11 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
   //choose arm picture (ex : 5 images, 3 = center, 1 = left, 5 = right)
   double arm_img=animation_arm.size()/2+1.5-((frontR_wheel.body->GetAngle()-main_body.body->GetAngle())/MAX_STEER_ANGLE*((animation_arm.size()-1)/2))/1.2;
   //std::cout<<"Image: "<<arm_img<<"   "<<frontR_wheel.body->GetAngle()<<"/"<<MAX_STEER_ANGLE<<" "<<frontR_wheel.body->GetAngle()/MAX_STEER_ANGLE<<"   "<<(unsigned int)arm_img<<std::endl;
-  main_body.sprite.SetImage(*animation_arm.at((unsigned int)arm_img-1));
+  arm_img=(unsigned int)arm_img-1;
+  //have to check if wheel angle is too big (because of a crash)
+  if (arm_img>=animation_arm.size()) arm_img=animation_arm.size()-1;
+  if (arm_img<0) arm_img=0;
+  main_body.sprite.SetImage(*animation_arm.at((unsigned int)arm_img));
   main_body.aff(_App);
 
 
