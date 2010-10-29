@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     MyFont.LoadFromFile("data/Junicode-Bold.ttf");
 
     // Create main window
-    sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "DDcar"/*, sf::Style::Fullscreen*/);
+    sf::RenderWindow App(sf::VideoMode(SCREEN_W, SCREEN_H), "DDcar", sf::Style::Fullscreen);
     App.UseVerticalSync(true);
 
     App.SetFramerateLimit(60);

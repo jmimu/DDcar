@@ -15,7 +15,7 @@ bool Car::load_images()
 {
   bool res=true;
 
-  res&=wheel_image.LoadFromFile("data/wheel2.png");wheel_image.SetSmooth(false);
+  res&=wheel_image.LoadFromFile("data/wheel3.png");wheel_image.SetSmooth(false);
   res&=boom_image.LoadFromFile("data/star.png");boom_image.SetSmooth(false);
 
   /*sf::Image car_image1;
@@ -63,6 +63,10 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
     nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),damage(0)
 {
 	main_body.PIXEL_PER_UNIT=4.5;
+	frontR_wheel.PIXEL_PER_UNIT=5;
+	frontL_wheel.PIXEL_PER_UNIT=5;
+	rearR_wheel.PIXEL_PER_UNIT=5;
+	rearL_wheel.PIXEL_PER_UNIT=5;
 
 	MAX_STEER_ANGLE = 0.3;
 	STEER_SPEED = 1.5*4;
