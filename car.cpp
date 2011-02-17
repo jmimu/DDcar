@@ -5,6 +5,7 @@
 #include "track.hpp"
 
 sf::Image Car::wheel_image;
+sf::Image Car::head_image;
 sf::Image Car::boom_image;
 std::map<std::string,sf::Image> Car::main_images;
 std::vector<sf::Image *> Car::animation_feet;
@@ -16,6 +17,7 @@ bool Car::load_images()
   bool res=true;
 
   res&=wheel_image.LoadFromFile("data/wheel3.png");wheel_image.SetSmooth(false);
+  res&=head_image.LoadFromFile("data/anim/head.png");head_image.SetSmooth(false);
   res&=boom_image.LoadFromFile("data/star.png");boom_image.SetSmooth(false);
 
   /*sf::Image car_image1;
@@ -53,6 +55,7 @@ bool Car::load_images()
 Car::Car(b2World &world,float _x,float _y,std::string image_name)
   : index_trajectory_point_target(0),next_checkpoint_index(0),x(_x),y(_y),h(16),w(8),
     main_body(world,x,y,9,14,0.0,sf::Color::Red,get_image(image_name),0.2*4,false,0.3*0,0.2*0,1.0),
+    head(world,x,y+3,2,2,0.0,sf::Color::Red,&head_image,0.2*4,true),
     frontR_wheel(world,x+3.5,y-5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     frontL_wheel(world,x-3.5,y-5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
     rearR_wheel(world,x+3.5,y+5,2,4,0.0,sf::Color::Green,&wheel_image,0.2,true),
@@ -63,6 +66,7 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
     nbr_checkpoints(0),time_last_checkpoint_in_lap(0),rank(0),damage(0)
 {
 	main_body.PIXEL_PER_UNIT=4.5;
+    head.PIXEL_PER_UNIT=4.5;
 	frontR_wheel.PIXEL_PER_UNIT=5;
 	frontL_wheel.PIXEL_PER_UNIT=5;
 	rearR_wheel.PIXEL_PER_UNIT=5;
@@ -76,6 +80,61 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
 	steeringAngle = 0;
 	
 	//joints
+	b2Vec2 worldAxis(1.0f, 0.0f);
+    //head
+    b2DistanceJointDef headJointDef;
+    b2Vec2 body_attach;
+    b2Vec2 head_attach;
+    body_attach=main_body.body->GetWorldCenter();
+    body_attach.y+=0;
+    head_attach=head.body->GetWorldCenter();
+    head_attach.y-=0;
+	headJointDef.Initialize(main_body.body, head.body, body_attach, head_attach);
+	headJointDef.collideConnected = false;
+    headJointDef.frequencyHz = 1.0f;
+    headJointDef.dampingRatio = 4.0f;
+	world.CreateJoint(&headJointDef);
+    
+    body_attach=main_body.body->GetWorldCenter();
+    body_attach.y+=5;
+    head_attach=head.body->GetWorldCenter();
+    head_attach.y-=5;
+	headJointDef.Initialize(main_body.body, head.body, body_attach, head_attach);
+	headJointDef.collideConnected = false;
+    headJointDef.frequencyHz = 1.0f;
+    headJointDef.dampingRatio = 4.0f;
+	world.CreateJoint(&headJointDef);
+    
+    body_attach=main_body.body->GetWorldCenter();
+    body_attach.y-=5;
+    head_attach=head.body->GetWorldCenter();
+    head_attach.y+=5;
+	headJointDef.Initialize(main_body.body, head.body, body_attach, head_attach);
+	headJointDef.collideConnected = false;
+    headJointDef.frequencyHz = 1.0f;
+    headJointDef.dampingRatio = 4.0f;
+	world.CreateJoint(&headJointDef);
+    
+    body_attach=main_body.body->GetWorldCenter();
+    body_attach.x-=5;
+    head_attach=head.body->GetWorldCenter();
+    head_attach.x+=5;
+	headJointDef.Initialize(main_body.body, head.body, body_attach, head_attach);
+	headJointDef.collideConnected = false;
+    headJointDef.frequencyHz = 1.0f;
+    headJointDef.dampingRatio = 4.0f;
+	world.CreateJoint(&headJointDef);
+    
+    body_attach=main_body.body->GetWorldCenter();
+    body_attach.x+=5;
+    head_attach=head.body->GetWorldCenter();
+    head_attach.x-=5;
+	headJointDef.Initialize(main_body.body, head.body, body_attach, head_attach);
+	headJointDef.collideConnected = false;
+    headJointDef.frequencyHz = 1.0f;
+    headJointDef.dampingRatio = 4.0f;
+	world.CreateJoint(&headJointDef);
+    //front wheels
 	b2RevoluteJointDef frontJointDef;
 	frontJointDef.Initialize(main_body.body, frontR_wheel.body, frontR_wheel.body->GetWorldCenter());
 	frontJointDef.enableMotor = true;
@@ -87,8 +146,8 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
 	frontJointDef.maxMotorTorque = 100;
 	frontLJoint = (b2RevoluteJoint*) world.CreateJoint(&frontJointDef);
 
+    //rear wheels
 	b2PrismaticJointDef rearRJointDef;
-	b2Vec2 worldAxis(1.0f, 0.0f);
 	rearRJointDef.Initialize(main_body.body, rearR_wheel.body, rearR_wheel.body->GetWorldCenter(), worldAxis);
 	rearRJointDef.enableLimit = true;
 	rearRJointDef.lowerTranslation = 0.0;
@@ -104,6 +163,7 @@ Car::Car(b2World &world,float _x,float _y,std::string image_name)
 
 	//link between main_body.body and the car
 	main_body.body->SetUserData( (void *)this );
+    
 }
 
 
@@ -286,7 +346,11 @@ void Car::update(sf::Color ground_FR,sf::Color ground_FL,sf::Color ground_RR,sf:
 		//std::cout<<"Next point"<<std::endl;
 	}
 
-
+  //slow down head
+  /*b2Vec2 head_velocity=head.body->GetLinearVelocity();
+  head_velocity.x*=0.8;
+  head_velocity.y*=0.8;
+  head.body->SetLinearVelocity(head_velocity);*/
 
 
   //contacts treated (contact_list is cleared in aff())
@@ -420,14 +484,14 @@ void Car::aff(sf::RenderWindow *_App,bool infos)
   main_body.sprite.SetImage(*animation_arm.at((unsigned int)arm_img));
   main_body.aff(_App);
 
-
   frontR_wheel.aff(_App);
   frontL_wheel.aff(_App);
   rearR_wheel.aff(_App);
   rearL_wheel.aff(_App);
   
+  head.aff(_App);
 
- //treat contacts !
+  //treat contacts !
   for (unsigned int i=0;i<contact_list.size();i++)
   {
     //std::cout<<"!!"<<std::endl;

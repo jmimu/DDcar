@@ -61,6 +61,7 @@ private:
 
 		
   Box main_body;
+  Box head;
   Box frontR_wheel;
   Box frontL_wheel;
   Box rearR_wheel;
@@ -72,6 +73,7 @@ private:
 
   //images
   static sf::Image wheel_image;
+  static sf::Image head_image;
   static std::map<std::string,sf::Image> main_images;
   static std::vector<sf::Image*> animation_feet;
   static std::vector<sf::Image*> animation_arm;
